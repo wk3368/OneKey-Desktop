@@ -1,6 +1,6 @@
-# TREZOR SUITE MONOREPO
+# OneKey Suite
 
-![img](https://repository-images.githubusercontent.com/148657224/439f6100-765f-11e9-9bff-b725eef3c4a6)
+![img](https://raw.githubusercontent.com/rayston92/graph_bed/master/img/onekey_suite_repo_hero.png)
 
 ## Packages
 
