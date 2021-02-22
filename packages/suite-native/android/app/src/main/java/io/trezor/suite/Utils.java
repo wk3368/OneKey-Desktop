@@ -46,11 +46,11 @@ public class Utils {
         if (usbDevice.getInterfaceCount() <= 0) {
             return false;
         }
-        // Trezor v1
+        // OneKey v1
         if (usbDevice.getVendorId() == 0x534c) {
             return usbDevice.getProductId() == 0x0001;
         }
-        // Trezor v2
+        // OneKey v2
         if (usbDevice.getVendorId() == 0x1209) {
             return usbDevice.getProductId() == 0x53c0 || usbDevice.getProductId() == 0x53c1;
         }

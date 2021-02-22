@@ -24,12 +24,12 @@ export const ITEMS = [
         icon: 'SEND',
         isHidden: () => false,
     },
-    {
-        route: 'wallet-coinmarket-buy',
-        title: <Translation id="TR_NAV_TRADE" />,
-        icon: 'TRADE',
-        isHidden: () => false,
-    },
+    // {
+    //     route: 'wallet-coinmarket-buy',
+    //     title: <Translation id="TR_NAV_TRADE" />,
+    //     icon: 'TRADE',
+    //     isHidden: () => false,
+    // },
     // {
     //     route: 'wallet-details',
     //     title: <Translation id="TR_NAV_DETAILS" />,

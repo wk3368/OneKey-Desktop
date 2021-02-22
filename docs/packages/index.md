@@ -1,3 +1,3 @@
 # Packages
 
-This directory contains description of various Trezor Suite packages.
+This directory contains description of various OneKey Suite packages.

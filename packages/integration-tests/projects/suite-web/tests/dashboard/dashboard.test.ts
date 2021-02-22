@@ -47,7 +47,7 @@ describe('Dashboard', () => {
         // QA todo: discreet @dashboard/security-card/toggle-discreet/button
     });
 
-    it('Trezor News', () => {
+    it('OneKey News', () => {
         cy.getTestElement(`@dashboard/news/post/0`);
         cy.getTestElement(`@dashboard/news/post/1`);
         cy.getTestElement(`@dashboard/news/post/2`);

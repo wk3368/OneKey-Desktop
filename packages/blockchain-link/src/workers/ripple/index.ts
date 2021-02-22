@@ -188,7 +188,7 @@ const getAccountInfo = async (
         balance: '0', // default balance
         availableBalance: '0', // default balance
         empty: true,
-        // tokens: [], // XRP tokens are not implemented in Trezor firmware
+        // tokens: [], // XRP tokens are not implemented in OneKey firmware
         history: {
             // default history
             total: -1,

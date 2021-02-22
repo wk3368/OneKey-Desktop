@@ -7,7 +7,7 @@ const definedMessages = defineMessages({
     },
     TR_3RD_PARTY_WALLETS_DESC: {
         defaultMessage:
-            'These coins are supported by Trezor but only in 3rd party wallets. These coins cannot be managed by Trezor Suite or Wallet.',
+            'These coins are supported by OneKey but only in 3rd party wallets. These coins cannot be managed by OneKey Suite or Wallet.',
         id: 'TR_3RD_PARTY_WALLETS_DESC',
     },
     TR_404_DESCRIPTION: {
@@ -121,11 +121,11 @@ const definedMessages = defineMessages({
     },
     TR_ACQUIRE_DEVICE_DESCRIPTION: {
         defaultMessage:
-            'Please close the tab in your browser or click the button below to acquire the device since Trezor can be only used in one session.',
+            'Please close the tab in your browser or click the button below to acquire the device since OneKey can be only used in one session.',
         id: 'TR_ACQUIRE_DEVICE_DESCRIPTION',
     },
     TR_ACQUIRE_DEVICE_TITLE: {
-        defaultMessage: 'Trezor is being used in a browser',
+        defaultMessage: 'OneKey is being used in a browser',
         id: 'TR_ACQUIRE_DEVICE_TITLE',
     },
     TR_ACTIVATE_ALL: {
@@ -163,7 +163,7 @@ const definedMessages = defineMessages({
         id: 'TR_ADDRESS_MODAL_BTC_DESCRIPTION',
     },
     TR_ADDRESS_MODAL_CHECK_ON_TREZOR: {
-        defaultMessage: 'Check on your Trezor now',
+        defaultMessage: 'Check on your OneKey now',
         id: 'TR_ADDRESS_MODAL_CHECK_ON_TREZOR',
     },
     TR_TRADE_NOT_FOUND: {
@@ -188,7 +188,7 @@ const definedMessages = defineMessages({
     },
     TR_SPEND_PROVIDER_CONTENT_WINDOW: {
         defaultMessage:
-            'Spend content is fully provided by our partner Bitrefill. You’ll choose your purchase on their website and finish the transaction in Trezor Suite.',
+            'Spend content is fully provided by our partner Bitrefill. You’ll choose your purchase on their website and finish the transaction in OneKey Suite.',
         id: 'TR_SPEND_PROVIDER_CONTENT_WINDOW',
     },
     TR_EXCHANGE_LOADING: {
@@ -440,7 +440,7 @@ const definedMessages = defineMessages({
         id: 'TR_EXCHANGE_SEND_TO',
     },
     TR_EXCHANGE_CONFIRM_ON_TREZOR_SEND: {
-        defaultMessage: 'Confirm on Trezor & Send',
+        defaultMessage: 'Confirm on OneKey & Send',
         id: 'TR_EXCHANGE_CONFIRM_ON_TREZOR_SEND',
     },
     TR_EXCHANGE_RECEIVE_ACCOUNT_QUESTION_TOOLTIP: {
@@ -501,7 +501,7 @@ const definedMessages = defineMessages({
         id: 'TR_EXCHANGE_CONFIRMED_ON_TREZOR',
     },
     TR_EXCHANGE_CONFIRM_ON_TREZOR: {
-        defaultMessage: 'Confirm on Trezor',
+        defaultMessage: 'Confirm on OneKey',
         id: 'TR_EXCHANGE_CONFIRM_ON_TREZOR',
     },
     TR_EXCHANGE_GO_TO_PAYMENT: {
@@ -727,7 +727,7 @@ const definedMessages = defineMessages({
         id: 'TR_BUY_SHOW_OFFERS',
     },
     TR_BUY_CONFIRM_ON_TREZOR: {
-        defaultMessage: 'Confirm On Trezor',
+        defaultMessage: 'Confirm On OneKey',
         id: 'TR_BUY_CONFIRM_ON_TREZOR',
     },
     TR_BUY_GO_TO_PAYMENT: {
@@ -793,7 +793,7 @@ const definedMessages = defineMessages({
     },
     TR_ADDRESS_MODAL_CHECK_ON_TREZOR_DESC: {
         defaultMessage:
-            'For even more security you can check the receive address on your Trezor to make sure nobody hacked your Wallet.',
+            'For even more security you can check the receive address on your OneKey to make sure nobody hacked your Wallet.',
         id: 'TR_ADDRESS_MODAL_CHECK_ON_TREZOR_DESC',
     },
     TR_ADDRESS_MODAL_CLIPBOARD: {
@@ -874,7 +874,7 @@ const definedMessages = defineMessages({
     },
     TR_ALLOW_ANALYTICS_DESCRIPTION: {
         defaultMessage:
-            'Trezor Suite does NOT track any balance-related or personal data, all anonymously',
+            'OneKey Suite does NOT track any balance-related or personal data, all anonymously',
         id: 'TR_ALLOW_ANALYTICS_DESCRIPTION',
     },
     TR_ASSETS: {
@@ -944,7 +944,7 @@ const definedMessages = defineMessages({
     },
     TR_BACKUP_SUBHEADING_1: {
         defaultMessage:
-            'Backup seed consisting of words is the ultimate key to your Wallet and all the important data. Trezor will generate the seed and you should write it down and store it securely.',
+            'Backup seed consisting of words is the ultimate key to your Wallet and all the important data. OneKey will generate the seed and you should write it down and store it securely.',
         description: 'Explanation what recovery seed is',
         id: 'TR_BACKUP_SUBHEADING_1',
     },
@@ -968,8 +968,8 @@ const definedMessages = defineMessages({
     },
     TR_BRIDGE_SUBHEADING: {
         defaultMessage:
-            'Trezor Bridge is a communication tool to facilitate the connection between your Trezor and your internet browser.',
-        description: 'Description what Trezor Bridge is',
+            'OneKey Bridge is a communication tool to facilitate the connection between your OneKey and your internet browser.',
+        description: 'Description what OneKey Bridge is',
         id: 'TR_BRIDGE_SUBHEADING',
     },
     TR_BUY: {
@@ -1038,7 +1038,7 @@ const definedMessages = defineMessages({
     },
     TR_COINS_SETTINGS_ALSO_DEFINES: {
         defaultMessage:
-            'Coins settings also defines which network will get discovered after you connect your Trezor.',
+            'Coins settings also defines which network will get discovered after you connect your OneKey.',
         id: 'TR_COINS_SETTINGS_ALSO_DEFINES',
     },
     TR_CONFIRM: {
@@ -1074,21 +1074,21 @@ const definedMessages = defineMessages({
         id: 'TR_CONFIRMED_TX',
     },
     TR_CONNECT_TREZOR: {
-        defaultMessage: 'Connect Trezor to continue...',
+        defaultMessage: 'Connect OneKey to continue...',
         id: 'TR_CONNECT_TREZOR',
     },
     TR_CONNECT_YOUR_DEVICE: {
-        defaultMessage: 'Connect your Trezor',
+        defaultMessage: 'Connect your OneKey',
         description: 'Prompt to user to connect his device.',
         id: 'TR_CONNECT_YOUR_DEVICE',
     },
     TR_RECONNECT_YOUR_DEVICE: {
-        defaultMessage: 'Reconnect your Trezor',
+        defaultMessage: 'Reconnect your OneKey',
         description: 'Prompt to user to reconnect his device.',
         id: 'TR_RECONNECT_YOUR_DEVICE',
     },
     TR_THIS_TREZOR_IS_ALREADY_SET_UP: {
-        defaultMessage: 'This Trezor is already set up',
+        defaultMessage: 'This OneKey is already set up',
         id: 'TR_THIS_TREZOR_IS_ALREADY_SET_UP',
     },
     TR_CONNECT_YOUR_DEVICE_AGAIN: {
@@ -1097,7 +1097,7 @@ const definedMessages = defineMessages({
         id: 'TR_CONNECT_YOUR_DEVICE_AGAIN',
     },
     TR_CONNECT_YOUR_TREZOR_TO_CHECK: {
-        defaultMessage: 'Connect your Trezor to verify this address',
+        defaultMessage: 'Connect your OneKey to verify this address',
         id: 'TR_CONNECT_YOUR_TREZOR_TO_CHECK',
     },
     TR_CONNECTED: {
@@ -1183,7 +1183,7 @@ const definedMessages = defineMessages({
         id: 'TR_DEACTIVATE_ALL',
     },
     TR_DETECTING_BRIDGE: {
-        defaultMessage: 'Detecting Trezor Bridge installation',
+        defaultMessage: 'Detecting OneKey Bridge installation',
         description: 'Message to show after user clicks download bridge.',
         id: 'TR_DETECTING_BRIDGE',
     },
@@ -1225,7 +1225,7 @@ const definedMessages = defineMessages({
     },
     TR_DEVICE_IS_USED_IN_OTHER_WINDOW_TEXT: {
         defaultMessage:
-            'Your Trezor seems to be in use in another window. Please close all other windows or tabs that might be using your Trezor.',
+            'Your OneKey seems to be in use in another window. Please close all other windows or tabs that might be using your OneKey.',
         description: '',
         id: 'TR_DEVICE_IS_USED_IN_OTHER_WINDOW_TEXT',
     },
@@ -1291,7 +1291,7 @@ const definedMessages = defineMessages({
         id: 'TR_DEVICE_NOT_RECOGNIZED_TRY_BRIDGE',
     },
     TR_DEVICE_NOT_RECOGNIZED_TRY_UDEV: {
-        defaultMessage: 'Trezor not recognized? Try installing {link}.',
+        defaultMessage: 'OneKey not recognized? Try installing {link}.',
         id: 'TR_DEVICE_NOT_RECOGNIZED_TRY_UDEV',
     },
     TR_UDEV_DOWNLOAD_TITLE: {
@@ -1300,7 +1300,7 @@ const definedMessages = defineMessages({
     },
     TR_UDEV_DOWNLOAD_DESC: {
         defaultMessage:
-            'In some cases, Linux users need to install udev rules to access the device. Please, install the following package and reconnect your Trezor.',
+            'In some cases, Linux users need to install udev rules to access the device. Please, install the following package and reconnect your OneKey.',
         id: 'TR_UDEV_DOWNLOAD_DESC',
     },
     TR_UDEV_DOWNLOAD_MANUAL: {
@@ -1402,7 +1402,7 @@ const definedMessages = defineMessages({
     },
     TR_DOUBLE_CLICK_IT_TO_RUN_INSTALLER: {
         defaultMessage: 'Double click it to run installer',
-        description: 'Instruction for installing Trezor Bridge',
+        description: 'Instruction for installing OneKey Bridge',
         id: 'TR_DOUBLE_CLICK_IT_TO_RUN_INSTALLER',
     },
     TR_DOWNLOAD: {
@@ -1475,7 +1475,7 @@ const definedMessages = defineMessages({
     },
     TR_FINAL_SUBHEADING: {
         defaultMessage:
-            'You did it! Not only your Trezor is initialized and ready but you also increased your security level above the average user by going through all security steps. Good job!',
+            'You did it! Not only your OneKey is initialized and ready but you also increased your security level above the average user by going through all security steps. Good job!',
         id: 'TR_FINAL_SUBHEADING',
     },
     TR_FIND_OUT_MORE_INFO: {
@@ -1508,7 +1508,7 @@ const definedMessages = defineMessages({
     },
     TR_FIRMWARE_SUBHEADING: {
         defaultMessage:
-            'Your Trezor is shipped without firmware installed to ensure that you can get started with the latest features right away. The authenticity of the installed firmware is always checked during device start. If the firmware is not correctly signed by SatoshiLabs, your Trezor will display a warning.',
+            'Your OneKey is shipped without firmware installed to ensure that you can get started with the latest features right away. The authenticity of the installed firmware is always checked during device start. If the firmware is not correctly signed by SatoshiLabs, your OneKey will display a warning.',
         description: 'Main text on firmware page for devices without firmware.',
         id: 'TR_FIRMWARE_SUBHEADING',
     },
@@ -1559,12 +1559,12 @@ const definedMessages = defineMessages({
         id: 'TR_SKIP_PIN',
     },
     TR_HELP_TREZOR_SUITE: {
-        defaultMessage: 'Help Trezor Suite get better',
+        defaultMessage: 'Help OneKey Suite get better',
         id: 'TR_HELP_TREZOR_SUITE',
     },
     TR_HELP_TREZOR_SUITE_TEXT_1: {
         defaultMessage:
-            'Help Trezor Suite become a better product by sending us {TR_HELP_TREZOR_SUITE_TEXT_1_FAT}.',
+            'Help OneKey Suite become a better product by sending us {TR_HELP_TREZOR_SUITE_TEXT_1_FAT}.',
         id: 'TR_HELP_TREZOR_SUITE_TEXT_1',
     },
     TR_HELP_TREZOR_SUITE_TEXT_1_FAT: {
@@ -1572,7 +1572,7 @@ const definedMessages = defineMessages({
         id: 'TR_HELP_TREZOR_SUITE_TEXT_1_FAT',
     },
     TR_HELP_TREZOR_SUITE_TEXT_2: {
-        defaultMessage: 'Trezor Suite does NOT track any balance-related or personal data.',
+        defaultMessage: 'OneKey Suite does NOT track any balance-related or personal data.',
         id: 'TR_HELP_TREZOR_SUITE_TEXT_2',
     },
     TR_HIDE_ADVANCED_OPTIONS: {
@@ -1645,7 +1645,7 @@ const definedMessages = defineMessages({
         id: 'TR_DO_NOT_DISCONNECT',
     },
     TR_YOUR_TREZOR_IS_ALMOST_READY: {
-        defaultMessage: 'Your Trezor is almost ready',
+        defaultMessage: 'Your OneKey is almost ready',
         id: 'TR_YOUR_TREZOR_IS_ALMOST_READY',
     },
     TR_INSTRUCTION_TO_SKIP: {
@@ -1676,7 +1676,7 @@ const definedMessages = defineMessages({
     },
     TR_LEARN_MORE: {
         defaultMessage: 'Learn more',
-        description: 'Link to Trezor wiki.',
+        description: 'Link to OneKey wiki.',
         id: 'TR_LEARN_MORE',
     },
     TR_SEGWIT_ACCOUNTS: {
@@ -1740,22 +1740,22 @@ const definedMessages = defineMessages({
     },
     TR_MODEL_ONE: {
         defaultMessage: 'Model one',
-        description: 'Name of Trezor model 1',
+        description: 'Name of OneKey model 1',
         id: 'TR_MODEL_ONE',
     },
     TR_MODEL_ONE_DESC: {
         defaultMessage: 'Two buttons and a mono-chromatic screen',
-        description: 'Description of Trezor model 1',
+        description: 'Description of OneKey model 1',
         id: 'TR_MODEL_ONE_DESC',
     },
     TR_MODEL_T: {
         defaultMessage: 'Model T',
-        description: 'Name of Trezor model T',
+        description: 'Name of OneKey model T',
         id: 'TR_MODEL_T',
     },
     TR_MODEL_T_DESC: {
         defaultMessage: 'Full-color touch-screen display',
-        description: 'Description of Trezor model T',
+        description: 'Description of OneKey model T',
         id: 'TR_MODEL_T_DESC',
     },
     TR_NAV_RECEIVE: {
@@ -1869,15 +1869,15 @@ const definedMessages = defineMessages({
     },
     TR_NEW_COMMUNICATION_TOOL: {
         defaultMessage:
-            'New communication tool to facilitate the connection between your Trezor and your internet browser.',
+            'New communication tool to facilitate the connection between your OneKey and your internet browser.',
         id: 'TR_NEW_COMMUNICATION_TOOL',
     },
     TR_NEW_TREZOR_BRIDGE_IS_AVAILABLE: {
-        defaultMessage: 'New Trezor Bridge is available.',
+        defaultMessage: 'New OneKey Bridge is available.',
         id: 'TR_NEW_TREZOR_BRIDGE_IS_AVAILABLE',
     },
     TR_NEW_TREZOR_FIRMWARE_IS_AVAILABLE_DOT: {
-        defaultMessage: 'New Trezor firmware is available.',
+        defaultMessage: 'New OneKey firmware is available.',
         id: 'TR_NEW_TREZOR_FIRMWARE_IS_AVAILABLE_DOT',
     },
     TR_NO_PASSPHRASE_WALLET: {
@@ -2050,7 +2050,7 @@ const definedMessages = defineMessages({
         id: 'TR_BUY_NETWORK',
     },
     TR_BECH32_BANNER_TITLE: {
-        defaultMessage: 'New BTC default Accounts natively in Trezor Suite!',
+        defaultMessage: 'New BTC default Accounts natively in OneKey Suite!',
         id: 'TR_BECH32_BANNER_TITLE',
     },
     TR_BECH32_BANNER_POINT_1: {
@@ -2076,7 +2076,7 @@ const definedMessages = defineMessages({
         id: 'TR_RECONNECT_TEXT',
     },
     TR_RECONNECT_TROUBLESHOOT_BRIDGE: {
-        defaultMessage: 'Trezor Bridge might have stopped working, try restarting',
+        defaultMessage: 'OneKey Bridge might have stopped working, try restarting',
         description: '',
         id: 'TR_RECONNECT_TROUBLESHOOT_BRIDGE',
     },
@@ -2152,13 +2152,13 @@ const definedMessages = defineMessages({
         id: 'TR_SCAN_QR_CODE',
     },
     TR_SECURITY_HEADING: {
-        defaultMessage: 'Trezor successfully initialized!',
+        defaultMessage: 'OneKey successfully initialized!',
         description: 'Heading in security page',
         id: 'TR_SECURITY_HEADING',
     },
     TR_SECURITY_SUBHEADING: {
         defaultMessage:
-            'Your Trezor has been successfully initialized and is ready to be used. Your Wallet has been successfully created and is ready to be used as well. Wheeee!',
+            'Your OneKey has been successfully initialized and is ready to be used. Your Wallet has been successfully created and is ready to be used as well. Wheeee!',
         description: 'Text in security page',
         id: 'TR_SECURITY_SUBHEADING',
     },
@@ -2223,7 +2223,7 @@ const definedMessages = defineMessages({
     },
     TR_SET_UP_STRONG_PIN_TO_PROTECT: {
         defaultMessage:
-            'Set up a strong PIN to protect your device from unauthorized access. The keypad layout is displayed on your connected Trezor device.',
+            'Set up a strong PIN to protect your device from unauthorized access. The keypad layout is displayed on your connected OneKey device.',
         id: 'TR_SET_UP_STRONG_PIN_TO_PROTECT',
     },
     TR_SETTINGS: {
@@ -2252,7 +2252,7 @@ const definedMessages = defineMessages({
         id: 'TR_SHOW_OLDER_NEWS',
     },
     TR_SHOW_ON_TREZOR: {
-        defaultMessage: 'Show on Trezor',
+        defaultMessage: 'Show on OneKey',
         id: 'TR_SHOW_ON_TREZOR',
     },
     TR_SHOW_UNVERIFIED_ADDRESS: {
@@ -2300,7 +2300,7 @@ const definedMessages = defineMessages({
     },
     TR_SKIP_ONBOARDING_TEXT: {
         defaultMessage:
-            'If your device is initialized and you used Wallet or Suite before, that’s great! Did you initialize Trezor yourself? You should be the one doing it. If not, it might be dangerous.',
+            'If your device is initialized and you used Wallet or Suite before, that’s great! Did you initialize OneKey yourself? You should be the one doing it. If not, it might be dangerous.',
         id: 'TR_SKIP_ONBOARDING_TEXT',
     },
     TR_SKIP_SECURITY: {
@@ -2379,7 +2379,7 @@ const definedMessages = defineMessages({
         id: 'TR_TESTNET_COINS_EXPLAINED',
     },
     TR_THE_PIN_LAYOUT_IS_DISPLAYED: {
-        defaultMessage: 'The PIN layout is displayed on your Trezor.',
+        defaultMessage: 'The PIN layout is displayed on your OneKey.',
         id: 'TR_THE_PIN_LAYOUT_IS_DISPLAYED',
     },
     TR_THIS_HIDDEN_WALLET_IS_EMPTY: {
@@ -2408,7 +2408,7 @@ const definedMessages = defineMessages({
     },
     TR_TO_PREVENT_PHISHING_ATTACKS_COMMA: {
         defaultMessage:
-            'To prevent phishing attacks, you should verify the address on your Trezor first. {claim}',
+            'To prevent phishing attacks, you should verify the address on your OneKey first. {claim}',
         id: 'TR_TO_PREVENT_PHISHING_ATTACKS_COMMA',
     },
     TR_TOS_INFORMATION: {
@@ -2444,17 +2444,17 @@ const definedMessages = defineMessages({
         id: 'TR_TRANSACTION_ID',
     },
     TR_TREZOR: {
-        defaultMessage: 'Trezor',
+        defaultMessage: 'OneKey',
         description: 'Link in header navigation',
         id: 'TR_TREZOR',
     },
     TR_TREZOR_BRIDGE_IS_NOT_RUNNING: {
-        defaultMessage: 'Trezor Bridge is not running',
+        defaultMessage: 'OneKey Bridge is not running',
         description: '',
         id: 'TR_TREZOR_BRIDGE_IS_NOT_RUNNING',
     },
     TR_TREZOR_BRIDGE_IS_RUNNING_VERSION: {
-        defaultMessage: 'Trezor Bridge is running. Version: {version}',
+        defaultMessage: 'OneKey Bridge is running. Version: {version}',
         description: '',
         id: 'TR_TREZOR_BRIDGE_IS_RUNNING_VERSION',
     },
@@ -2527,11 +2527,11 @@ const definedMessages = defineMessages({
         id: 'TR_UNACQUIRED',
     },
     TR_UNVERIFIED_ADDRESS_COMMA_CONNECT: {
-        defaultMessage: 'Unverified address, connect your Trezor to verify it',
+        defaultMessage: 'Unverified address, connect your OneKey to verify it',
         id: 'TR_UNVERIFIED_ADDRESS_COMMA_CONNECT',
     },
     TR_UNVERIFIED_ADDRESS_COMMA_SHOW: {
-        defaultMessage: 'Unverified address, show on Trezor.',
+        defaultMessage: 'Unverified address, show on OneKey.',
         id: 'TR_UNVERIFIED_ADDRESS_COMMA_SHOW',
     },
     TR_UPLOAD_IMAGE: {
@@ -2550,7 +2550,7 @@ const definedMessages = defineMessages({
     },
     TR_USER_HAS_NOT_WORKED_WITH_THIS_DEVICE_INSTRUCTIONS: {
         defaultMessage:
-            'In that case you should immediately contact Trezor support with detailed information on your purchase and refrain from using this device.',
+            'In that case you should immediately contact OneKey support with detailed information on your purchase and refrain from using this device.',
         description: 'What to do if device is already initialized but not by user.',
         id: 'TR_USER_HAS_NOT_WORKED_WITH_THIS_DEVICE_INSTRUCTIONS',
     },
@@ -2588,7 +2588,7 @@ const definedMessages = defineMessages({
     // },
     TR_WAIT_FOR_FILE_TO_DOWNLOAD: {
         defaultMessage: 'Wait for file to download',
-        description: 'Instruction for installing Trezor Bridge',
+        description: 'Instruction for installing OneKey Bridge',
         id: 'TR_WAIT_FOR_FILE_TO_DOWNLOAD',
     },
     TR_WAIT_FOR_REBOOT: {
@@ -2618,7 +2618,7 @@ const definedMessages = defineMessages({
         id: 'TR_WAS_USED_IN_ANOTHER_WINDOW',
     },
     TR_WELCOME_MODAL_HEADING: {
-        defaultMessage: 'Welcome to Trezor Suite!',
+        defaultMessage: 'Welcome to OneKey Suite!',
         id: 'TR_WELCOME_MODAL_HEADING',
     },
     TR_WELCOME_MODAL_TEXT: {
@@ -2626,11 +2626,11 @@ const definedMessages = defineMessages({
         id: 'TR_WELCOME_MODAL_TEXT',
     },
     TR_WELCOME_TO_TREZOR: {
-        defaultMessage: 'First-time user or an ol’ Trezor fella?',
+        defaultMessage: 'First-time user or an ol’ OneKey fella?',
         id: 'TR_WELCOME_TO_TREZOR',
     },
     TR_WELCOME_TO_TREZOR_TEXT: {
-        defaultMessage: 'Choose your path and let the Trezor Force be with you!.',
+        defaultMessage: 'Choose your path and let the OneKey Force be with you!.',
         id: 'TR_WELCOME_TO_TREZOR_TEXT',
     },
     TR_WELCOME_TO_TREZOR_TEXT_WALLET_CREATION: {
@@ -2693,7 +2693,7 @@ const definedMessages = defineMessages({
         id: 'TR_YOUR_NEW_VERSION',
     },
     TR_YOUR_TREZOR_IS_NOT_BACKED_UP: {
-        defaultMessage: 'Your Trezor is not backed up.',
+        defaultMessage: 'Your OneKey is not backed up.',
         id: 'TR_YOUR_TREZOR_IS_NOT_BACKED_UP',
     },
     TR_YOUR_WALLET_IS_READY_WHAT: {
@@ -2986,7 +2986,7 @@ const definedMessages = defineMessages({
     TR_TOR_DESCRIPTION: {
         id: 'TR_TOR_DESCRIPTION',
         defaultMessage:
-            "Enabling this will route all of Suite's traffic through the Tor network.{lineBreak}All requests to Trezor infrastructure will be pointed to our Tor services, increasing your privacy and security.",
+            "Enabling this will route all of Suite's traffic through the Tor network.{lineBreak}All requests to OneKey infrastructure will be pointed to our Tor services, increasing your privacy and security.",
     },
     TR_ONION_LINKS_TITLE: {
         id: 'TR_ONION_LINKS_TITLE',
@@ -3028,16 +3028,16 @@ const definedMessages = defineMessages({
     },
     TR_TREZOR_BRIDGE_DOWNLOAD: {
         id: 'TR_TREZOR_BRIDGE_DOWNLOAD',
-        defaultMessage: 'Trezor Bridge Download',
+        defaultMessage: 'OneKey Bridge Download',
     },
     TR_CURRENTLY_INSTALLED_TREZOR: {
         id: 'TR_CURRENTLY_INSTALLED_TREZOR',
-        defaultMessage: 'Currently installed: Trezor Bridge {version}',
+        defaultMessage: 'Currently installed: OneKey Bridge {version}',
     },
     TR_OUTDATED_BRIDGE_DESKTOP: {
         id: 'TR_OUTDATED_BRIDGE_DESKTOP',
         defaultMessage:
-            'The Trezor Suite application comes with Trezor Bridge bundled. If you only use the Trezor Suite application, we recommend you to uninstall Trezor Bridge in order to use the bundled one. If you are using Trezor in your browser as well, updating Trezor Bridge is recommended.',
+            'The OneKey Suite application comes with OneKey Bridge bundled. If you only use the OneKey Suite application, we recommend you to uninstall OneKey Bridge in order to use the bundled one. If you are using OneKey in your browser as well, updating OneKey Bridge is recommended.',
     },
     EVENT_DEVICE_CONNECT: {
         id: 'EVENT_DEVICE_CONNECT',
@@ -3124,7 +3124,7 @@ const definedMessages = defineMessages({
     TR_CHECK_RECOVERY_SEED_DESC_T2: {
         id: 'TR_CHECK_RECOVERY_SEED_DESC_T2',
         defaultMessage:
-            'Your wallet backup, the recovery seed, is entered entirely on the Trezor Model T, through the device screen. We avoid passing any of your sensitive information to a potentially insecure computer or web browser.',
+            'Your wallet backup, the recovery seed, is entered entirely on the OneKey Model T, through the device screen. We avoid passing any of your sensitive information to a potentially insecure computer or web browser.',
     },
     TR_USING_TOUCHSCREEN: {
         id: 'TR_USING_TOUCHSCREEN',
@@ -3251,7 +3251,7 @@ const definedMessages = defineMessages({
     TR_MODELS_DESC: {
         id: 'TR_MODELS_DESC',
         defaultMessage:
-            'Trezor One features two buttons and a monochromatic screen, Trezor T is the high-end model featuring touch-screen display.',
+            'OneKey One features two buttons and a monochromatic screen, OneKey T is the high-end model featuring touch-screen display.',
     },
     TR_DEVICE_IN_RECOVERY_MODE: {
         id: 'TR_DEVICE_IN_RECOVERY_MODE',
@@ -3444,7 +3444,7 @@ const definedMessages = defineMessages({
     },
     TR_DEVICE_PIN_PROTECTION_ENABLED: {
         id: 'TR_DEVICE_PIN_PROTECTION_ENABLED',
-        defaultMessage: 'Trezor PIN-protected',
+        defaultMessage: 'OneKey PIN-protected',
     },
     TR_ENABLE_PASSPHRASE_DESCRIPTION: {
         id: 'TR_ENABLE_PASSPHRASE_DESCRIPTION',
@@ -3766,7 +3766,7 @@ const definedMessages = defineMessages({
     },
     TR_BUY_TREZOR: {
         id: 'TR_BUY_TREZOR',
-        defaultMessage: 'Buy Trezor',
+        defaultMessage: 'Buy OneKey',
     },
     TR_TRY_BRIDGE: {
         id: 'TR_TRY_BRIDGE',
@@ -3782,7 +3782,7 @@ const definedMessages = defineMessages({
     TR_YOUR_DEVICE_IS_CONNECTED_BUT_UNREADABLE: {
         id: 'TR_YOUR_DEVICE_IS_CONNECTED_BUT_UNREADABLE',
         defaultMessage:
-            'Your device is connected properly, but your internet browser can not communicate with it at the moment. You will need to install Trezor Bridge.',
+            'Your device is connected properly, but your internet browser can not communicate with it at the moment. You will need to install OneKey Bridge.',
     },
     TR_RESOLVE: {
         id: 'TR_RESOLVE',
@@ -3837,7 +3837,7 @@ const definedMessages = defineMessages({
     TR_UNREADABLE_EXPLAINED: {
         id: 'TR_UNREADABLE_EXPLAINED',
         defaultMessage:
-            'We cant see details about your device. It might be Trezor with old firmware or possibly any USB device. To make communication possible, you will need to install Trezor Bridge.',
+            'We cant see details about your device. It might be OneKey with old firmware or possibly any USB device. To make communication possible, you will need to install OneKey Bridge.',
     },
     TR_SEE_DETAILS: {
         id: 'TR_SEE_DETAILS',
@@ -3928,16 +3928,16 @@ const definedMessages = defineMessages({
     ONBOARDING_PAIR_ALREADY_INITIALIZED: {
         id: 'ONBOARDING_PAIR_ALREADY_INITIALIZED',
         defaultMessage:
-            'Only continue if you performed the setup yourself. If someone else set up your Trezor, your funds could be at risk; <a>contact Trezor support</a>.',
+            'Only continue if you performed the setup yourself. If someone else set up your OneKey, your funds could be at risk; <a>contact OneKey support</a>.',
     },
     ONBOARDING_UNEXPECTED_DEVICE_DIFFERENT_HEADING: {
         id: 'ONBOARDING_UNEXPECTED_DEVICE_DIFFERENT_HEADING',
-        defaultMessage: 'You are using a different Trezor',
+        defaultMessage: 'You are using a different OneKey',
     },
     ONBOARDING_UNEXPECTED_DEVICE_DIFFERENT_P1: {
         id: 'ONBOARDING_UNEXPECTED_DEVICE_DIFFERENT_P1',
         defaultMessage:
-            "This isn't the same Trezor you've been using. Please reconnect the right one.",
+            "This isn't the same OneKey you've been using. Please reconnect the right one.",
     },
     ONBOARDING_UNEXPECTED_DEVICE_DIFFERENT_P2: {
         id: 'ONBOARDING_UNEXPECTED_DEVICE_DIFFERENT_P2',
@@ -3954,9 +3954,9 @@ const definedMessages = defineMessages({
     },
     TR_PAIR_YOUR_TREZOR: {
         id: 'TR_PAIR_YOUR_TREZOR',
-        defaultMessage: 'Pair your Trezor again with your computer',
+        defaultMessage: 'Pair your OneKey again with your computer',
         description:
-            'After firmware update is done, user must renew connection with Trezor device. We also call this "pairing" device',
+            'After firmware update is done, user must renew connection with OneKey device. We also call this "pairing" device',
     },
     TR_BY_CREATING_WALLET: {
         id: 'TR_BY_CREATING_WALLET',
@@ -4019,7 +4019,7 @@ const definedMessages = defineMessages({
     TR_PAIR_TREZOR_AGAIN_OR_NEW: {
         id: 'TR_PAIR_TREZOR_AGAIN_OR_NEW',
         defaultMessage:
-            'Pair Trezor device again with your internet browser or pair another device',
+            'Pair OneKey device again with your internet browser or pair another device',
     },
     TR_CHECK_FINGERPRINT: {
         id: 'TR_CHECK_FINGERPRINT',
@@ -4070,7 +4070,7 @@ const definedMessages = defineMessages({
     TR_YOU_CAN_SELECT_EITHER: {
         id: 'TR_YOU_CAN_SELECT_EITHER',
         defaultMessage:
-            'You can select either a brand new Trezor or any Trezor device that has been used before and already initialized.',
+            'You can select either a brand new OneKey or any OneKey device that has been used before and already initialized.',
     },
     TR_I_HAVE_A_NEW_DEVICE: {
         id: 'TR_I_HAVE_A_NEW_DEVICE',
@@ -4112,7 +4112,7 @@ const definedMessages = defineMessages({
     },
     TR_LANDING_TITLE: {
         id: 'TR_LANDING_TITLE',
-        defaultMessage: 'Download Trezor Suite (beta) desktop app',
+        defaultMessage: 'Download OneKey Suite (beta) desktop app',
     },
     TR_LANDING_DESC: {
         id: 'TR_LANDING_DESC',
@@ -4194,7 +4194,7 @@ const definedMessages = defineMessages({
     },
     TR_CONFIRM_ON_TREZOR: {
         id: 'TR_CONFIRM_ON_TREZOR',
-        defaultMessage: 'Confirm on Trezor',
+        defaultMessage: 'Confirm on OneKey',
     },
     TR_MY_ASSETS: {
         id: 'TR_MY_ASSETS',
@@ -4298,11 +4298,11 @@ const definedMessages = defineMessages({
     },
     TR_BRIDGE_DEV_MODE_START: {
         id: 'TR_BRIDGE_DEV_MODE_START',
-        defaultMessage: 'Starting Trezor Bridge on port 21324',
+        defaultMessage: 'Starting OneKey Bridge on port 21324',
     },
     TR_BRIDGE_DEV_MODE_STOP: {
         id: 'TR_BRIDGE_DEV_MODE_STOP',
-        defaultMessage: 'Starting Trezor Bridge on default port',
+        defaultMessage: 'Starting OneKey Bridge on default port',
     },
     TR_TO_ADD_NEW_ACCOUNT_WAIT_FOR_DISCOVERY: {
         id: 'TR_TO_ADD_NEW_ACCOUNT_WAIT_FOR_DISCOVERY',
@@ -4640,7 +4640,7 @@ const definedMessages = defineMessages({
     },
     TR_YOUR_LABELING_IS_SYNCED: {
         defaultMessage:
-            'Your labeling is synced with cloud storage provider. Your data are safe, only your Trezor can decrypt them.',
+            'Your labeling is synced with cloud storage provider. Your data are safe, only your OneKey can decrypt them.',
         id: 'TR_YOUR_LABELING_IS_SYNCED',
     },
     TR_YOUR_LABELING_IS_SYNCED_LOCALLY: {
@@ -4696,7 +4696,7 @@ const definedMessages = defineMessages({
     SETTINGS_ADV_COIN_BLOCKBOOK_DESCRIPTION: {
         id: 'SETTINGS_ADV_COIN_BLOCKBOOK_DESCRIPTION',
         defaultMessage:
-            'Coins settings also defines the Discovery process when Trezor is connected, Each time you connect not remembered device.',
+            'Coins settings also defines the Discovery process when OneKey is connected, Each time you connect not remembered device.',
     },
     SETTINGS_ADV_COIN_URL_INPUT_PLACEHOLDER: {
         id: 'SETTINGS_ADV_COIN_URL_INPUT_PLACEHOLDER',
@@ -4875,7 +4875,7 @@ const definedMessages = defineMessages({
     FIRMWARE_UPDATE_AVAILABLE_DESC: {
         id: 'FIRMWARE_UPDATE_AVAILABLE_DESC',
         defaultMessage:
-            'We’re constantly working to improve your Trezor experience, here’s a summary of what has changed:',
+            'We’re constantly working to improve your OneKey experience, here’s a summary of what has changed:',
     },
     FIRMWARE_RECONNECT_BL_NEXT_STEP_DESC: {
         id: 'FIRMWARE_RECONNECT_BL_NEXT_STEP_DESC',
@@ -5112,7 +5112,7 @@ const definedMessages = defineMessages({
     },
     TR_SUITE_WEB_LANDING_SUB_HEADLINE: {
         id: 'TR_SUITE_WEB_LANDING_SUB_HEADLINE',
-        defaultMessage: 'Take control of your Trezor with our desktop & browser app.',
+        defaultMessage: 'Take control of your OneKey with our desktop & browser app.',
     },
     TR_SUITE_WEB_LANDING_SUB_SOON: {
         id: 'TR_SUITE_WEB_LANDING_SUB_SOON',
@@ -5140,7 +5140,7 @@ const definedMessages = defineMessages({
     TR_SUITE_WEB_LANDING_FEATURES_2_TEXT: {
         id: 'TR_SUITE_WEB_LANDING_FEATURES_2_TEXT',
         defaultMessage:
-            "Compare competitive rates, buy and exchange coins within Trezor's secure environment. Powered by +Invity.",
+            "Compare competitive rates, buy and exchange coins within OneKey's secure environment. Powered by +Invity.",
     },
     TR_SUITE_WEB_LANDING_FEATURES_3_HEADLINE: {
         id: 'TR_SUITE_WEB_LANDING_FEATURES_3_HEADLINE',
@@ -5152,7 +5152,7 @@ const definedMessages = defineMessages({
     },
     TR_SUITE_WEB_LANDING_SUITE_ON_WEB: {
         id: 'TR_SUITE_WEB_LANDING_SUITE_ON_WEB',
-        defaultMessage: 'Trezor Suite for web',
+        defaultMessage: 'OneKey Suite for web',
     },
     TR_SUITE_WEB_LANDING_FOOTER_HEADLINE_1: {
         id: 'TR_SUITE_WEB_LANDING_FOOTER_HEADLINE_1',
@@ -5168,7 +5168,7 @@ const definedMessages = defineMessages({
     },
     TR_SUITE_WEB_LANDING_FOOTER_BLOG: {
         id: 'TR_SUITE_WEB_LANDING_FOOTER_BLOG',
-        defaultMessage: 'Trezor Blog',
+        defaultMessage: 'OneKey Blog',
     },
     TR_SUITE_WEB_LANDING_FOOTER_HEADLINE_2: {
         id: 'TR_SUITE_WEB_LANDING_FOOTER_HEADLINE_2',
@@ -5176,7 +5176,7 @@ const definedMessages = defineMessages({
     },
     TR_SUITE_WEB_LANDING_FOOTER_HEADLINE_PARAGRAPH: {
         id: 'TR_SUITE_WEB_LANDING_FOOTER_HEADLINE_PARAGRAPH',
-        defaultMessage: 'Companion to the <a>Trezor hardware wallet</a>',
+        defaultMessage: 'Companion to the <a>OneKey hardware wallet</a>',
     },
     TR_SUITE_WEB_LANDING_FOOTER_ROADMAP: {
         id: 'TR_SUITE_WEB_LANDING_FOOTER_ROADMAP',
@@ -5395,7 +5395,7 @@ const definedMessages = defineMessages({
     TR_SUITE_META_DESCRIPTION: {
         id: 'TR_SUITE_META_DESCRIPTION',
         defaultMessage:
-            'New desktop & browser app for Trezor hardware wallets. Trezor Suite brings big improvements across our three key pillars of usability, security and privacy.',
+            'New desktop & browser app for OneKey hardware wallets. OneKey Suite brings big improvements across our three key pillars of usability, security and privacy.',
     },
 } as const);
 

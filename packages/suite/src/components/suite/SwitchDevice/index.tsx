@@ -32,7 +32,7 @@ const DeviceItemsWrapper = styled.div`
 const SwitchDeviceModal = (props: Props) => {
     const { devices, selectedDevice, modal } = props;
     const showWebUsb = isWebUSB(props.transport);
-    // return action modal, it could be requested by Trezor while enabling passphrase encryption
+    // return action modal, it could be requested by OneKey while enabling passphrase encryption
     if (modal)
         return (
             // Wrap modal in Modal component because modal passed to ApplicationModal has no background (overlay)

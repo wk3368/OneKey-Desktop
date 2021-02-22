@@ -60,8 +60,8 @@ const DebugSettings = (props: Props) => {
             <Section title="Debug">
                 <Row>
                     <TextColumn
-                        title="Trezor Bridge dev mode (desktop)"
-                        description="Starts Trezor Bridge on port 21324"
+                        title="OneKey Bridge dev mode (desktop)"
+                        description="Starts OneKey Bridge on port 21324"
                     />
                     <ActionColumn>
                         <Switch

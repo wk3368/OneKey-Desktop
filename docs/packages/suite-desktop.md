@@ -14,7 +14,7 @@ More technical information can be found on the [Desktop Logger page](../misc/des
 _TODO_
 
 ## Runtime flags
-Runtime flags can be used when running the Suite Desktop executable, enabling or disabling certain features. For example: `./Trezor-Suite-20.10.1.AppImage --disable-csp` will run with this flag turned on, which will result in the Content Security Policy being disabled.
+Runtime flags can be used when running the Suite Desktop executable, enabling or disabling certain features. For example: `./OneKey-Suite-20.10.1.AppImage --disable-csp` will run with this flag turned on, which will result in the Content Security Policy being disabled.
 
 Available flags:
 

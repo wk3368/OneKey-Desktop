@@ -69,7 +69,7 @@ const initialState: SuiteState = {
         theme: {
             variant: 'light',
         },
-        language: 'en',
+        language: 'zh',
         torOnionLinks: isWeb(),
         debug: {
             invityAPIUrl: undefined,

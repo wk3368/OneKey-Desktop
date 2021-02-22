@@ -5,7 +5,7 @@ variables:
   DEV_SERVER_URL: "https://suite.corp.sldev.cz"
   STAGING_WALLET_SERVER_URL: "https://staging-wallet.trezor.io/wallet"
   STAGING_SUITE_SERVER_URL: "https://staging-suite.trezor.io"
-  DESKTOP_APP_NAME: "Trezor-Suite"
+  DESKTOP_APP_NAME: "OneKey-Suite"
   GIT_CLEAN_FLAGS: "-ffdx -e node_modules -e packages/*/lib -e .yarn"
 
 stages:

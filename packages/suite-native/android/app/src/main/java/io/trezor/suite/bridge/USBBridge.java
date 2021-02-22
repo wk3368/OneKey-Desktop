@@ -55,7 +55,7 @@ public class USBBridge implements BridgeInterface {
             HashMap<String, UsbDevice> deviceList = usbManager.getDeviceList();
             trezorDeviceList = new ArrayList();
             for (final UsbDevice usbDevice : deviceList.values()) {
-                // check if the device is Trezor
+                // check if the device is OneKey
                 Log.d(TAG, usbDevice.toString());
                 if (!Utils.deviceIsTrezor(usbDevice))
                     continue;

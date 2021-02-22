@@ -9,7 +9,7 @@ export const getDeviceFeatures = (feat?: Partial<Features>): Features => ({
     device_id: 'device-id',
     flags: 0,
     initialized: true,
-    label: 'My Trezor',
+    label: 'My OneKey',
     major_version: 2,
     minor_version: 1,
     model: 'T',

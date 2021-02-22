@@ -1,12 +1,12 @@
 {
     "name": "@trezor/news-api",
     "version": "1.0.0",
-    "author": "Trezor <info@trezor.io>",
+    "author": "OneKey <hi@onekey.so>",
     "keywords": [
-        "Trezor"
+        "OneKey"
     ],
     "license": "SEE LICENSE IN LICENSE.md",
-    "description": "Trezor medium fetcher",
+    "description": "OneKey medium fetcher",
     "private": true,
     "scripts": {
         "build": "rimraf ./build && tsc",
