@@ -1,10 +1,10 @@
 {
     "name": "@trezor/suite-desktop",
-    "description": "Trezor Suite desktop application",
+    "description": "OneKey Suite desktop application",
     "version": "21.3.0",
     "private": true,
-    "author": "SatoshiLabs <info@satoshilabs.com>",
-    "homepage": "https://trezor.io/",
+    "author": "OneKey <hi@onekey.so>",
+    "homepage": "https://onekey.so/",
     "main": "dist/app.js",
     "scripts": {
         "dev": "yarn dev:prepare && cross-env LAUNCH_ELECTRON=true node scripts/dev.js",
@@ -21,6 +21,7 @@
         "build:linux": "yarn clean && yarn build:ui && yarn build:app:linux",
         "build:mac": "yarn clean && yarn build:ui && yarn build:app:mac",
         "build:win": "yarn clean && yarn build:ui && yarn build:app:win",
+        "build:desktop": "yarn clean && yarn build:ui && yarn build:app:win && yarn build:app:mac && yarn build:app:linux",
         "publish:all": "yarn clean && yarn build:ui && electron-builder --publish always --mac --linux --win",
         "publish:linux": "yarn build:linux && electron-builder --publish always --linux",
         "publish:mac": "yarn build:mac && electron-builder --publish always --mac",
@@ -34,8 +35,8 @@
         "test:unit": "jest"
     },
     "build": {
-        "appId": "io.trezor.TrezorSuite",
-        "productName": "Trezor Suite",
+        "appId": "io.onekey.OneKeySuite",
+        "productName": "OneKey Suite",
         "copyright": "Copyright © ${author}",
         "asar": true,
         "electronVersion": "11.2.1",
@@ -57,8 +58,8 @@
         ],
         "publish": {
             "provider": "github",
-            "repo": "trezor-suite",
-            "owner": "trezor"
+            "repo": "onekey-suite",
+            "owner": "OneKeyHQ"
         },
         "dmg": {
             "sign": false,
@@ -95,7 +96,7 @@
                 }
             ],
             "icon": "build/static/images/icons/512x512.icns",
-            "artifactName": "Trezor-Suite-${version}-mac-${arch}.${ext}",
+            "artifactName": "OneKey-Suite-${version}-mac-${arch}.${ext}",
             "hardenedRuntime": true,
             "gatekeeperAssess": false,
             "darkModeSupport": false,
@@ -118,7 +119,7 @@
                 }
             ],
             "icon": "build/static/images/icons/512x512.png",
-            "artifactName": "Trezor-Suite-${version}-win-${arch}.${ext}",
+            "artifactName": "OneKey-Suite-${version}-win-${arch}.${ext}",
             "target": [
                 "nsis"
             ]
@@ -135,14 +136,13 @@
                 }
             ],
             "icon": "build/static/images/icons/512x512.png",
-            "artifactName": "Trezor-Suite-${version}-linux-${arch}.${ext}",
-            "executableName": "trezor-suite",
+            "artifactName": "OneKey-Suite-${version}-linux-${arch}.${ext}",
+            "executableName": "onekey-suite",
             "category": "Utility",
             "target": [
                 "AppImage"
             ]
-        },
-        "afterSign": "scripts/notarize.js"
+        }
     },
     "dependencies": {
         "chalk": "^4.1.0",
@@ -159,7 +159,7 @@
         "@types/electron-localshortcut": "^3.1.0",
         "@types/next-redux-wrapper": "^3.0.0",
         "@types/node-fetch": "^2.5.7",
-        "@types/react": "^17.0.0",        
+        "@types/react": "^17.0.0",
         "@types/react-dom": "^17.0.0",
         "@types/react-redux": "^7.1.7",
         "@zeit/next-workers": "^1.0.0",

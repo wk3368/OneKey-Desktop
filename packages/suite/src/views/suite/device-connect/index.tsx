@@ -106,7 +106,7 @@ const Index = (props: Props) => {
                                             props.goto('suite-bridge', { cancelable: true })
                                         }
                                     >
-                                        Trezor Bridge
+                                        OneKey Bridge
                                     </StyledLink>
                                 ),
                             }}

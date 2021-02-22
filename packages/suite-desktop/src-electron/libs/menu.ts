@@ -96,7 +96,7 @@ const mainMenuTemplate: MenuItem[] = [
     },
 ];
 
-// for those wondering why is this a function, it is because otherwise app.name used in the template has incorrect value @trezor/suite-desktop instead of "Trezor Suite"
+// for those wondering why is this a function, it is because otherwise app.name used in the template has incorrect value @trezor/suite-desktop instead of "OneKey Suite"
 export const buildMainMenu = () => Menu.buildFromTemplate(mainMenuTemplate);
 
 export const inputMenu = Menu.buildFromTemplate([

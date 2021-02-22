@@ -4,7 +4,7 @@ import { LayoutContext } from '@suite-components';
 import AssetsCard from './components/AssetsCard';
 import PortfolioCard from './components/PortfolioCard';
 import SecurityFeatures from './components/SecurityFeatures/Container';
-import NewsFeed from './components/NewsFeed';
+// import NewsFeed from './components/NewsFeed';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -33,8 +33,8 @@ const Dashboard = () => {
             <Divider />
             <SecurityFeatures />
             <Divider />
-            <NewsFeed />
-            <Divider />
+            {/* <NewsFeed /> */}
+            {/* <Divider /> */}
         </Wrapper>
     );
 };

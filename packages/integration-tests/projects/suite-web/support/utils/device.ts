@@ -63,7 +63,7 @@ export const connectBootloaderDevice = (path: string) => {
                 },
                 firmware: 'unknown',
                 instance: undefined,
-                label: 'My Trezor',
+                label: 'My OneKey',
                 mode: 'bootloader',
                 path,
                 remember: false,

@@ -77,7 +77,7 @@ export const getDeviceFeatures = (feat?: Partial<Features>): Features => ({
     device_id: 'device-id',
     flags: 0,
     initialized: true,
-    label: 'My Trezor',
+    label: 'My OneKey',
     major_version: 2,
     minor_version: 1,
     model: 'T',
@@ -104,7 +104,7 @@ export const getConnectDevice = (dev?: Partial<Device>, feat?: Partial<Features>
         return {
             type: dev.type,
             path: dev && dev.path ? dev.path : '1',
-            label: dev && dev.label ? dev.label : 'My Trezor',
+            label: dev && dev.label ? dev.label : 'My OneKey',
             features: undefined,
         };
     }
@@ -113,7 +113,7 @@ export const getConnectDevice = (dev?: Partial<Device>, feat?: Partial<Features>
     return {
         id: features.device_id,
         path: '',
-        label: 'My Trezor',
+        label: 'My OneKey',
         firmware: 'valid',
         firmwareRelease: getFirmwareRelease(),
         status: 'available',

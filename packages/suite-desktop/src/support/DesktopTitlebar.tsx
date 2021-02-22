@@ -203,6 +203,7 @@ const DesktopTitlebar = () => {
                 )}
             </Actions>
             <LogoWrapper>
+                {/* TODO: 替换素材 */}
                 <TrezorLogo
                     type="suite_compact"
                     variant="white"

@@ -220,7 +220,7 @@ export const signTransaction = (
     // this action is blocked by actionBlockerMiddleware
     dispatch(suiteActions.setProcessMode(device, 'sign-tx'));
 
-    // signTransaction by Trezor
+    // signTransaction by OneKey
     let serializedTx: string | undefined;
     if (account.networkType === 'bitcoin') {
         serializedTx = await dispatch(

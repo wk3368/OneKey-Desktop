@@ -142,7 +142,7 @@ export class HttpReceiver extends EventEmitter {
             <!DOCTYPE html>
             <html>
                 <head>
-                    <title>${options?.title ?? 'Trezor Suite'}</title>
+                    <title>${options?.title ?? 'OneKey Suite'}</title>
                 </head>
                 <body>
                     ${content}

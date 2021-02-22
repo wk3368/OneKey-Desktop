@@ -8,13 +8,13 @@
         { "origin": "chrome-extension://imloifkgjagghnncjkhggdhalmcnfklk", "priority": 1 },
         { "origin": "chrome-extension://niebkpllfhmpfbffbfifagfgoamhpflf", "priority": 1 },
         { "origin": "file://", "priority": 2 },
-        { "origin": "trezor.io", "priority": 0 },
+        { "origin": "onekey.so", "priority": 0 },
         { "origin": "sldev.cz", "priority": 0 },
         { "origin": "localhost", "priority": 0 },
         { "origin": "trezoriovpjcahpzkrewelclulmszwbqpzmzgub37gbcjlvluxtruqad.onion", "priority": 0 }
     ],
     "management": [
-        { "origin": "trezor.io" },
+        { "origin": "onekey.so" },
         { "origin": "sldev.cz" },
         { "origin": "localhost" }
     ],

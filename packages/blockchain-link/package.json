@@ -1,7 +1,7 @@
 {
     "name": "@trezor/blockchain-link",
     "version": "1.0.16",
-    "author": "Trezor <info@trezor.io>",
+    "author": "OneKey <hi@onekey.so>",
     "homepage": "https://github.com/trezor/trezor-suite/packages/blockchain-link",
     "description": "High-level javascript interface for blockchain communication",
     "license": "SEE LICENSE IN LICENSE.md",
@@ -13,7 +13,7 @@
         "url": "https://github.com/trezor/trezor-suite/issues"
     },
     "keywords": [
-        "Trezor",
+        "OneKey",
         "blockchain",
         "blockbook",
         "javascript"

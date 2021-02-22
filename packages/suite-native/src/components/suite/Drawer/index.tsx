@@ -43,7 +43,7 @@ const Drawer = (_props: DrawerContentComponentProps) => {
                 >
                     Change theme
                 </Button>
-                {/* <Button onClick={() => goto('/device-select')}>My Trezor (device)</Button> */}
+                {/* <Button onClick={() => goto('/device-select')}>My OneKey (device)</Button> */}
             </View>
             <Text>
                 aa

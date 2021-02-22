@@ -52,8 +52,8 @@ const Layout = (props: Props) => {
         // TODO: render "connect device" view
         return (
             <View>
-                <Head title={`${title}: Connect Trezor`} disableTabs={props.disableTabs} />
-                <Text>Connect Trezor to continue</Text>
+                <Head title={`${title}: Connect OneKey`} disableTabs={props.disableTabs} />
+                <Text>Connect OneKey to continue</Text>
                 <Text>Transport: {suite.transport.type}</Text>
             </View>
         );

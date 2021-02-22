@@ -73,7 +73,7 @@ const getAppUrl = (platform: Platform) => {
     } else {
         ext = 'exe';
     }
-    return encodeURI(`../web/static/desktop/Trezor-Suite-${version}-${platform}.${ext}`);
+    return encodeURI(`../web/static/desktop/OneKey-Suite-${version}-${platform}.${ext}`);
 };
 
 const getAppSignatureUrl = (platform: Platform) => {
@@ -87,7 +87,7 @@ const Start = () => {
     return (
         <Layout>
             <Wrapper>
-                <H2>Download Trezor Suite desktop app</H2>
+                <H2>Download OneKey Suite desktop app</H2>
                 <P size="tiny">
                     For testing purposes only. Please keep in mind this is a beta version.
                 </P>

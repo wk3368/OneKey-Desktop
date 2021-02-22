@@ -37,7 +37,7 @@ Using [Conventional Commits](COMMITS.md) is strongly recommended and might be en
 
 ## Security vulnerability disclosure
 
-Please report suspected security vulnerabilities in private to [security@satoshilabs.com](mailto:security@satoshilabs.com), also see [the disclosure section on the Trezor.io website](https://trezor.io/security/). Please do NOT create publicly viewable issues for suspected security vulnerabilities.
+Please report suspected security vulnerabilities in private to [security@satoshilabs.com](mailto:security@satoshilabs.com), also see [the disclosure section on the OneKey.io website](https://trezor.io/security/). Please do NOT create publicly viewable issues for suspected security vulnerabilities.
 
 ## Issue Labels
 

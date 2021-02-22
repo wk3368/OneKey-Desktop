@@ -21,7 +21,7 @@ export const THEME = {
         BG_TOOLTIP: '#262742',
         BG_ICON: 'transparent',
 
-        TYPE_GREEN: '#279503',
+        TYPE_GREEN: '#00B812',
         TYPE_ORANGE: '#c19009',
         TYPE_BLUE: '#197eaa',
         TYPE_RED: '#cd4949',

@@ -10,7 +10,7 @@ import { H1, P, variables, colors } from '@trezor/components';
 import Metadata from '@suite-components/Metadata';
 import { URLS } from '@suite-constants';
 import { Fade } from 'react-awesome-reveal';
-import enLocale from '@trezor/suite-data/files/translations/en.json';
+import zhLocale from '@trezor/suite-data/files/translations/zh.json';
 
 const Wrapper = styled.div`
     display: flex;
@@ -136,7 +136,7 @@ const Index = () => {
 
     return (
         <TranslationModeContext.Provider value={translationMode}>
-            <IntlProvider locale="en" messages={enLocale}>
+            <IntlProvider locale="zh" messages={zhLocale}>
                 <Metadata
                     image={`${URLS.SUITE_URL}${resolveStaticPath(
                         'images/suite-web-landing/meta.png',

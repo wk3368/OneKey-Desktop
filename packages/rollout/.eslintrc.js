@@ -4,7 +4,7 @@ module.exports = {
         project: './tsconfig.json',
     },
     rules: {
-        // Trezor.Features are came-case
+        // OneKey.Features are came-case
         '@typescript-eslint/naming-convention': 'off',
     },
 };

@@ -155,7 +155,7 @@ const Address = ({ output, outputId, outputsCount }: Props) => {
                         }
                         return 'RECIPIENT_IS_NOT_VALID';
                     }
-                    // bech32 addresses are valid as uppercase but are not accepted by Trezor
+                    // bech32 addresses are valid as uppercase but are not accepted by OneKey
                     if (networkType === 'bitcoin' && isBech32AddressUppercase(value)) {
                         return (
                             <ConvertAddress

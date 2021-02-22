@@ -1,12 +1,12 @@
 {
     "name": "@trezor/rollout",
     "version": "1.0.5",
-    "author": "Trezor <info@trezor.io>",
+    "author": "OneKey <hi@onekey.so>",
     "homepage": "https://github.com/trezor/trezor-suite/packages/rollout",
     "keywords": [
-        "Trezor",
-        "trezor-rollout",
-        "trezor firmware update"
+        "OneKey",
+        "onekey-rollout",
+        "onekey firmware update"
     ],
     "repository": {
         "type": "git",

@@ -1,13 +1,13 @@
 {
     "name": "@trezor/suite-data",
     "version": "21.3.0",
-    "author": "Trezor <info@trezor.io>",
+    "author": "OneKey <hi@onekey.so>",
     "keywords": [
-        "Trezor",
-        "trezor-data"
+        "OneKey",
+        "onekey-data"
     ],
     "license": "SEE LICENSE IN LICENSE.md",
-    "description": "Trezor data",
+    "description": "OneKey data",
     "scripts": {
         "copy-static-files": "ts-node ./index.ts",
         "test-same-svgs": "ts-node ./test/test-same-svgs.ts"

@@ -1,10 +1,10 @@
 {
     "name": "@trezor/suite-storage",
     "version": "21.3.0",
-    "author": "Trezor <info@trezor.io>",
+    "author": "OneKey <hi@onekey.so>",
     "private": true,
     "keywords": [
-        "Trezor",
+        "OneKey",
         "suite-storage"
     ],
     "license": "SEE LICENSE IN LICENSE.md",
