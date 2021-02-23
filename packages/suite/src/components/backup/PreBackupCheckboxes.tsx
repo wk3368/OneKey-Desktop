@@ -16,9 +16,14 @@ const CheckboxWrapper = styled.div`
     margin-bottom: 2px;
     align-self: center;
     max-width: 80%;
-
+    & > div {
+        width: 80% !important;
+    }
     @media only screen and (max-width: ${variables.SCREEN_SIZE.SM}) {
         max-width: 100%;
+        & > div {
+            width: 80% !important;
+        }
     }
 `;
 

@@ -1,6 +1,6 @@
 import { LANGUAGES } from '@suite-config';
 
-export const getInitialLocale = (navigatorLanguage: string, defaultLocale = 'en') => {
+export const getInitialLocale = (navigatorLanguage: string, defaultLocale = 'zh') => {
     if (!navigatorLanguage) return defaultLocale;
 
     const browserLocale = navigatorLanguage.split('-')[0];

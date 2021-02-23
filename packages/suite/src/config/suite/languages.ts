@@ -1,4 +1,5 @@
 export default [
+    { code: 'zh', name: '中文(简体)', en: 'Chinese Simplified' },
     { code: 'en', name: 'English', en: 'English' },
     // { code: 'bn', name: 'Bengali', en: 'Bengali' },
     // { code: 'cs', name: 'Česky', en: 'Czech' },
@@ -14,6 +15,5 @@ export default [
     // { code: 'pt', name: 'Português', en: 'Portuguese' },
     // { code: 'ru', name: 'Русский', en: 'Russian' },
     // { code: 'uk', name: 'Українська', en: 'Ukrainian' },
-    { code: 'zh', name: '中文(简体)', en: 'Chinese Simplified' },
     // { code: 'zh-TW', name: '中文(台灣)', en: 'Chinese Traditional' },
 ] as const;
