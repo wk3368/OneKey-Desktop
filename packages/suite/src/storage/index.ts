@@ -186,4 +186,4 @@ const onDowngrade = () => {
     }
 };
 
-export const db = new SuiteDB<SuiteDBSchema>('trezor-suite', VERSION, onUpgrade, onDowngrade);
+export const db = new SuiteDB<SuiteDBSchema>('db-onekey-suite', VERSION, onUpgrade, onDowngrade);
