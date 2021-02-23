@@ -3,6 +3,7 @@ import { SUITE } from '@suite-actions/constants';
 import { Dispatch } from '@suite-types';
 import { LANGUAGES } from '@suite-config';
 import enLocale from '@trezor/suite-data/files/translations/en.json';
+import zhLocale from '@trezor/suite-data/files/translations/zh.json';
 
 export const fetchLocale = (locale: typeof LANGUAGES[number]['code']) => async (
     dispatch: Dispatch,
@@ -12,6 +13,12 @@ export const fetchLocale = (locale: typeof LANGUAGES[number]['code']) => async (
             type: SUITE.SET_LANGUAGE,
             locale,
             messages: enLocale,
+        });
+    } else if (locale === 'zh') {
+        dispatch({
+            type: SUITE.SET_LANGUAGE,
+            locale,
+            messages: zhLocale,
         });
     } else {
         try {

@@ -8,6 +8,7 @@ import { LANGUAGES } from '@suite-config';
 export const fetchLocale = (locale: typeof LANGUAGES[number]['code']) => (dispatch: Dispatch) => {
     const messages: { [key: string]: any } = {
         en: require('@trezor/suite-data/files/translations/en'),
+        zh: require('@trezor/suite-data/files/translations/zh'),
         // cs: require('@trezor/suite-data/files/translations/cs'),
         // de: require('@trezor/suite-data/files/translations/de'),
         // es: require('@trezor/suite-data/files/translations/es'),
