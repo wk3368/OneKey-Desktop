@@ -107,22 +107,32 @@ export const updateCurrentRates = (ticker: TickerId, maxAge = MAX_AGE) => async 
 
     let results;
     try {
-        if (!ticker.tokenAddress) {
-            // standalone coins
-            const response = await TrezorConnect.blockchainGetCurrentFiatRates({
-                coin: ticker.symbol,
-            });
-            results = response.success ? response.payload : null;
-        }
+        // 1. 如果是主网币，先通过 TrezorConnect 建立的wss连接，调用方法 getCurrentFiatRates 查询币种法币价格
+        //      源码位置
+        //          TrezorConnect.blockchainGetCurrentFiatRates
+        //          packages/blockchain-link/src/workers/blockbook/websocket.ts: getCurrentFiatRates
+        //
+        // if (!ticker.tokenAddress) {
+        //     // standalone coins
+        //     const response = await TrezorConnect.blockchainGetCurrentFiatRates({
+        //         coin: ticker.symbol,
+        //     });
+        //     results = response.success ? response.payload : null;
+        // }
 
+        // 2. 备选方案。通过 coingecko api 查询法币价格
+        //      COINGECKO_API_BASE_URL='https://cdn.trezor.io/dynamic/coingecko/api/v3'
+        //      这里使用的coingecko是trezor提供的一个转发域名，如果是web版部署需要nginx上配置转发接口，避免跨域问题
         if (!results) {
             // Fallback for standalone coins and primary source for erc20 tokens and xrp as blockbook doesn't provide fiat rates for them
             results = ticker.tokenAddress
-                ? await fetchCurrentTokenFiatRates(ticker)
-                : await fetchCurrentFiatRates(ticker);
+                ? await fetchCurrentTokenFiatRates(ticker) // ERC20代币 查询价格
+                : await fetchCurrentFiatRates(ticker); // 主网币 查询价格
         }
 
         if (results?.rates) {
+            // 3. 法币价格获取到之后，存储在 indexedDB -> trezor-suite -> fiatRates
+            //      这里需要把 indexedDB 名称也改成onekey
             // dispatch only if rates are not null/undefined
             dispatch({
                 type: RATE_UPDATE,
@@ -163,6 +173,11 @@ const getStaleTickers = (
         settings: { enabledNetworks },
         blockchain,
     } = getState().wallet;
+
+    // 需要更新价格的币种满足条件：
+    //  1. 设置界面中启用的 enabled 币种
+    //  2. 通过硬件已经连接的 connected 币种
+    //  3. 缓存的价格是否过期（根据 MAX_AGE 判断，默认10分钟）
     // TODO: FIAT.tickers is useless now
     const watchedCoinTickers = FIAT.tickers
         .filter(t => enabledNetworks.includes(t.symbol))
@@ -205,6 +220,7 @@ const getStaleTickers = (
  */
 export const updateStaleRates = () => async (dispatch: Dispatch, _getState: GetState) => {
     try {
+        // 1. 筛选出需要更新价格的币种列表
         const staleTickers = dispatch(
             getStaleTickers(
                 ticker => (ticker.current?.rates ? ticker.current.ts : undefined),
@@ -212,6 +228,7 @@ export const updateStaleRates = () => async (dispatch: Dispatch, _getState: GetS
                 true,
             ),
         );
+        // 2. 获取价格并存储
         const promises = staleTickers.map(t => dispatch(updateCurrentRates(t, 0)));
         await Promise.all(promises);
     } catch (error) {
@@ -242,6 +259,7 @@ export const updateLastWeekRates = () => async (dispatch: Dispatch, getState: Ge
     const staleTickers = dispatch(getStaleTickers(lastWeekStaleFn, MAX_AGE_LAST_WEEK));
 
     const promises = staleTickers.map(async ticker => {
+        // TODO 这里更新lastWeek的历史时间点的价格，通过 TrezorConnect 。可能需要适配
         const response = await TrezorConnect.blockchainGetFiatRatesForTimestamps({
             coin: ticker.symbol,
             timestamps,
@@ -281,6 +299,7 @@ export const updateTxsRates = (account: Account, txs: AccountTransaction[]) => a
     if (txs?.length === 0 || isTestnet(account.symbol)) return;
 
     const timestamps = txs.map(tx => tx.blockTime ?? getBlockbookSafeTime());
+    // TODO fiatRatesMiddleware TRANSACTION.ADD 触发，获取历史时间点的价格。通过 TrezorConnect
     const response = await TrezorConnect.blockchainGetFiatRatesForTimestamps({
         coin: account.symbol,
         timestamps,
@@ -337,6 +356,9 @@ export const initRates = () => (dispatch: Dispatch) => {
         clearInterval(lastWeekTimeout);
     }
 
+    // 轮询定时器： fiatRatesMiddleware BLOCKCHAIN.CONNECTED 时触发
+    //  1. 更新过期价格；
+    //  2. 更新lastWeek价格
     staleRatesTimeout = setInterval(() => {
         dispatch(updateStaleRates());
     }, INTERVAL);

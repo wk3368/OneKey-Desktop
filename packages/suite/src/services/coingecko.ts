@@ -1,6 +1,7 @@
 import { LastWeekRates, TickerId } from '@wallet-types/fiatRates';
 import FIAT_CONFIG from '@suite-config/fiat';
 
+// coingecko转发接口，需要实现OneKey自己的，避免跨域问题
 const COINGECKO_API_BASE_URL = 'https://cdn.trezor.io/dynamic/coingecko/api/v3';
 
 interface HistoricalResponse extends LastWeekRates {
@@ -59,6 +60,7 @@ const buildCoinUrl = (ticker: TickerId) => {
  * Returns the current rate for a given token fetched from CoinGecko API.
  * Returns null if main network for the token is not ethereum.
  * Supports only tokens on ethereum.
+ *  ERC20代币 查询价格
  *
  * @param {TickerId} ticker
  * @returns
@@ -88,6 +90,7 @@ export const fetchCurrentTokenFiatRates = async (ticker: TickerId) => {
 /**
  * Returns the current rate for a given symbol fetched from CoinGecko API.
  * Returns null if coin for a given symbol was not found.
+ *  主网币 查询价格
  *
  * @param {TickerId} ticker
  * @returns

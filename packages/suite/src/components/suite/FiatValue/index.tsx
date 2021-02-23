@@ -5,6 +5,8 @@ import { toFiatCurrency } from '@wallet-utils/fiatConverterUtils';
 import FormattedNumber from '../FormattedNumber';
 import styled from 'styled-components';
 
+// 法币价格显示组件
+
 const StyledHiddenPlaceholder = styled(props => <HiddenPlaceholder {...props} />)`
     font-variant-numeric: tabular-nums;
 `;

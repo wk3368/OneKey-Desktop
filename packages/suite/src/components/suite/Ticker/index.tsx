@@ -6,6 +6,8 @@ import { FiatValue, Translation, NoRatesTooltip } from '@suite-components';
 import { FormattedRelativeTime } from 'react-intl';
 import { useSelector } from '@suite-hooks';
 
+// 首页币种价格组件
+
 const FiatRateWrapper = styled.span`
     display: flex;
     align-items: center;

@@ -40,7 +40,9 @@ module.exports = api => {
             [
                 'babel-plugin-styled-components',
                 {
-                    ssr: true,
+                    // desktop停用组件的ssr，避免出现报className前后端不同的异常
+                    //      Prop `className` did not match. Server: "sc-kEYyzF gfWKdx" Client: "sc-ifAKCX cFlEyZ"
+                    ssr: false,
                     displayName: true,
                     preprocess: false,
                 },
