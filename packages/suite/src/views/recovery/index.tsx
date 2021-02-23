@@ -6,12 +6,11 @@ import { bindActionCreators } from 'redux';
 import { Button, ButtonProps, H2, P, variables } from '@trezor/components';
 
 import { SelectWordCount, SelectRecoveryType, Error } from '@recovery-components';
-import { Loading, Translation, CheckItem, ExternalLink, Image, Modal } from '@suite-components';
+import { Loading, Translation, CheckItem, Image, Modal } from '@suite-components';
 import * as recoveryActions from '@recovery-actions/recoveryActions';
 import { InjectedModalApplicationProps, AppState, Dispatch } from '@suite-types';
 import { WordCount } from '@recovery-types';
 import { useDevice } from '@suite-hooks';
-import { URLS } from '@suite-constants';
 
 const Wrapper = styled.div`
     display: flex;

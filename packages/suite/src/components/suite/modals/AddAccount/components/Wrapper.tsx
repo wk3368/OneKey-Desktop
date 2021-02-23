@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { variables } from '@trezor/components';
-import { Translation, ExternalLink, Modal } from '@suite-components';
+import { Translation, Modal } from '@suite-components';
 import { Network } from '@wallet-types';
 import NetworkSelect from './NetworkSelect';
 import AccountTypeSelect from './AccountTypeSelect';
-import { TREZOR_COINS_URL } from '@suite-constants/urls';
 
 const StyledModal = styled(props => <Modal {...props} />)`
     min-height: 550px;
