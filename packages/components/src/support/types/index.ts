@@ -39,7 +39,7 @@ export type TrezorLogoVariant = 'white' | 'black';
 type LightThemeProps = typeof THEME.light;
 type DarkThemeProps = typeof THEME.dark;
 
-// extracts values for common props (eg. NEUE_BG_GREEN: "#39a814" | "#5ea447")
+// extracts values for common props (eg. NEUE_BG_GREEN: "#00B812" | "#5ea447")
 type CommonThemeProps = {
     [K in keyof LightThemeProps & keyof DarkThemeProps]: LightThemeProps[K] | DarkThemeProps[K];
 };

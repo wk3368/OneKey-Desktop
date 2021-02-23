@@ -3,7 +3,7 @@
 
 export const THEME = {
     light: {
-        BG_GREEN: '#39a814',
+        BG_GREEN: '#00B812',
         BG_LIGHT_GREEN: '#effaec',
         BG_SECONDARY: '#effaec', // used for secondary button, in light mode same as LIGHT_GREEN
         BG_SECONDARY_HOVER: '#e8f3e5',
@@ -40,7 +40,7 @@ export const THEME = {
 
         GRADIENT_SKELETON_START: '#eaeaea',
 
-        GRADIENT_GREEN_START: '#39a814',
+        GRADIENT_GREEN_START: '#00B812',
         GRADIENT_GREEN_END: '#4cbc26',
         GRADIENT_RED_START: '#d15b5b',
         GRADIENT_RED_END: '#e75f5f',
