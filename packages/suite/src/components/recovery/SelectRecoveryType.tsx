@@ -12,7 +12,7 @@ interface Props {
 
 const SelectRecoveryType = ({ onSelect }: Props) => (
     <>
-        <P size="small">
+        {/* <P size="small">
             <Translation
                 id="TR_RECOVERY_TYPES_DESCRIPTION"
                 values={{
@@ -23,7 +23,7 @@ const SelectRecoveryType = ({ onSelect }: Props) => (
                     ),
                 }}
             />
-        </P>
+        </P> */}
         <Wrapper.Options>
             <Option
                 action={() => {

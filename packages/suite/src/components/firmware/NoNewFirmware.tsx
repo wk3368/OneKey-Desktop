@@ -24,9 +24,9 @@ const Body = () => {
                     id="TR_FIRMWARE_INSTALLED_TEXT"
                     values={{ version: getFwVersion(device) }}
                 />{' '}
-                <ExternalLink size="small" href={CHANGELOG_URL}>
+                {/* <ExternalLink size="small" href={CHANGELOG_URL}>
                     <Translation id="TR_WHATS_NEW_FIRMWARE" />
-                </ExternalLink>
+                </ExternalLink> */}
             </P>
         </>
     );

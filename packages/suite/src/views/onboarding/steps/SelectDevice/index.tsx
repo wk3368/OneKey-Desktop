@@ -31,7 +31,7 @@ const SelectDeviceStep = ({ onboardingActions }: Props) => {
                         }
                         imgSrc="images/svg/model-1.svg"
                     />
-                    <Option
+                    {/* <Option
                         data-test="@onboarding/option-model-t-path"
                         action={() => {
                             onboardingActions.selectTrezorModel(2);
@@ -46,7 +46,7 @@ const SelectDeviceStep = ({ onboardingActions }: Props) => {
                             />
                         }
                         imgSrc="images/svg/model-2.svg"
-                    />
+                    /> */}
                 </Wrapper.Options>
             </Wrapper.StepBody>
             <Wrapper.StepFooter>

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { variables, scrollbarStyles } from '@trezor/components';
 import SuiteBanners from '@suite-components/Banners';
 import { AppState } from '@suite-types';
-import { BetaBadge, Metadata } from '@suite-components';
+import { Metadata } from '@suite-components';
 import MenuSecondary from '@suite-components/MenuSecondary';
 import { MAX_WIDTH, DESKTOP_TITLEBAR_HEIGHT } from '@suite-constants/layout';
 import { DiscoveryProgress } from '@wallet-components';
@@ -173,7 +173,7 @@ const SuiteLayout = (props: SuiteLayoutProps) => {
                     </BodyNarrow>
                 )}
             </LayoutContext.Provider>
-            <BetaBadge />
+            {/* <BetaBadge /> */}
         </PageWrapper>
     );
 };
