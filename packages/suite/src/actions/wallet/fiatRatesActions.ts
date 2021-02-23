@@ -131,8 +131,7 @@ export const updateCurrentRates = (ticker: TickerId, maxAge = MAX_AGE) => async 
         }
 
         if (results?.rates) {
-            // 3. 法币价格获取到之后，存储在 indexedDB -> trezor-suite -> fiatRates
-            //      这里需要把 indexedDB 名称也改成onekey
+            // 3. 法币价格获取到之后，存储在 indexedDB -> db-onekey-suite -> fiatRates
             // dispatch only if rates are not null/undefined
             dispatch({
                 type: RATE_UPDATE,
