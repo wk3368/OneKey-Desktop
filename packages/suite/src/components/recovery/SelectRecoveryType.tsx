@@ -1,10 +1,6 @@
 import React from 'react';
-
-import { P } from '@trezor/components';
 import { Option, Wrapper } from '@onboarding-components';
-
-import { Translation, TrezorLink } from '@suite-components';
-import { URLS } from '@suite-constants';
+import { Translation } from '@suite-components';
 
 interface Props {
     onSelect: (number: boolean) => void;

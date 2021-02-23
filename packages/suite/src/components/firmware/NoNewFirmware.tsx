@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { CHANGELOG_URL } from '@suite-constants/urls';
 import { getFwVersion } from '@suite-utils/device';
 import { useDevice } from '@suite-hooks';
 import { P, H2, SuccessImg } from '@firmware-components';
-import { Translation, ExternalLink } from '@suite-components';
+import { Translation } from '@suite-components';
 
 const Heading = () => <Translation id="TR_FIRMWARE_UPDATE" />;
 

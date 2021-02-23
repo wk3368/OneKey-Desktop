@@ -9,12 +9,7 @@ import {
     Section,
     TextColumn,
 } from '@suite-components/Settings';
-import {
-    DRY_RUN_URL,
-    FAILED_BACKUP_URL,
-    PASSPHRASE_URL,
-    SEED_MANUAL_URL,
-} from '@suite-constants/urls';
+import { DRY_RUN_URL, FAILED_BACKUP_URL, SEED_MANUAL_URL } from '@suite-constants/urls';
 import { getFwVersion, isBitcoinOnly } from '@suite-utils/device';
 import * as homescreen from '@suite-utils/homescreen';
 import { useDevice, useAnalytics } from '@suite-hooks';
