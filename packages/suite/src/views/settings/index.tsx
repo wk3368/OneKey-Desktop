@@ -345,7 +345,7 @@ const Settings = ({
                                             <VersionTooltip content={process.env.COMMITHASH || ''}>
                                                 <VersionLink
                                                     target="_blank"
-                                                    href={`https://github.com/trezor/trezor-suite/commit/${process.env.COMMITHASH}`}
+                                                    href={`https://github.com/OneKeyHQ/OneKey-Suite/commit/${process.env.COMMITHASH}`}
                                                 >
                                                     <VersionButton
                                                         variant="tertiary"

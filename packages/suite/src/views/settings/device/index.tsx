@@ -253,7 +253,7 @@ const Settings = ({ device, applySettings, changePin, openModal, goto }: Props) 
                                 <Translation id="TR_DEVICE_SETTINGS_PASSPHRASE_DESC_MORE" />
                             </>
                         }
-                        learnMore={PASSPHRASE_URL}
+                        // learnMore={PASSPHRASE_URL}
                     />
                     <ActionColumn>
                         <Switch

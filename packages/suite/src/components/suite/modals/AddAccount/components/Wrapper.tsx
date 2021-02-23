@@ -52,18 +52,18 @@ const Wrapper = (props: Props) => (
         cancelable
         onCancel={props.onCancel}
         heading={<Translation id="MODAL_ADD_ACCOUNT_TITLE" />}
-        description={
-            <Translation
-                id="MODAL_ADD_ACCOUNT_DESC"
-                values={{
-                    trezorCoinsUrl: (
-                        <ExternalLink size="small" href={TREZOR_COINS_URL}>
-                            <Translation id="TR_LEARN_MORE" />
-                        </ExternalLink>
-                    ),
-                }}
-            />
-        }
+        // description={
+        //     <Translation
+        //         id="MODAL_ADD_ACCOUNT_DESC"
+        //         values={{
+        //             trezorCoinsUrl: (
+        //                 <ExternalLink size="small" href={TREZOR_COINS_URL}>
+        //                     <Translation id="TR_LEARN_MORE" />
+        //                 </ExternalLink>
+        //             ),
+        //         }}
+        //     />
+        // }
     >
         <Row>
             <RowTitle>
