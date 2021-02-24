@@ -45,7 +45,7 @@ const HologramStep = ({ onboardingActions, activeSubStep, model, device }: Props
                             <Translation id="TR_HOLOGRAM_STEP_SUBHEADING" />
                         </Text>
                         <HologramWrapper>
-                            <Hologram model={model || actualModel || 2} />
+                            <Hologram model={model || actualModel || 1} />
                         </HologramWrapper>
                         <Wrapper.Controls>
                             <OnboardingButton.Alt
