@@ -20,7 +20,7 @@ import GlobalStyles from '@suite-support/styles/global';
 import { isDev } from '@suite-utils/build';
 import DesktopTitlebarWrapper from '@desktop/support/DesktopTitlebar';
 
-const Tor = dynamic(() => import('@suite-support/Tor'), { ssr: false });
+// const Tor = dynamic(() => import('@suite-support/Tor'), { ssr: false });
 
 interface Props {
     store: Store;
@@ -55,7 +55,7 @@ class TrezorSuiteApp extends App<Props> {
                     <DesktopTitlebarWrapper>
                         <ErrorBoundary>
                             <Resize />
-                            <Tor />
+                            {/* <Tor /> */}
                             <OnlineStatus />
                             <IntlProvider>
                                 <DesktopUpdater setIsUpdateVisible={this.setIsUpdateVisible} />

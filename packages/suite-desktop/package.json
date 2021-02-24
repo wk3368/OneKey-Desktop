@@ -95,7 +95,7 @@
                     "to": "bin/tor"
                 }
             ],
-            "icon": "build/static/images/icons/512x512.icns",
+            "icon": "build/static/images/icons/512x512.png",
             "artifactName": "OneKey-Suite-${version}-mac-${arch}.${ext}",
             "hardenedRuntime": true,
             "gatekeeperAssess": false,

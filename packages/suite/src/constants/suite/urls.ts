@@ -8,7 +8,7 @@ export const WIKI_URL = 'https://help.onekey.so/hc/zh-cn';
 export const BLOG_URL = 'https://help.onekey.so/hc/zh-cn';
 export const SHOP_URL = 'https://91406649.m.youzan.com/wscgoods/detail/2oo7grc896xoh';
 export const SUITE_URL = 'https://suite.onekey.so';
-export const TREZOR_DATA_URL = 'https://wallet.trezor.io/data/';
+export const TREZOR_DATA_URL = 'https://github.com/OneKeyHQ/onekey-bridge/releases/download/';
 export const PIN_MANUAL_URL =
     'https://help.onekey.so/hc/zh-cn/articles/360002932655-%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEPIN';
 export const DRY_RUN_URL = 'https://help.onekey.so/hc/zh-cn';
@@ -34,7 +34,8 @@ export const XRP_MANUAL_URL = 'https://wiki.trezor.io/Ripple_(XRP)';
 export const BCH_ADDRESS_INFO_URL = 'https://wiki.trezor.io/CashAddr#cashaddr';
 export const LTC_ADDRESS_INFO_URL =
     'https://blog.trezor.io/litecoins-new-p2sh-segwit-addresses-843633e3e707';
-export const BRIDGE_CHANGELOG_URL = 'https://github.com/trezor/trezord-go/blob/master/CHANGELOG.md';
+export const BRIDGE_CHANGELOG_URL =
+    'https://github.com/OneKeyHQ/onekey-bridge/blob/v2.0.27-onekey/CHANGELOG.md';
 export const WIKI_QR_CODE = 'https://help.onekey.so/hc/zh-cn';
 export const CHANGELOG_URL = 'https://help.onekey.so/hc/zh-cn';
 export const FAILED_BACKUP_URL = 'https://help.onekey.so/hc/zh-cn';
@@ -52,6 +53,6 @@ export const WIKI_TOR = 'https://help.onekey.so/hc/zh-cn';
 export const FEEDBACK_FORM = 'https://satoshilabs.typeform.com/to/Dqb71wm1';
 
 // Tor domain
-export const TOR_DOMAIN = 'trezoriovpjcahpzkrewelclulmszwbqpzmzgub37gbcjlvluxtruqad.onion';
+export const TOR_DOMAIN = '';
 
-export const SL_SIGNING_KEY = 'https://trezor.io/security/satoshilabs-2021-signing-key.asc';
+export const SL_SIGNING_KEY = '';
