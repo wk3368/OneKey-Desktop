@@ -14,8 +14,8 @@ const Hologram = (props: Props) => {
             loop: true,
         },
         2: {
-            src: 'TT_hologram.mov',
-            loop: false,
+            src: 'T1_hologram.mp4',
+            loop: true,
         },
     };
     return (

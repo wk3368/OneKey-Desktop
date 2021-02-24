@@ -23,7 +23,7 @@ const initialState: OnboardingState = {
     // prevDevice is used only in firmwareUpdate so maybe move it to firmwareUpdate
     // and here leave only isMatchingPrevDevice ?
     prevDevice: null,
-    selectedModel: null,
+    selectedModel: 1,
     activeStepId: STEP.ID_WELCOME_STEP,
     activeSubStep: null,
     path: [],
