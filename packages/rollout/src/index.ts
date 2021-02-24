@@ -19,29 +19,33 @@ const modifyFirmware = ({
     features: ParsedFeatures;
     releases: Release[];
 }) => {
-    // ---------------------
-    // Model T modifications
-    // ---------------------
-    // there are currently none.
-    if (features.major_version === 2) return fw;
-
-    // -----------------------
-    // Model One modifications
-    // -----------------------
-
-    // any version installed on bootloader 1.8.0 must be sliced of the first 256 bytes (containing old firmware header)
-    // unluckily, we don't know the actual bootloader of connected device, but we can assume it is 1.8.0 in case
-    // getInfo() returns firmware with version 1.8.1 or greater as it has bootloader version 1.8.0 (see releases.json)
-    // this should be temporary until special bootloader updating firmware are ready
-    if (
-        versionUtils.isNewerOrEqual(
-            [features.major_version, features.minor_version, features.patch_version],
-            [1, 8, 0]
-        )
-    ) {
-        return fw.slice(256);
-    }
+    // 早期 trezor 固件需要 slice 256，但是目前我们的 onekey 产品不需要把固件内容进行分割
     return fw;
+
+    // // ---------------------
+    // // Model T modifications
+    // // ---------------------
+    // // there are currently none.
+    // if (features.major_version === 2) return fw;
+
+    // // -----------------------
+    // // Model One modifications
+    // // -----------------------
+
+    // // any version installed on bootloader 1.8.0 must be sliced of the first 256 bytes (containing old firmware header)
+    // // unluckily, we don't know the actual bootloader of connected device, but we can assume it is 1.8.0 in case
+    // // getInfo() returns firmware with version 1.8.1 or greater as it has bootloader version 1.8.0 (see releases.json)
+    // // this should be temporary until special bootloader updating firmware are ready
+    // if (
+    //     versionUtils.isNewerOrEqual(
+    //         [features.major_version, features.minor_version, features.patch_version],
+    //         [1, 8, 0]
+    //     )
+    // ) {
+    //     // return fw.slice(256);
+    //     return fw;
+    // }
+    // return fw;
 };
 
 const getChangelog = (releases: Release[], features: ParsedFeatures) => {
