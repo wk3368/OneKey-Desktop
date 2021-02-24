@@ -8,7 +8,7 @@ export const FLAGS = {
     GOOGLE_DRIVE_SYNC: true, // Google Drive sync (used for labeling)
     RBF: true, // replace by fee feature in the send form
     FILE_SYSTEM_SYNC: false, // File system sync (used for labeling)
-    ONION_LOCATION_META: true, // Show TOR onion-location meta tag in page head
+    ONION_LOCATION_META: false, // Show TOR onion-location meta tag in page head
     EXPORT_TRANSACTIONS: true, // Display export option on transactions
     SEARCH_TRANSACTIONS: true, // Display search option on transactions
     DESKTOP_AUTO_UPDATER: true, // Runs auto updater code on desktop

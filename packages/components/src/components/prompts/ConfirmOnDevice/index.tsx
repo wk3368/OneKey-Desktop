@@ -7,7 +7,7 @@ import { variables, animations } from '../../../config';
 type WrapperProps = Pick<Props, 'animated' | 'animation'>;
 const Wrapper = styled.div<WrapperProps>`
     display: flex;
-    width: 300px;
+    width: 360px;
     height: 62px;
     padding: 0 10px 0 30px;
     border-radius: 100px;

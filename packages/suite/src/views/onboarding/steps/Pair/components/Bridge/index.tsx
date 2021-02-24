@@ -53,7 +53,7 @@ class InstallBridge extends PureComponent<Props, BridgeState> {
         const installers = this.getInstallers();
         this.state = {
             target: installers.find((i: Installer) => i.preferred === true) || installers[0],
-            uri: 'https://data.trezor.io/', // todo: urls
+            uri: 'https://github.com/OneKeyHQ/onekey-bridge/releases/download/', // todo: urls
             installers,
         };
     }
@@ -132,13 +132,13 @@ class InstallBridge extends PureComponent<Props, BridgeState> {
                         <Text>
                             <Translation id="TR_WAIT_FOR_FILE_TO_DOWNLOAD" />
                         </Text>
-                        {target.signature && (
+                        {/* {target.signature && (
                             <Text>
                                 <Link href={uri + target.signature}>
                                     <Translation id="TR_CHECK_PGP_SIGNATURE" />
                                 </Link>
                             </Text>
-                        )}
+                        )} */}
                         <Text>2.</Text>
                         <Text>
                             <Translation id="TR_DOUBLE_CLICK_IT_TO_RUN_INSTALLER" />

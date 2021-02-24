@@ -23,7 +23,7 @@ import ImagesPreloader from '../support/ImagesPreloader';
 import { CypressExportStore } from '../support/CypressExportStore';
 import GlobalStyles from '@suite-support/styles/global';
 
-const Tor = dynamic(() => import('@suite-support/Tor'), { ssr: false });
+// const Tor = dynamic(() => import('@suite-support/Tor'), { ssr: false });
 
 declare global {
     interface Window {
@@ -63,7 +63,7 @@ class TrezorSuiteApp extends App<Props> {
                         <GlobalStyles />
                         <ErrorBoundary>
                             <Resize />
-                            <Tor />
+                            {/* <Tor /> */}
                             <OnlineStatus />
                             <IntlProvider>
                                 <>

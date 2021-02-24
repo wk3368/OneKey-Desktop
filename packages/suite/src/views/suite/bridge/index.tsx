@@ -187,13 +187,6 @@ const InstallBridge = (props: Props) => {
                         </TrezorLink>
                     </Download>
                 )}
-                {isWeb() && tor && (
-                    <P>
-                        <TrezorLink href={URLS.WIKI_TOR}>
-                            <Translation id="TR_TOR_BRIDGE" />
-                        </TrezorLink>
-                    </P>
-                )}
             </Content>
 
             <Footer>
@@ -223,7 +216,7 @@ const InstallBridge = (props: Props) => {
                                 </Button>
                             </Link>
                         </Col>
-                        <Col justify="flex-end">
+                        {/* <Col justify="flex-end">
                             {data && target?.signature && (
                                 <TrezorLink variant="nostyle" href={data.uri + target.signature}>
                                     <Button
@@ -236,7 +229,7 @@ const InstallBridge = (props: Props) => {
                                     </Button>
                                 </TrezorLink>
                             )}
-                        </Col>
+                        </Col> */}
                     </>
                 )}
             </Footer>
