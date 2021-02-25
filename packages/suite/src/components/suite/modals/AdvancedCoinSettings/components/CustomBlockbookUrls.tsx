@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
@@ -37,11 +38,11 @@ const Description = styled.span`
     /* margin-bottom: 14px; */
 `;
 
-const DefaultValues = styled(Description)`
-    font-weight: 500;
-    /* margin-top: 4px; */
-    margin-bottom: 14px;
-`;
+// const DefaultValues = styled(Description)`
+//     font-weight: 500;
+//     /* margin-top: 4px; */
+//     margin-bottom: 14px;
+// `;
 
 interface Props {
     coin: Network['symbol'];
@@ -57,7 +58,6 @@ type FormInputs = {
 
 const CustomBlockbookUrls = ({
     coin,
-    coinInfo,
     blockbookUrls,
     addBlockbookUrl,
     removeBlockbookUrl,
@@ -90,7 +90,7 @@ const CustomBlockbookUrls = ({
             <Description>
                 <Translation id="SETTINGS_ADV_COIN_BLOCKBOOK_DESCRIPTION" />
             </Description>
-            <DefaultValues>
+            {/* <DefaultValues>
                 <Translation
                     id="TR_DEFAULT_VALUE"
                     values={{
@@ -99,7 +99,7 @@ const CustomBlockbookUrls = ({
                             : '',
                     }}
                 />
-            </DefaultValues>
+            </DefaultValues> */}
 
             {urls.map(b => (
                 <Input
@@ -122,9 +122,9 @@ const CustomBlockbookUrls = ({
                 noTopLabel
                 name={inputName}
                 data-test={inputName}
-                placeholder={translationString('SETTINGS_ADV_COIN_URL_INPUT_PLACEHOLDER', {
-                    url: `https://${coin}1.trezor.io/`,
-                })}
+                // placeholder={translationString('SETTINGS_ADV_COIN_URL_INPUT_PLACEHOLDER', {
+                //     url: `https://${coin}1.trezor.io/`,
+                // })}
                 innerRef={register({
                     validate: (value: string) => {
                         // Check if URL is valid

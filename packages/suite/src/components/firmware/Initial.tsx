@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Icon, Button, variables } from '@trezor/components';
-import { CHANGELOG_URL } from '@suite-constants/urls';
-import { Translation, ExternalLink, TrezorLink } from '@suite-components';
+import { Icon, variables } from '@trezor/components';
+import { Translation, ExternalLink } from '@suite-components';
 import { getFwVersion } from '@suite-utils/device';
 import { useDevice, useFirmware } from '@suite-hooks';
 import { ReconnectInNormalStep, NoNewFirmware, ContinueButton, P, H2 } from '@firmware-components';
@@ -51,10 +50,6 @@ const ChangesUl = styled.ul`
 
 const StyledExternalLink = styled(ExternalLink)`
     margin: 4px 0;
-`;
-
-const BottomRow = styled.div`
-    margin-top: 8px;
 `;
 
 const Heading = () => {
@@ -112,7 +107,7 @@ const Body = () => {
     return (
         <BodyWrapper>
             <H2 isGreen data-test="@firmware/initial/subheading/version">
-                v{firmwareRelease.release.version.join('.')} has been released!
+                v{firmwareRelease.release.version.join('.')} 已发布!
             </H2>
             <P>
                 <Translation id="FIRMWARE_UPDATE_AVAILABLE_DESC" />
@@ -144,13 +139,13 @@ const Body = () => {
                 </ChangesSummary>
             )}
 
-            <BottomRow>
+            {/* <BottomRow>
                 <Button variant="tertiary" icon="GITHUB">
                     <TrezorLink href={CHANGELOG_URL}>
                         <Translation id="TR_READ_ALL_ON_GITHUB" />
                     </TrezorLink>
                 </Button>
-            </BottomRow>
+            </BottomRow> */}
         </BodyWrapper>
     );
 };
