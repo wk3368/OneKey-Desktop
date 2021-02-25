@@ -117,6 +117,7 @@ class InstallBridge extends PureComponent<Props, BridgeState> {
                             value={target}
                             onChange={(v: Installer) => this.onChange(v)}
                             options={installers}
+                            noTopLabel
                         />
                         <Link href={`${uri}${target.value}`}>
                             <OnboardingButton.Cta onClick={() => this.download()}>

@@ -9,7 +9,7 @@ const StyledCheckbox = styled(Checkbox)`
     padding-left: 0px;
     margin: 12px 0px;
     align-items: flex-start;
-    max-width: 80%;
+    width: 80%;
 `;
 
 const CheckboxRight = styled.div`

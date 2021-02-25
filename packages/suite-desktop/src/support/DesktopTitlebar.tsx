@@ -207,7 +207,7 @@ const DesktopTitlebar = () => {
                 <TrezorLogo
                     type="suite_compact"
                     variant="white"
-                    width="48px"
+                    height="28px"
                     data-test="trezor-suite-compact-logo-black"
                 />
             </LogoWrapper>

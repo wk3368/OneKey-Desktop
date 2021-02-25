@@ -129,15 +129,8 @@ export const getInfo = ({ features, releases }: GetInfoProps) => {
     if (features.device_id) {
         score = getScore(features.device_id);
     }
-    const {
-        bootloader_mode,
-        major_version,
-        minor_version,
-        patch_version,
-        fw_major,
-        fw_minor,
-        fw_patch,
-    } = parsedFeatures;
+    const { bootloader_mode, fw_major, fw_minor, fw_patch } = parsedFeatures;
+    const { major_version, minor_version, patch_version } = parsedFeatures;
     const latest = parsedReleases[0];
 
     if (score) {

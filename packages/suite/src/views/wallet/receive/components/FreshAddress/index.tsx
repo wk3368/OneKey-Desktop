@@ -141,7 +141,6 @@ const FreshAddress = ({
             </AddressContainer>
             <StyledButton
                 data-test="@wallet/receive/reveal-address-button"
-                icon="TREZOR_LOGO"
                 onClick={() => showAddress(firstFreshAddress.path, firstFreshAddress.address)}
                 isDisabled={disabled || locked || !firstFreshAddress}
             >

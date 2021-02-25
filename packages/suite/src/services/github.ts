@@ -3,8 +3,8 @@ import { isDesktop, getUserAgent, getScreenWidth, getScreenHeight } from '@suite
 import { TrezorDevice } from '@suite-types';
 
 const REPO_INFO = {
-    owner: 'trezor',
-    repo: 'trezor-suite',
+    owner: 'OneKeyHQ',
+    repo: 'OneKey-suite',
 };
 
 const RELEASE_URL = `https://github.com/${REPO_INFO.owner}/${REPO_INFO.repo}`;

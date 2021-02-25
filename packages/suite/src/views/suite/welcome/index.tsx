@@ -33,7 +33,7 @@ const Index = () => {
 
                 <Button
                     data-test="@welcome/continue-button"
-                    onClick={() => goto('suite-analytics')}
+                    onClick={() => goto('onboarding-index')}
                 >
                     <Translation id="TR_BEGIN" />
                 </Button>

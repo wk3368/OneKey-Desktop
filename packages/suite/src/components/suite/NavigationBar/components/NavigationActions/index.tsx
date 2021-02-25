@@ -145,7 +145,7 @@ const NavigationActions = (props: Props) => {
                 desktopMarginLeft={DESKTOP_LAYOUT_ICONS_MARGIN}
             />
 
-            <ActionsContainer desktop={isDesktop()} mobileLayout={props.isMobileLayout}>
+            <ActionsContainer desktop={false} mobileLayout={props.isMobileLayout}>
                 <ActionItem
                     onClick={() => {
                         analytics.report({
@@ -161,7 +161,7 @@ const NavigationActions = (props: Props) => {
                     icon={discreetMode ? 'HIDE' : 'SHOW'}
                     isMobileLayout={props.isMobileLayout}
                 />
-                {isDesktop() && (
+                {/* {isDesktop() && (
                     <ActionItemTor mobileLayout={props.isMobileLayout}>
                         <Tooltip
                             placement="bottom"
@@ -202,7 +202,7 @@ const NavigationActions = (props: Props) => {
                             </>
                         </Tooltip>
                     </ActionItemTor>
-                )}
+                )} */}
             </ActionsContainer>
         </WrapperComponent>
     );

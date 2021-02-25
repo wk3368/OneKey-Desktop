@@ -93,7 +93,7 @@ const AnalyticsComponent = () => {
             <Body>
                 <Image image="ANALYTICS" />
 
-                <Analytics />
+                {/* <Analytics /> */}
             </Body>
         </Modal>
     );

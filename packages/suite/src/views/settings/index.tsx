@@ -7,7 +7,7 @@ import {
     ActionColumn,
     ActionInput,
     ActionSelect,
-    Analytics,
+    // Analytics,
     Theme,
     Section,
     SectionItem,
@@ -226,7 +226,7 @@ const Settings = ({
                 )}
             </Section>
 
-            {(isDesktop() || (isWeb() && tor)) && (
+            {/* {(isDesktop() || (isWeb() && tor)) && (
                 <Section title={<Translation id="TR_TOR" />}>
                     {isDesktop() && (
                         <>
@@ -269,7 +269,7 @@ const Settings = ({
                                         noTopLabel
                                         noError
                                         value={torAddress}
-                                        state={/* (TODO: Error check) ? 'error' : */ undefined}
+                                        state={undefined}
                                         onChange={(event: React.FormEvent<HTMLInputElement>) =>
                                             setTorAddress(event.currentTarget.value)
                                         }
@@ -303,11 +303,11 @@ const Settings = ({
                         </ActionColumn>
                     </SectionItem>
                 </Section>
-            )}
+            )} */}
 
             <Section title={<Translation id="TR_APPLICATION" />}>
                 <Theme />
-                <Analytics />
+                {/* <Analytics /> */}
 
                 <SectionItem data-test="@settings/storage">
                     <TextColumn

@@ -1,6 +1,5 @@
 import React from 'react';
 import App from 'next/app';
-import dynamic from 'next/dynamic';
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import * as Sentry from '@sentry/browser';
