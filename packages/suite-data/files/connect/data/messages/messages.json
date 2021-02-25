@@ -5886,6 +5886,20 @@
                     "type": "bool",
                     "name": "experimental_features",
                     "id": 40
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "string",
+                    "name": "onekey_version",
+                    "id": 508
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "string",
+                    "name": "ble_ver",
+                    "id": 502
                 }
             ],
             "enums": [
