@@ -73,6 +73,7 @@ const composedEnhancers = compose(applyMiddleware(...middlewares), ...enhancers)
 export const initStore = () => {
     const store = createStore(rootReducer, composedEnhancers);
     if (typeof window !== 'undefined') {
+        // @ts-expect-error
         window.store = store;
     }
     return store;
