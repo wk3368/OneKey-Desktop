@@ -299,7 +299,7 @@
         "module": "esnext",
         "moduleResolution": "node",
         "noEmit": true,
-        "noUnusedLocals": true,
+        "noUnusedLocals": false,
         "noUnusedParameters": true,
         "skipLibCheck": true,
         "sourceMap": true,
