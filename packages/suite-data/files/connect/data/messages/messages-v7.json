@@ -4416,6 +4416,20 @@
                     "type": "bool",
                     "name": "no_backup",
                     "id": 28
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "string",
+                    "name": "onekey_version",
+                    "id": 508
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "string",
+                    "name": "ble_ver",
+                    "id": 502
                 }
             ],
             "enums": [],
