@@ -142,7 +142,8 @@
             "target": [
                 "AppImage"
             ]
-        }
+        },
+        "afterSign": "scripts/notarize.js"
     },
     "dependencies": {
         "chalk": "^4.1.0",
