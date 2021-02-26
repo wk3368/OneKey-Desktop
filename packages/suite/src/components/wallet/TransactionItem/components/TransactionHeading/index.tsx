@@ -99,11 +99,11 @@ const TransactionHeading = ({
     if (isTxUnknown(transaction)) {
         heading = <Translation id="TR_UNKNOWN_TRANSACTION" />;
     } else if (transaction.type === 'sent') {
-        heading = isPending ? `Sending ${symbol}` : `Sent ${symbol}`;
+        heading = isPending ? `发送中 ${symbol}` : `已发送 ${symbol}`;
     } else if (transaction.type === 'recv') {
-        heading = isPending ? `Receiving ${symbol}` : `Received ${symbol}`;
+        heading = isPending ? `接收中 ${symbol}` : `已接收 ${symbol}`;
     } else if (transaction.type === 'self') {
-        heading = isPending ? `Sending ${symbol} to myself` : `Sent ${symbol} to myself`;
+        heading = isPending ? `正在向自己发送 ${symbol}` : `已向自己发送 ${symbol}`;
     } else {
         heading = <Translation id="TR_UNKNOWN_TRANSACTION" />;
     }

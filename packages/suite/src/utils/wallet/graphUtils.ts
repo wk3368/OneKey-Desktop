@@ -340,17 +340,17 @@ export const calcXDomain = (
 export const getFormattedLabel = (rangeLabel: GraphRange['label']) => {
     switch (rangeLabel) {
         case 'range':
-            return 'range';
+            return '自定义时段';
         case 'all':
-            return 'all';
+            return '全部';
         case 'year':
-            return '1Y';
+            return '1年';
         case 'month':
-            return '1M';
+            return '1月';
         case 'week':
-            return '1W';
+            return '1周';
         case 'day':
-            return '1D';
+            return '1天';
         // no default
     }
 };
@@ -358,17 +358,17 @@ export const getFormattedLabel = (rangeLabel: GraphRange['label']) => {
 export const getFormattedLabelLong = (rangeLabel: GraphRange['label']) => {
     switch (rangeLabel) {
         case 'range':
-            return 'range';
+            return '自定义时段';
         case 'all':
-            return 'all';
+            return '全部';
         case 'year':
-            return '1 year';
+            return '1 年';
         case 'month':
-            return '1 month';
+            return '1 月';
         case 'week':
-            return '1 week';
+            return '1 周';
         case 'day':
-            return '1 day';
+            return '1 天';
         // no default
     }
 };

@@ -22,7 +22,7 @@
         "build:mac": "yarn clean && yarn build:ui && yarn build:app:mac",
         "build:win": "yarn clean && yarn build:ui && yarn build:app:win",
         "build:desktop": "yarn clean && yarn build:ui && yarn build:app:win && yarn build:app:mac && yarn build:app:linux",
-        "publish:all": "yarn clean && yarn build:ui && electron-builder --publish always --mac --linux --win",
+        "publish:all": "yarn clean && yarn build:ui && yarn build:app && electron-builder --publish always --mac --linux --win",
         "publish:linux": "yarn build:linux && electron-builder --publish always --linux",
         "publish:mac": "yarn build:mac && electron-builder --publish always --mac",
         "publish:win": "yarn build:win && electron-builder --publish always --win",
@@ -76,7 +76,7 @@
                     "type": "file"
                 }
             ],
-            "background": "build/static/images/icons/background.tiff"
+            "backgroundColor": "#00b812"
         },
         "nsis": {
             "oneClick": false
