@@ -11,8 +11,8 @@ const GraphScaleDropdownItem = (props: Omit<SelectBarProps<GraphScale>, 'options
             onChange={setSelectedView}
             selectedOption={selectedView}
             options={[
-                { label: 'Linear', value: 'linear' },
-                { label: 'Logarithmic', value: 'log' },
+                { label: '线性', value: 'linear' },
+                { label: '对数', value: 'log' },
             ]}
             {...props}
         />

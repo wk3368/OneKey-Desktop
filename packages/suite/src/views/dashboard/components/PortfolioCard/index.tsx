@@ -81,7 +81,7 @@ const PortfolioCard = React.memo(() => {
                         items={[
                             {
                                 key: 'group1',
-                                label: 'Graph View',
+                                label: '图表展示',
                                 options: [
                                     {
                                         noHover: true,

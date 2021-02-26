@@ -17,7 +17,7 @@ const TransactionSummaryDropdown = (_props: Props) => {
             items={[
                 {
                     key: 'group1',
-                    label: 'Graph View',
+                    label: '图表展示',
                     options: [
                         {
                             key: 'graphView',
