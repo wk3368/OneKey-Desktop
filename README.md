@@ -1,6 +1,6 @@
-# OneKey Suite
+# OneKey Desktop
 
-![img](https://raw.githubusercontent.com/rayston92/graph_bed/master/img/onekey_suite_repo_hero.png)
+![img](https://github.com/rayston92/graph_bed/blob/281ac3d1ce0c87f2d2ae64a69abf97c4dcf26a46/img/onekey_desktop_repo_hero.png)
 
 ## Packages
 
@@ -17,17 +17,17 @@
 
 Before you start make sure you have downloaded and installed [Node.js LTS](https://nodejs.org/en/download/), [Yarn](https://yarnpkg.com/lang/en/docs/install/) and git.
 
--   `git clone git@github.com:trezor/trezor-suite.git`
+-   `git clone git@github.com:OneKeyHQ/OneKey-Desktop.git`
 -   `yarn && yarn build:libs`
 
 _To set up your dev environment for a native platform (iOS/Android) follow [these additional steps](https://github.com/trezor/trezor-suite/tree/develop/packages/suite-native#development)._
 
 Run a dev build:
 
--   `yarn suite:dev` (web app)
--   `yarn suite:dev:desktop` (electron app)
--   `yarn suite:dev:android` (react-native Android)
--   `yarn suite:dev:ios` (react-native iOS)
+-   `yarn desktop:dev` (web app)
+-   `yarn desktop:dev:desktop` (electron app)
+-   `yarn desktop:dev:android` (react-native Android)
+-   `yarn desktop:dev:ios` (react-native iOS)
 
 ## Contribute
 
@@ -37,7 +37,7 @@ Using [Conventional Commits](COMMITS.md) is strongly recommended and might be en
 
 ## Security vulnerability disclosure
 
-Please report suspected security vulnerabilities in private to [security@satoshilabs.com](mailto:security@satoshilabs.com), also see [the disclosure section on the OneKey.io website](https://trezor.io/security/). Please do NOT create publicly viewable issues for suspected security vulnerabilities.
+Please report suspected security vulnerabilities in private to [hi@onekey.so](mailto:hi@onekey.so), Please do NOT create publicly viewable issues for suspected security vulnerabilities.
 
 ## Issue Labels
 
