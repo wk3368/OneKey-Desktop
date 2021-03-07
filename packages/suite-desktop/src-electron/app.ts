@@ -11,7 +11,7 @@ import { buildInfo, computerInfo } from '@desktop-electron/libs/info';
 import modules from '@desktop-electron/libs/modules';
 
 let mainWindow: BrowserWindow;
-const APP_NAME = 'OneKey Suite';
+const APP_NAME = 'OneKey Desktop';
 const src = isDev
     ? 'http://localhost:8000/'
     : url.format({

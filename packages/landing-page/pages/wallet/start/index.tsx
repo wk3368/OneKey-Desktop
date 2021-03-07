@@ -87,7 +87,7 @@ const Start = () => {
     return (
         <Layout>
             <Wrapper>
-                <H2>Download OneKey Suite desktop app</H2>
+                <H2>Download OneKey Desktop app</H2>
                 <P size="tiny">
                     For testing purposes only. Please keep in mind this is a beta version.
                 </P>

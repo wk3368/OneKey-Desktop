@@ -13,7 +13,7 @@ type Props = {
 };
 
 const Metadata = ({
-    title = 'OneKey Suite',
+    title = 'OneKey Desktop',
     description,
     image = `${URLS.SUITE_URL}${resolveStaticPath('images/meta.png')}`,
     url = URLS.SUITE_URL,

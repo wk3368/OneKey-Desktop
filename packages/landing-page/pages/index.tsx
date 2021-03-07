@@ -45,23 +45,23 @@ const Line = styled.div`
 const Index = () => (
     <Layout>
         <Wrapper>
-            <H2>OneKey Suite: Closed Beta</H2>
+            <H2>OneKey OneKey Desktop: Closed Beta</H2>
             <StyledP size="tiny">
-                OneKey Suite: Closed Beta is designated for experimental testing and the access is
-                limited exclusively to our Beta Testers Community.
+                OneKey OneKey Desktop: Closed Beta is designated for experimental testing and the
+                access is limited exclusively to our Beta Testers Community.
             </StyledP>
             <Item>
                 <Link href="./wallet/start" target="_self" variant="nostyle">
-                    <ButtonAccess variant="primary">Log in to OneKey Suite</ButtonAccess>
+                    <ButtonAccess variant="primary">Log in to OneKey OneKey Desktop</ButtonAccess>
                 </Link>
             </Item>
             <Line />
-            <H2>OneKey Suite: Public Beta</H2>
+            <H2>OneKey OneKey Desktop: Public Beta</H2>
             <HeadBackP size="tiny">
                 <InfoRow>
-                    OneKey Suite is now available as public beta as well.
-                    <Link href="https://suite.trezor.io" target="_blank" variant="nostyle">
-                        <ButtonWallet variant="secondary">Go to OneKey Suite</ButtonWallet>
+                    OneKey OneKey Desktop is now available as public beta as well.
+                    <Link href="https://onekey.so/download" target="_blank" variant="nostyle">
+                        <ButtonWallet variant="secondary">Go to OneKey Desktop</ButtonWallet>
                     </Link>
                 </InfoRow>
             </HeadBackP>

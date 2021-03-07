@@ -145,7 +145,7 @@ const InstallBridge = (props: Props) => {
             description={<Translation id="TR_NEW_COMMUNICATION_TOOL" />}
             data-test="@bridge"
         >
-            <Metadata title="Download Bridge | OneKey Suite" />
+            <Metadata title="Download Bridge | OneKey Desktop" />
             <Content>
                 <Version show={!!data.currentVersion}>
                     <Translation

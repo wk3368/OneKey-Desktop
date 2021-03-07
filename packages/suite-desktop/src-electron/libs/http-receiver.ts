@@ -142,7 +142,7 @@ export class HttpReceiver extends EventEmitter {
             <!DOCTYPE html>
             <html>
                 <head>
-                    <title>${options?.title ?? 'OneKey Suite'}</title>
+                    <title>${options?.title ?? 'OneKey Desktop'}</title>
                 </head>
                 <body>
                     ${content}

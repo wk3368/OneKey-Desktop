@@ -1,6 +1,6 @@
 {
     "name": "@trezor/suite-desktop",
-    "description": "OneKey Suite desktop application",
+    "description": "OneKey Desktop desktop application",
     "version": "21.3.0",
     "private": true,
     "author": "OneKey <hi@onekey.so>",
@@ -36,7 +36,7 @@
     },
     "build": {
         "appId": "io.onekey.OneKeySuite",
-        "productName": "OneKey Suite",
+        "productName": "OneKey Desktop",
         "copyright": "Copyright © ${author}",
         "asar": true,
         "electronVersion": "11.2.1",

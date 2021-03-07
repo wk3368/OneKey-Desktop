@@ -5,7 +5,7 @@
 ### Beta (beta-wallet.trezor.io)
 
 Domain beta-wallet.trezor.io originally hosted beta build of [mytrezor wallet](https://github.com/satoshilabs/mytrezor).
-With initial release of OneKey Suite this domain was decided to become entry point of closed beta program for OneKey Suite.
+With initial release of OneKey Desktop this domain was decided to become entry point of closed beta program for OneKey Desktop.
 
 It has special structure:
 

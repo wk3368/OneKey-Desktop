@@ -11,7 +11,7 @@ class App extends NextApp {
             <>
                 <Head>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    <title>OneKey Suite</title>
+                    <title>OneKey Desktop</title>
                 </Head>
                 <ThemeProvider theme={THEME.light}>
                     <Component {...pageProps} />

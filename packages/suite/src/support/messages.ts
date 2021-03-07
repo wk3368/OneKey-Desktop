@@ -7,7 +7,7 @@ const definedMessages = defineMessages({
     },
     TR_3RD_PARTY_WALLETS_DESC: {
         defaultMessage:
-            'These coins are supported by OneKey but only in 3rd party wallets. These coins cannot be managed by OneKey Suite or Wallet.',
+            'These coins are supported by OneKey but only in 3rd party wallets. These coins cannot be managed by OneKey Desktop or Wallet.',
         id: 'TR_3RD_PARTY_WALLETS_DESC',
     },
     TR_404_DESCRIPTION: {
@@ -188,7 +188,7 @@ const definedMessages = defineMessages({
     },
     TR_SPEND_PROVIDER_CONTENT_WINDOW: {
         defaultMessage:
-            'Spend content is fully provided by our partner Bitrefill. You’ll choose your purchase on their website and finish the transaction in OneKey Suite.',
+            'Spend content is fully provided by our partner Bitrefill. You’ll choose your purchase on their website and finish the transaction in OneKey Desktop.',
         id: 'TR_SPEND_PROVIDER_CONTENT_WINDOW',
     },
     TR_EXCHANGE_LOADING: {
@@ -874,7 +874,7 @@ const definedMessages = defineMessages({
     },
     TR_ALLOW_ANALYTICS_DESCRIPTION: {
         defaultMessage:
-            'OneKey Suite does NOT track any balance-related or personal data, all anonymously',
+            'OneKey Desktop does NOT track any balance-related or personal data, all anonymously',
         id: 'TR_ALLOW_ANALYTICS_DESCRIPTION',
     },
     TR_ASSETS: {
@@ -1559,12 +1559,12 @@ const definedMessages = defineMessages({
         id: 'TR_SKIP_PIN',
     },
     TR_HELP_TREZOR_SUITE: {
-        defaultMessage: 'Help OneKey Suite get better',
+        defaultMessage: 'Help OneKey Desktop get better',
         id: 'TR_HELP_TREZOR_SUITE',
     },
     TR_HELP_TREZOR_SUITE_TEXT_1: {
         defaultMessage:
-            'Help OneKey Suite become a better product by sending us {TR_HELP_TREZOR_SUITE_TEXT_1_FAT}.',
+            'Help OneKey Desktop become a better product by sending us {TR_HELP_TREZOR_SUITE_TEXT_1_FAT}.',
         id: 'TR_HELP_TREZOR_SUITE_TEXT_1',
     },
     TR_HELP_TREZOR_SUITE_TEXT_1_FAT: {
@@ -1572,7 +1572,7 @@ const definedMessages = defineMessages({
         id: 'TR_HELP_TREZOR_SUITE_TEXT_1_FAT',
     },
     TR_HELP_TREZOR_SUITE_TEXT_2: {
-        defaultMessage: 'OneKey Suite does NOT track any balance-related or personal data.',
+        defaultMessage: 'OneKey Desktop does NOT track any balance-related or personal data.',
         id: 'TR_HELP_TREZOR_SUITE_TEXT_2',
     },
     TR_HIDE_ADVANCED_OPTIONS: {
@@ -2050,7 +2050,7 @@ const definedMessages = defineMessages({
         id: 'TR_BUY_NETWORK',
     },
     TR_BECH32_BANNER_TITLE: {
-        defaultMessage: 'New BTC default Accounts natively in OneKey Suite!',
+        defaultMessage: 'New BTC default Accounts natively in OneKey Desktop!',
         id: 'TR_BECH32_BANNER_TITLE',
     },
     TR_BECH32_BANNER_POINT_1: {
@@ -2618,7 +2618,7 @@ const definedMessages = defineMessages({
         id: 'TR_WAS_USED_IN_ANOTHER_WINDOW',
     },
     TR_WELCOME_MODAL_HEADING: {
-        defaultMessage: 'Welcome to OneKey Suite!',
+        defaultMessage: 'Welcome to OneKey Desktop!',
         id: 'TR_WELCOME_MODAL_HEADING',
     },
     TR_WELCOME_MODAL_TEXT: {
@@ -3037,7 +3037,7 @@ const definedMessages = defineMessages({
     TR_OUTDATED_BRIDGE_DESKTOP: {
         id: 'TR_OUTDATED_BRIDGE_DESKTOP',
         defaultMessage:
-            'The OneKey Suite application comes with OneKey Bridge bundled. If you only use the OneKey Suite application, we recommend you to uninstall OneKey Bridge in order to use the bundled one. If you are using OneKey in your browser as well, updating OneKey Bridge is recommended.',
+            'The OneKey Desktop application comes with OneKey Bridge bundled. If you only use the OneKey Desktop application, we recommend you to uninstall OneKey Bridge in order to use the bundled one. If you are using OneKey in your browser as well, updating OneKey Bridge is recommended.',
     },
     EVENT_DEVICE_CONNECT: {
         id: 'EVENT_DEVICE_CONNECT',
@@ -4112,7 +4112,7 @@ const definedMessages = defineMessages({
     },
     TR_LANDING_TITLE: {
         id: 'TR_LANDING_TITLE',
-        defaultMessage: 'Download OneKey Suite (beta) desktop app',
+        defaultMessage: 'Download OneKey Desktop (beta) desktop app',
     },
     TR_LANDING_DESC: {
         id: 'TR_LANDING_DESC',
@@ -5152,7 +5152,7 @@ const definedMessages = defineMessages({
     },
     TR_SUITE_WEB_LANDING_SUITE_ON_WEB: {
         id: 'TR_SUITE_WEB_LANDING_SUITE_ON_WEB',
-        defaultMessage: 'OneKey Suite for web',
+        defaultMessage: 'OneKey Desktop for web',
     },
     TR_SUITE_WEB_LANDING_FOOTER_HEADLINE_1: {
         id: 'TR_SUITE_WEB_LANDING_FOOTER_HEADLINE_1',
@@ -5395,7 +5395,7 @@ const definedMessages = defineMessages({
     TR_SUITE_META_DESCRIPTION: {
         id: 'TR_SUITE_META_DESCRIPTION',
         defaultMessage:
-            'New desktop & browser app for OneKey hardware wallets. OneKey Suite brings big improvements across our three key pillars of usability, security and privacy.',
+            'New desktop & browser app for OneKey hardware wallets. OneKey Desktop brings big improvements across our three key pillars of usability, security and privacy.',
     },
 } as const);
 
