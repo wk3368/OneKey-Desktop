@@ -1,7 +1,7 @@
 {
     "name": "@trezor/suite-desktop",
     "description": "OneKey Desktop desktop application",
-    "version": "21.3.0",
+    "version": "21.3.1",
     "private": true,
     "author": "OneKey <hi@onekey.so>",
     "homepage": "https://onekey.so/",
@@ -35,7 +35,7 @@
         "test:unit": "jest"
     },
     "build": {
-        "appId": "io.onekey.OneKeySuite",
+        "appId": "io.onekey.OneKeyDesktop",
         "productName": "OneKey Desktop",
         "copyright": "Copyright © ${author}",
         "asar": true,
@@ -58,7 +58,7 @@
         ],
         "publish": {
             "provider": "github",
-            "repo": "onekey-suite",
+            "repo": "OneKey-Desktop",
             "owner": "OneKeyHQ"
         },
         "dmg": {
@@ -96,7 +96,7 @@
                 }
             ],
             "icon": "build/static/images/icons/512x512.png",
-            "artifactName": "OneKey-Suite-${version}-mac-${arch}.${ext}",
+            "artifactName": "OneKey-Desktop-${version}-mac-${arch}.${ext}",
             "hardenedRuntime": true,
             "gatekeeperAssess": false,
             "darkModeSupport": false,
@@ -119,7 +119,7 @@
                 }
             ],
             "icon": "build/static/images/icons/512x512.png",
-            "artifactName": "OneKey-Suite-${version}-win-${arch}.${ext}",
+            "artifactName": "OneKey-Desktop-${version}-win-${arch}.${ext}",
             "target": [
                 "nsis"
             ]
@@ -136,13 +136,14 @@
                 }
             ],
             "icon": "build/static/images/icons/512x512.png",
-            "artifactName": "OneKey-Suite-${version}-linux-${arch}.${ext}",
-            "executableName": "onekey-suite",
+            "artifactName": "OneKey-Desktop-${version}-linux-${arch}.${ext}",
+            "executableName": "onekey-desktop",
             "category": "Utility",
             "target": [
                 "AppImage"
             ]
-        }
+        },
+        "afterSign": "scripts/notarize.js"
     },
     "dependencies": {
         "chalk": "^4.1.0",
