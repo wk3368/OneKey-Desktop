@@ -38,7 +38,7 @@ const Preloader = (props: Props) => {
     if (error) {
         return (
             <View>
-                <Text>Failed to load OneKey Suite</Text>
+                <Text>Failed to load OneKey Desktop</Text>
                 <Text>Ups, something went wrong. Details: {error}</Text>
             </View>
         );

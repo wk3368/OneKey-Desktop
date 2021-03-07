@@ -100,7 +100,7 @@ const Onboarding = (props: Props) => {
             // heading={capitalizeFirstLetter(activeStepId.replace(/-/g, ' '))}
             heading={<Translation id="TR_ONBOARDING" />}
         >
-            <Metadata title="Onboarding | OneKey Suite" />
+            <Metadata title="Onboarding | OneKey Desktop" />
             <UnexpectedState>
                 {modal && <InnerModalWrapper>{modal}</InnerModalWrapper>}
                 {!modal && <StepComponent />}

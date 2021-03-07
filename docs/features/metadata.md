@@ -1,10 +1,10 @@
 # Metadata (labeling)
 
 Metadata is a feature which allows user to associate persistent data with their accounts, transactions, addresses or even hidden wallets.
-OneKey Suite refers to metadata as to "labeling" in user interface.
+OneKey Desktop refers to metadata as to "labeling" in user interface.
 
 ## Data stores
-Because OneKey Suite is not a typical application with a backend server, data must be stored elsewhere. Currently supported providers are:
+Because OneKey Desktop is not a typical application with a backend server, data must be stored elsewhere. Currently supported providers are:
 - Dropbox
 - Google Drive
 

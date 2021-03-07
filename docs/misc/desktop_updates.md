@@ -1,5 +1,5 @@
 # Desktop Updates
-The desktop build of OneKey Suite uses an auto-updating feature to keep the application up to date with our latest published release.
+The desktop build of OneKey Desktop uses an auto-updating feature to keep the application up to date with our latest published release.
 
 ## Internals
 The package `electron-updater` (part of `electron-builder`) is used to manage updates. We

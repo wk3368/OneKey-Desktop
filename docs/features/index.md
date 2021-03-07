@@ -1,3 +1,3 @@
 # Features
 
-This directory contains description of various OneKey Suite features.
+This directory contains description of various OneKey Desktop features.
