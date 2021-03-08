@@ -1,17 +1,17 @@
 [
 	{
 		"required": true,
-		"version": [2, 0, 4],
+		"version": [2, 0, 5],
 		"bootloader_version": [1, 8, 5],
 		"min_bridge_version": [2, 0, 27],
 		"min_firmware_version": [1, 0, 0],
 		"min_bootloader_version": [1, 0, 0],
 		"url_bitcoinonly": "",
-        "url": "bixin-2.0.4.bin",
-        "fingerprint": "4fbdc7fce735c1f17a11435ea32fdc29e8fce9702de49e392b7bdde01bbf48f1",
-        "fingerprint_bitcoinonly": "",
-        "changelog": "此更新包含一些错误修复和性能提升。",
-        "changelog_en": "This update contains several bug fixes and performance enhancements.",
+		"url": "bixin-2.0.5.bin",
+		"fingerprint": "fbfff7306615c88e955ef863c8bf12d8b58ee242c9678b68d742f09f6adf1b5c",
+		"fingerprint_bitcoinonly": "",
+		"changelog": "此更新包含一些错误修复和性能提升。",
+		"changelog_en": "This update contains several bug fixes and performance enhancements.",
 		"notes": ""
 	}
 ]
