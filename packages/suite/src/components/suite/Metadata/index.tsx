@@ -2,8 +2,6 @@ import React from 'react';
 import { resolveStaticPath } from '@suite-utils/nextjs';
 import { URLS } from '@suite-constants';
 import Head from 'next/head';
-import { useIntl } from 'react-intl';
-import messages from '@suite/support/messages';
 
 type Props = {
     title?: string;
@@ -18,8 +16,9 @@ const Metadata = ({
     image = `${URLS.SUITE_URL}${resolveStaticPath('images/meta.png')}`,
     url = URLS.SUITE_URL,
 }: Props) => {
-    const intl = useIntl();
-    description = description || intl.formatMessage(messages.TR_SUITE_META_DESCRIPTION);
+    description =
+        description ||
+        'New desktop & browser app for OneKey hardware wallets. OneKey Desktop brings big improvements across our three key pillars of usability, security and privacy.';
     return (
         <Head>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
