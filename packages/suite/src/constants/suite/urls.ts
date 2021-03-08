@@ -7,7 +7,7 @@ export const SUPPORT_URL = 'https://help.onekey.so/hc/zh-cn';
 export const WIKI_URL = 'https://help.onekey.so/hc/zh-cn';
 export const BLOG_URL = 'https://help.onekey.so/hc/zh-cn';
 export const SHOP_URL = 'https://91406649.m.youzan.com/wscgoods/detail/2oo7grc896xoh';
-export const SUITE_URL = 'https://suite.onekey.so';
+export const SUITE_URL = 'https://desktop.onekey.so';
 export const TREZOR_DATA_URL = 'https://github.com/OneKeyHQ/onekey-bridge/releases/download/';
 export const PIN_MANUAL_URL =
     'https://help.onekey.so/hc/zh-cn/articles/360002932655-%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEPIN';
