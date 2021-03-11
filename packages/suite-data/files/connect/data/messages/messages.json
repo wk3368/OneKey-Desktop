@@ -5859,20 +5859,7 @@
                     "name": "passphrase_always_on_device",
                     "id": 36
                 },
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "SafetyCheckLevel",
-                    "name": "safety_checks",
-                    "id": 37
-                },
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "uint32",
-                    "name": "auto_lock_delay_ms",
-                    "id": 38
-                },
+
                 {
                     "rule": "optional",
                     "options": {},
