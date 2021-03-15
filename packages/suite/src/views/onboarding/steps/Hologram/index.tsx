@@ -115,9 +115,7 @@ const HologramStep = ({ onboardingActions, activeSubStep, model, device }: Props
                 <Wrapper.Controls>
                     <OnboardingButton.Back
                         onClick={() =>
-                            onboardingActions.goToPreviousStep(
-                                actualModel ? STEP.ID_NEW_OR_USED : STEP.ID_SELECT_DEVICE_STEP,
-                            )
+                            onboardingActions.goToPreviousStep(STEP.ID_SELECT_DEVICE_STEP)
                         }
                     >
                         <Translation id="TR_BACK" />

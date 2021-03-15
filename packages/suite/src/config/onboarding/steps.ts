@@ -25,18 +25,18 @@ const steps: Step[] = [
         progress: true,
         disallowedDeviceStates: [STEP.DISALLOWED_DEVICE_IS_IN_RECOVERY_MODE],
     },
-    {
-        id: STEP.ID_NEW_OR_USED,
-        path: [STEP.PATH_RECOVERY, STEP.PATH_CREATE, STEP.PATH_NEW, STEP.PATH_USED],
-        buy: true,
-        help: true,
-        progress: true,
-    },
+    // {
+    //     id: STEP.ID_NEW_OR_USED,
+    //     path: [STEP.PATH_RECOVERY, STEP.PATH_CREATE, STEP.PATH_NEW, STEP.PATH_USED],
+    //     buy: true,
+    //     help: true,
+    //     progress: true,
+    // },
     {
         id: STEP.ID_SELECT_DEVICE_STEP,
         path: [STEP.PATH_RECOVERY, STEP.PATH_CREATE, STEP.PATH_NEW],
         disallowedDeviceStates: [
-            STEP.DISALLOWED_DEVICE_IS_NOT_NEW_DEVICE,
+            // STEP.DISALLOWED_DEVICE_IS_NOT_NEW_DEVICE,
             STEP.DISALLOWED_DEVICE_IS_IN_RECOVERY_MODE,
         ],
         buy: true,
@@ -46,7 +46,7 @@ const steps: Step[] = [
     {
         id: STEP.ID_UNBOXING_STEP,
         disallowedDeviceStates: [
-            STEP.DISALLOWED_DEVICE_IS_NOT_NEW_DEVICE,
+            // STEP.DISALLOWED_DEVICE_IS_NOT_NEW_DEVICE,
             STEP.DISALLOWED_DEVICE_IS_IN_RECOVERY_MODE,
         ],
         path: [STEP.PATH_RECOVERY, STEP.PATH_CREATE, STEP.PATH_NEW],
@@ -58,11 +58,23 @@ const steps: Step[] = [
         id: STEP.ID_PAIR_DEVICE_STEP,
         disallowedDeviceStates: [
             STEP.DISALLOWED_DEVICE_IS_NOT_USED_HERE,
-            STEP.DISALLOWED_DEVICE_IS_NOT_NEW_DEVICE,
+            // STEP.DISALLOWED_DEVICE_IS_NOT_NEW_DEVICE,
             STEP.DISALLOWED_DEVICE_IS_IN_RECOVERY_MODE,
         ],
         path: [STEP.PATH_RECOVERY, STEP.PATH_CREATE, STEP.PATH_NEW, STEP.PATH_USED],
         buy: true,
+        help: true,
+        progress: true,
+    },
+    {
+        id: STEP.ID_BLE_FIRMWARE_STEP,
+        disallowedDeviceStates: [
+            STEP.DISALLOWED_DEVICE_IS_NOT_USED_HERE,
+            // STEP.DISALLOWED_IS_NOT_SAME_DEVICE,
+            STEP.DISALLOWED_DEVICE_IS_IN_RECOVERY_MODE,
+        ],
+        path: [STEP.PATH_RECOVERY, STEP.PATH_CREATE, STEP.PATH_NEW, STEP.PATH_USED],
+        buy: false,
         help: true,
         progress: true,
     },
