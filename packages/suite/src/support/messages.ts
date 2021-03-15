@@ -1516,6 +1516,10 @@ const definedMessages = defineMessages({
         defaultMessage: 'Firmware version',
         id: 'TR_FIRMWARE_VERSION',
     },
+    TR_BLE_FIRMWARE_VERSION: {
+        defaultMessage: 'BLE Firmware version',
+        id: 'TR_BLE_FIRMWARE_VERSION',
+    },
     TR_FIRST_SEEN: {
         defaultMessage: 'First Seen',
         id: 'TR_FIRST_SEEN',
@@ -2683,6 +2687,10 @@ const definedMessages = defineMessages({
     TR_YOUR_CURRENT_FIRMWARE: {
         defaultMessage: 'Your current firmware version is {version}',
         id: 'TR_YOUR_CURRENT_FIRMWARE',
+    },
+    TR_YOUR_CURRENT_BLE_FIRMWARE: {
+        defaultMessage: 'Your current ble firmware version is {version}',
+        id: 'TR_YOUR_CURRENT_BLE_FIRMWARE',
     },
     TR_YOUR_CURRENT_VERSION: {
         defaultMessage: 'You are currently running version {version}.',

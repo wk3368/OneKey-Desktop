@@ -19,6 +19,7 @@ export type AnyStepId =
     | typeof STEP.ID_NEW_OR_USED
     | typeof STEP.ID_FINAL_STEP
     | typeof STEP.ID_FIRMWARE_STEP
+    | typeof STEP.ID_BLE_FIRMWARE_STEP
     | typeof STEP.ID_SELECT_DEVICE_STEP
     | typeof STEP.ID_SET_PIN_STEP
     | typeof STEP.ID_SECURITY_STEP

@@ -196,6 +196,41 @@ const Settings = ({ device, applySettings, changePin, openModal, goto }: Props) 
                 </SectionItem>
                 <SectionItem>
                     <TextColumn
+                        title={<Translation id="TR_BLE_FIRMWARE_VERSION" />}
+                        description={
+                            <>
+                                <Translation
+                                    id="TR_YOUR_CURRENT_BLE_FIRMWARE"
+                                    // @ts-expect-error
+                                    values={{ version: features.ble_ver ?? '-' }}
+                                />
+                            </>
+                        }
+                    />
+                    <ActionColumn>
+                        <ActionButton
+                            variant="secondary"
+                            onClick={() => {
+                                goto('firmware-index', { cancelable: true });
+                                analytics.report({
+                                    type: 'settings/device/goto/firmware',
+                                });
+                            }}
+                            data-test="@settings/device/update-button"
+                            isDisabled={isDeviceLocked}
+                        >
+                            {device && ['required', 'outdated'].includes(device.firmware) && (
+                                <Translation id="TR_UPDATE_AVAILABLE" />
+                            )}
+                            {device && device.firmware === 'valid' && (
+                                <Translation id="TR_UP_TO_DATE" />
+                            )}
+                        </ActionButton>
+                    </ActionColumn>
+                </SectionItem>
+
+                <SectionItem>
+                    <TextColumn
                         title={<Translation id="TR_DEVICE_SETTINGS_PIN_PROTECTION_TITLE" />}
                         description={<Translation id="TR_DEVICE_SETTINGS_PIN_PROTECTION_DESC" />}
                     />
