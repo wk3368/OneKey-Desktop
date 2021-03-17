@@ -1291,6 +1291,22 @@
             "oneofs": {}
         },
         {
+            "name": "FirmwareEraseEX",
+            "fields": [
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "uint32",
+                    "name": "length",
+                    "id": 1
+                }
+            ],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
             "name": "FirmwareRequest",
             "fields": [
                 {
@@ -8751,6 +8767,10 @@
                 {
                     "name": "MessageType_FirmwareErase",
                     "id": 6
+                },
+                {
+                    "name": "MessageType_FirmwareEraseEX",
+                    "id": 16
                 },
                 {
                     "name": "MessageType_FirmwareUpload",

@@ -1,14 +1,14 @@
 [
 	{
 		"required": true,
-		"version": [2, 0, 5],
+		"version": [2, 0, 6],
 		"bootloader_version": [1, 8, 5],
 		"min_bridge_version": [2, 0, 27],
 		"min_firmware_version": [1, 0, 0],
 		"min_bootloader_version": [1, 0, 0],
 		"url_bitcoinonly": "",
-		"url": "bixin-2.0.5.bin",
-		"fingerprint": "fbfff7306615c88e955ef863c8bf12d8b58ee242c9678b68d742f09f6adf1b5c",
+		"url": "hw/2.0.6/bixin-2.0.6.bin",
+		"fingerprint": "1ca896acceabfba9a59884e060187ff7f2661d4b5fed79d17cd665913bc9ae66",
 		"fingerprint_bitcoinonly": "",
 		"changelog": "此更新包含一些错误修复和性能提升。",
 		"changelog_en": "This update contains several bug fixes and performance enhancements.",
