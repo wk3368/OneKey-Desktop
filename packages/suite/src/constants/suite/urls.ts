@@ -6,7 +6,7 @@ export const TREZOR_COINS_URL = 'https://trezor.io/coins/';
 export const SUPPORT_URL = 'https://help.onekey.so/hc/zh-cn';
 export const WIKI_URL = 'https://help.onekey.so/hc/zh-cn';
 export const BLOG_URL = 'https://help.onekey.so/hc/zh-cn';
-export const SHOP_URL = 'https://91406649.m.youzan.com/wscgoods/detail/2oo7grc896xoh';
+export const SHOP_URL = 'https://detail.youzan.com/show/goods?alias=276qihi1dldnl';
 export const SUITE_URL = 'https://desktop.onekey.so';
 export const TREZOR_DATA_URL = 'https://github.com/OneKeyHQ/onekey-bridge/releases/download/';
 export const PIN_MANUAL_URL =
@@ -20,7 +20,7 @@ export const SEED_MANUAL_URL =
 export const PHISHING_URL = 'https://help.onekey.so/hc/zh-cn';
 export const SOCIAL_TWITTER_URL = 'https://twitter.com/onekey';
 export const SOCIAL_FACEBOOK_URL = 'https://www.facebook.com/onekey';
-export const TREZOR_RESELLERS_URL = 'https://91406649.m.youzan.com/wscgoods/detail/2oo7grc896xoh';
+export const TREZOR_RESELLERS_URL = 'https://detail.youzan.com/show/goods?alias=276qihi1dldnl';
 export const TREZOR_PACKAGING_URL = 'https://help.onekey.so/hc/zh-cn';
 export const WALLET_URL = 'https://wallet.trezor.io';
 export const SKIP_URL = WALLET_URL;
