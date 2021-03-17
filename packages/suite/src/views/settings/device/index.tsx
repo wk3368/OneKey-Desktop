@@ -14,6 +14,7 @@ import { getFwVersion, isBitcoinOnly } from '@suite-utils/device';
 import * as homescreen from '@suite-utils/homescreen';
 import { useDevice, useAnalytics } from '@suite-hooks';
 import { variables, Switch } from '@trezor/components';
+import bleData from '@trezor/suite-data/files/connect/data/firmware/ble.json';
 import React, { createRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -219,10 +220,14 @@ const Settings = ({ device, applySettings, changePin, openModal, goto }: Props) 
                             data-test="@settings/device/update-button"
                             isDisabled={isDeviceLocked}
                         >
-                            {device && ['required', 'outdated'].includes(device.firmware) && (
+                            {/*
+                            // @ts-expect-error */}
+                            {device && device.features.ble_ver !== bleData.version && (
                                 <Translation id="TR_UPDATE_AVAILABLE" />
                             )}
-                            {device && device.firmware === 'valid' && (
+                            {/*
+                            // @ts-expect-error */}
+                            {device && device.features.ble_ver === bleData.version && (
                                 <Translation id="TR_UP_TO_DATE" />
                             )}
                         </ActionButton>
