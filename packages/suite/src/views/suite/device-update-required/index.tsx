@@ -13,7 +13,12 @@ const Index = () => {
             text={<Translation id="TR_FIRMWARE_UPDATE_REQUIRED_EXPLAINED" />}
             allowSwitchDevice
             resolveButton={
-                <Button onClick={() => goto('firmware-index')}>
+                <Button
+                    onClick={() => {
+                        console.log(window?.$BLE_MODE);
+                        goto(window?.$BLE_MODE ? 'ble-firmware-index' : 'firmware-index');
+                    }}
+                >
                     <Translation id="TR_SEE_DETAILS" />
                 </Button>
             }

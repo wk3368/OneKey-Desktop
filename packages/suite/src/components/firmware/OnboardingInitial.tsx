@@ -54,9 +54,16 @@ const Body = () => {
                 <P>
                     <Translation
                         id="TR_FIRMWARE_INSTALLED_TEXT"
-                        values={{
-                            version: getFwVersion(device),
-                        }}
+                        values={
+                            !window?.$BLE_MODE
+                                ? {
+                                      version: getFwVersion(device),
+                                  }
+                                : {
+                                      // @ts-expect-error
+                                      version: device.features.ble_ver,
+                                  }
+                        }
                     />
                 </P>
                 <P>
@@ -74,9 +81,16 @@ const Body = () => {
                 <P>
                     <Translation
                         id="TR_FIRMWARE_INSTALLED_TEXT"
-                        values={{
-                            version: getFwVersion(device),
-                        }}
+                        values={
+                            !window?.$BLE_MODE
+                                ? {
+                                      version: getFwVersion(device),
+                                  }
+                                : {
+                                      // @ts-expect-error
+                                      version: device.features.ble_ver,
+                                  }
+                        }
                     />
                 </P>
                 <P>

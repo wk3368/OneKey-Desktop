@@ -70,10 +70,20 @@ const Onboarding = (props: Props) => {
                 return HologramStep;
             case STEP.ID_PAIR_DEVICE_STEP:
                 return PairStep;
-            case STEP.ID_FIRMWARE_STEP:
+            case STEP.ID_FIRMWARE_STEP: {
+                if (typeof window !== 'undefined') {
+                    // @ts-ignore
+                    window.$BLE_MODE = false;
+                }
                 return FirmwareStep;
-            case STEP.ID_BLE_FIRMWARE_STEP:
+            }
+            case STEP.ID_BLE_FIRMWARE_STEP: {
+                if (typeof window !== 'undefined') {
+                    // @ts-ignore
+                    window.$BLE_MODE = true;
+                }
                 return BLEFirmwareStep;
+            }
             case STEP.ID_RESET_DEVICE_STEP:
                 return ResetDeviceStep;
             case STEP.ID_RECOVERY_STEP:

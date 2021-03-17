@@ -23,6 +23,7 @@ import {
 } from '@firmware-components';
 import { DeviceAcquire, DeviceUnknown, DeviceUnreadable } from '@suite-views';
 import { Translation, Modal } from '@suite-components';
+import bleData from '@trezor/suite-data/files/connect/data/firmware/ble.json';
 
 const InnerModalWrapper = styled.div`
     display: flex;
@@ -93,7 +94,16 @@ const Firmware = ({ closeModalApp, resetReducer, firmware, device, modal }: Prop
         const nextVersion =
             // device?.firmwareRelease?.release.version.join('.') ||
             firmware.targetRelease?.release.version.join('.');
-        return <Translation id="FIRMWARE_UPDATE_TO_VERSION" values={{ version: nextVersion }} />;
+        return (
+            <Translation
+                id={
+                    window?.$BLE_MODE
+                        ? 'BLE_FIRMWARE_UPDATE_TO_VERSION'
+                        : 'FIRMWARE_UPDATE_TO_VERSION'
+                }
+                values={{ version: window?.$BLE_MODE ? bleData.version : nextVersion }}
+            />
+        );
     };
 
     const getComponent = () => {
@@ -104,6 +114,70 @@ const Firmware = ({ closeModalApp, resetReducer, firmware, device, modal }: Prop
                 Body: <ErrorStep.Body />,
                 BottomBar: <CloseButton onClick={onClose} />,
             };
+        }
+
+        if (window?.$BLE_MODE) {
+            // @ts-expect-error
+            if (device?.features?.ble_ver === bleData.version) {
+                return {
+                    Heading: <NoNewFirmware.Heading />,
+                    Body: <NoNewFirmware.Body />,
+                    BottomBar: <CloseButton onClick={onClose} />,
+                };
+            }
+
+            switch (firmware.status) {
+                case 'initial':
+                    return {
+                        Heading: <InitialStep.Heading />,
+                        Body: <InitialStep.Body />,
+                        BottomBar: <InitialStep.BottomBar />,
+                    };
+                case 'check-seed':
+                    return {
+                        Heading: <CommonHeading />,
+                        Body: <CheckSeedStep.Body />,
+                        BottomBar: <CheckSeedStep.BottomBar />,
+                    };
+                case 'waiting-for-bootloader':
+                    return {
+                        Heading: <CommonHeading />,
+                        Body: <ReconnectInBootloaderStep.Body />,
+                        BottomBar: <ReconnectInBootloaderStep.BottomBar />,
+                    };
+                case 'waiting-for-confirmation':
+                case 'installing':
+                case 'started':
+                case 'wait-for-reboot':
+                case 'unplug':
+                    return {
+                        Heading: <CommonHeading />,
+                        Body: <FirmwareProgressStep.Body />,
+                        BottomBar: null,
+                    };
+                case 'reconnect-in-normal':
+                    return {
+                        Heading: <CommonHeading />,
+                        Body: <ReconnectInNormalStep.Body />,
+                        BottomBar: <ReconnectInNormalStep.BottomBar />,
+                    };
+                case 'partially-done':
+                    return {
+                        Heading: <CommonHeading />,
+                        Body: <PartiallyDoneStep.Body />,
+                        BottomBar: <ContinueButton onClick={resetReducer} />,
+                    };
+                case 'done':
+                    return {
+                        Heading: <DoneStep.Heading />,
+                        Body: <DoneStep.Body />,
+                        BottomBar: <CloseButton onClick={onClose} />,
+                    };
+
+                default:
+                    // should never get here
+                    throw new Error('state is not handled here');
+            }
         }
 
         // edge case 2 - user has reconnected device that is already up to date

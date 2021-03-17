@@ -211,7 +211,7 @@ const Settings = ({ device, applySettings, changePin, openModal, goto }: Props) 
                         <ActionButton
                             variant="secondary"
                             onClick={() => {
-                                goto('firmware-index', { cancelable: true });
+                                goto('ble-firmware-index', { cancelable: true });
                                 analytics.report({
                                     type: 'settings/device/goto/firmware',
                                 });

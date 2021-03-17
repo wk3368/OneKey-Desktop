@@ -2,7 +2,9 @@ import TrezorConnect from 'trezor-connect';
 import { FIRMWARE } from '@firmware-actions/constants';
 import { Dispatch, GetState, AppState, AcquiredDevice } from '@suite-types';
 import * as analyticsActions from '@suite-actions/analyticsActions';
+import * as buildUtils from '@suite-utils/build';
 import { isBitcoinOnly } from '@suite-utils/device';
+import bleData from '@trezor/suite-data/files/connect/data/firmware/ble.json';
 
 export type FirmwareAction =
     | {
@@ -80,6 +82,27 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
         btcOnly: toBtcOnly,
         version: toFwVersion,
     };
+
+    // @ts-expect-error
+    const $iframe = (document.getElementById('trezorconnect').contentWindow || {}) as any;
+
+    if ($iframe) {
+        const CONNECT_URL = buildUtils.isDev()
+            ? 'https://localhost:8088/'
+            : 'https://connect.onekey.so/';
+        $iframe.postMessage(window?.$BLE_MODE ? 'BLE_MODE_SUCCESS' : 'BLE_MODE_FAIL', CONNECT_URL);
+    }
+
+    if (window?.$BLE_MODE) {
+        const resp = await fetch(bleData.web_update);
+        const binary = await resp.arrayBuffer();
+        console.log(binary);
+        // @ts-expect-error
+        payload.binary = binary;
+        // @ts-expect-error
+        payload.version = bleData.version.split('.').map(Number);
+        console.log('payload', payload);
+    }
 
     const updateResponse = await TrezorConnect.firmwareUpdate(payload);
 

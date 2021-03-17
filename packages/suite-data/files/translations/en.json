@@ -1223,5 +1223,6 @@
 	"TR_YOU_MAY_CHOSE_EITHER_STANDARD": "New wallets are created based on the type of recovery seed you use to back up your wallet.",
 	"TR_YOU_MAY_EITHER_UPDATE": "A new firmware version is available. You can also update your OneKey directly from Desktop once you have finished setting up your device.",
 	"TR_YOU_WERE_DISCONNECTED_DOT": "You were disconnected.",
-	"TX_CONFIRMATIONS_EXPLAIN": "Number of confirmations by the network through the mining process"
+	"TX_CONFIRMATIONS_EXPLAIN": "Number of confirmations by the network through the mining process",
+	"TR_BLE_FIRMWARE_UPDATE": "ble firmware update"
 }
