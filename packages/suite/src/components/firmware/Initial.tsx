@@ -6,6 +6,7 @@ import { Translation, ExternalLink } from '@suite-components';
 import { getFwVersion } from '@suite-utils/device';
 import { useDevice, useFirmware } from '@suite-hooks';
 import { ReconnectInNormalStep, NoNewFirmware, ContinueButton, P, H2 } from '@firmware-components';
+import bleData from '@trezor/suite-data/files/connect/data/firmware/ble.json';
 
 const { FONT_SIZE, FONT_WEIGHT } = variables;
 
@@ -57,11 +58,22 @@ const Heading = () => {
     if (device?.mode === 'normal') {
         return (
             <HeadingWrapper>
-                <Translation id="TR_UPDATE_AVAILABLE" />
+                <Translation
+                    id={window?.$BLE_MODE ? 'TR_BLE_UPDATE_AVAILABLE' : 'TR_UPDATE_AVAILABLE'}
+                />
                 <Version data-test="@firmware/initial/heading/version">
                     <Translation
                         id="TR_DEVICE_FIRMWARE_VERSION"
-                        values={{ firmware: getFwVersion(device) }}
+                        values={
+                            !window?.$BLE_MODE
+                                ? {
+                                      firmware: getFwVersion(device),
+                                  }
+                                : {
+                                      // @ts-expect-error
+                                      firmware: device.features.ble_ver,
+                                  }
+                        }
                     />
                 </Version>
             </HeadingWrapper>
@@ -70,8 +82,74 @@ const Heading = () => {
     return <Translation id="TR_FIRMWARE_UPDATE" />;
 };
 
+const BLEBody = () => {
+    const { device } = useDevice();
+
+    // ensure that device is connected in requested mode
+    if (device?.mode !== 'normal') return <ReconnectInNormalStep.Body />;
+    // @ts-expect-error
+    if (device?.features.ble_ver === bleData.version) return <NoNewFirmware.Body />;
+
+    const { firmwareRelease } = device;
+    if (!device?.features || !firmwareRelease) return null; // ts
+
+    // Create custom object containing changelogs for easier manipulation in render() method.
+    // Default changelog format is just a long string where individual changes are separated by "*" symbol.
+    const logsCustomObject: any = {};
+
+    if (firmwareRelease.changelog && firmwareRelease.changelog?.length > 0) {
+        firmwareRelease.changelog.forEach((log: any) => {
+            // get array of individual changes for a given version
+            const logsArr = log.changelog.trim().split(/\*/g);
+
+            // The first element of logsArr is an empty array, so get rid of it (but still make sure it's really empty).
+            if (!logsArr[0]) {
+                logsArr.shift();
+            }
+
+            // Get firmware version, convert to string and use it as a key in custom object
+            const versionString = log.version.join('.'); // e.g. [1,9,8] => "1.9.8"
+
+            logsCustomObject[versionString] = {}; // Object initialization
+            logsCustomObject[versionString].changelogs = logsArr;
+            logsCustomObject[versionString].url = log.url;
+            logsCustomObject[versionString].notes = log.notes;
+        });
+    }
+
+    return (
+        <BodyWrapper>
+            <H2 isGreen data-test="@firmware/initial/subheading/version">
+                v{bleData.version} 已发布!
+            </H2>
+            <P>
+                <Translation id="FIRMWARE_UPDATE_AVAILABLE_DESC" />
+            </P>
+
+            <ChangesSummary data-test="@firmware/initial/changelog">
+                <ChangelogGroup key={bleData.version}>
+                    <ChangelogHeading>{bleData.version}</ChangelogHeading>
+                    <ChangesUl>
+                        {/* render individual changes for a given version */}
+                        <li key={bleData.changelog_cn}>{bleData.changelog_cn}</li>
+                    </ChangesUl>
+                </ChangelogGroup>
+            </ChangesSummary>
+
+            {/* <BottomRow>
+                <Button variant="tertiary" icon="GITHUB">
+                    <TrezorLink href={CHANGELOG_URL}>
+                        <Translation id="TR_READ_ALL_ON_GITHUB" />
+                    </TrezorLink>
+                </Button>
+            </BottomRow> */}
+        </BodyWrapper>
+    );
+};
+
 const Body = () => {
     const { device } = useDevice();
+    if (window?.$BLE_MODE) return <BLEBody />;
 
     // ensure that device is connected in requested mode
     if (device?.mode !== 'normal') return <ReconnectInNormalStep.Body />;
@@ -158,10 +236,34 @@ const HowLong = styled.div`
     margin-top: 16px;
 `;
 
+const BLEBottomBar = () => {
+    const { setStatus } = useFirmware();
+    const { device } = useDevice();
+
+    if (!device?.connected || !device?.features || device.mode !== 'normal') {
+        return null;
+    }
+    // @ts-expect-error
+    if (device.features.ble_ver !== bleData.version) {
+        return (
+            <>
+                <ContinueButton onClick={() => setStatus('check-seed')} />
+                <HowLong>
+                    <Icon size={12} icon="CLOCK" />
+                    <Translation id="TR_TAKES_N_MINUTES" values={{ n: '5' }} />
+                </HowLong>
+            </>
+        );
+    }
+
+    return null;
+};
+
 const BottomBar = () => {
     const { setStatus } = useFirmware();
     const { device } = useDevice();
 
+    if (window?.$BLE_MODE) return <BLEBottomBar />;
     if (!device?.connected || !device?.features || device.mode !== 'normal') {
         return null;
     }
@@ -172,7 +274,7 @@ const BottomBar = () => {
                 <ContinueButton onClick={() => setStatus('check-seed')} />
                 <HowLong>
                     <Icon size={12} icon="CLOCK" />
-                    <Translation id="TR_TAKES_N_MINUTES" values={{ n: '5' }} />
+                    <Translation id="TR_TAKES_N_MINUTES" values={{ n: '3' }} />
                 </HowLong>
             </>
         );

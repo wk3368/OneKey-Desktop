@@ -1491,6 +1491,11 @@ const definedMessages = defineMessages({
         description: 'Heading on firmware page',
         id: 'TR_FIRMWARE_UPDATE',
     },
+    TR_BLE_FIRMWARE_UPDATE: {
+        defaultMessage: 'BLE Firmware update',
+        description: 'Heading on firmware page',
+        id: 'TR_BLE_FIRMWARE_UPDATE',
+    },
     TR_FIRMWARE_INSTALLED: {
         defaultMessage: 'Perfect. The newest firmware is installed. Time to continue',
         description: 'Message to display in case firmware is installed',
@@ -2979,6 +2984,10 @@ const definedMessages = defineMessages({
         id: 'TR_UPDATE_AVAILABLE',
         defaultMessage: 'Update available',
     },
+    TR_BLE_UPDATE_AVAILABLE: {
+        id: 'TR_BLE_UPDATE_AVAILABLE',
+        defaultMessage: 'Update available',
+    },
     TR_UP_TO_DATE: {
         defaultMessage: 'Up to date',
         id: 'TR_UP_TO_DATE',
@@ -3669,6 +3678,10 @@ const definedMessages = defineMessages({
     TR_FIRMWARE_IS_UP_TO_DATE: {
         id: 'TR_FIRMWARE_IS_UP_TO_DATE',
         defaultMessage: 'Firmware is up to date',
+    },
+    TR_BLE_FIRMWARE_IS_UP_TO_DATE: {
+        id: 'TR_BLE_FIRMWARE_IS_UP_TO_DATE',
+        defaultMessage: 'BLE Firmware is up to date',
     },
     TR_NO_DEVICE: {
         id: 'TR_NO_DEVICE',
@@ -4916,6 +4929,10 @@ const definedMessages = defineMessages({
     FIRMWARE_UPDATE_TO_VERSION: {
         id: 'FIRMWARE_UPDATE_TO_VERSION',
         defaultMessage: 'Update to v{version}',
+    },
+    BLE_FIRMWARE_UPDATE_TO_VERSION: {
+        id: 'BLE_FIRMWARE_UPDATE_TO_VERSION',
+        defaultMessage: 'Update BLE Firmware to v{version}',
     },
     TR_READ_ALL_ON_GITHUB: {
         id: 'TR_READ_ALL_ON_GITHUB',

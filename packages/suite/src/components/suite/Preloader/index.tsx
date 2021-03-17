@@ -33,6 +33,8 @@ import {
     Welcome,
 } from '@suite-views';
 
+import bleData from '@trezor/suite-data/files/connect/data/firmware/ble.json';
+
 type SuiteAppStateProps = {
     loaded: boolean;
     transport: AppState['suite']['transport'];
@@ -83,7 +85,23 @@ const getSuiteApplicationState = ({
         return device.features.firmware_present ? DeviceBootloader : DeviceNoFirmware;
 
     // device firmware update required
-    if (device.firmware === 'required') return DeviceUpdateRequired;
+    if (device.firmware === 'required') {
+        if (typeof window !== 'undefined') {
+            // @ts-ignore
+            window.$BLE_MODE = false;
+        }
+        return DeviceUpdateRequired;
+    }
+
+    // TODO: 蓝牙更新判断
+    // @ts-expect-error
+    if (device?.features?.ble_ver !== bleData.version) {
+        if (typeof window !== 'undefined') {
+            // @ts-ignore
+            window.$BLE_MODE = true;
+        }
+        return DeviceUpdateRequired;
+    }
 
     // device in seedless mode
     if (device.mode === 'seedless') return DeviceSeedless;
@@ -100,8 +118,18 @@ const getModalApplication = (route: AppState['router']['route']) => {
             return Welcome;
         case 'analytics':
             return Analytics;
-        case 'firmware':
+        case 'firmware': {
+            if (typeof window !== 'undefined') {
+                window.$BLE_MODE = false;
+            }
             return Firmware;
+        }
+        case 'ble-firmware': {
+            if (typeof window !== 'undefined') {
+                window.$BLE_MODE = true;
+            }
+            return Firmware;
+        }
         case 'onboarding':
             return Onboarding;
         case 'bridge':

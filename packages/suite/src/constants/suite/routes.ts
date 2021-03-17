@@ -117,6 +117,13 @@ const routes = [
         params: modalAppParams,
     },
     {
+        name: 'ble-firmware-index',
+        pattern: '/ble-firmware',
+        app: 'ble-firmware',
+        isModal: true,
+        params: modalAppParams,
+    },
+    {
         name: 'wallet-index',
         pattern: '/accounts',
         app: 'wallet',

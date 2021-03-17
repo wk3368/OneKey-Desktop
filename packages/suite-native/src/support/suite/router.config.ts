@@ -80,6 +80,11 @@ export default [
         screen: Firmware,
     },
     {
+        key: getRoute('ble-firmware-index'),
+        type: 'default',
+        screen: Firmware,
+    },
+    {
         key: getRoute('settings-device'),
         type: 'default',
         screen: Backup,

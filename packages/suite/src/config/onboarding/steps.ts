@@ -67,7 +67,7 @@ const steps: Step[] = [
         progress: true,
     },
     {
-        id: STEP.ID_BLE_FIRMWARE_STEP,
+        id: STEP.ID_FIRMWARE_STEP,
         disallowedDeviceStates: [
             STEP.DISALLOWED_DEVICE_IS_NOT_USED_HERE,
             // STEP.DISALLOWED_IS_NOT_SAME_DEVICE,
@@ -79,7 +79,7 @@ const steps: Step[] = [
         progress: true,
     },
     {
-        id: STEP.ID_FIRMWARE_STEP,
+        id: STEP.ID_BLE_FIRMWARE_STEP,
         disallowedDeviceStates: [
             STEP.DISALLOWED_DEVICE_IS_NOT_USED_HERE,
             // STEP.DISALLOWED_IS_NOT_SAME_DEVICE,
