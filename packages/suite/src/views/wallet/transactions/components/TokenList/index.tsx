@@ -6,6 +6,7 @@ import { Section } from '@dashboard-components';
 import * as modalActions from '@suite-actions/modalActions';
 import { useActions } from '@suite-hooks';
 import { Account } from '@wallet-types';
+// @ts-expect-error
 import USDTSvg from './usdt.svg';
 
 const Wrapper = styled(Card)<{ isTestnet?: boolean }>`
