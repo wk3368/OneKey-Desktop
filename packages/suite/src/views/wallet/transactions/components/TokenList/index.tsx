@@ -6,6 +6,7 @@ import { Section } from '@dashboard-components';
 import * as modalActions from '@suite-actions/modalActions';
 import { useActions } from '@suite-hooks';
 import { Account } from '@wallet-types';
+import USDTSvg from './usdt.svg';
 
 const Wrapper = styled(Card)<{ isTestnet?: boolean }>`
     display: grid;
@@ -102,6 +103,12 @@ const CryptoAmount = styled(FormattedCryptoAmount)`
     overflow: hidden;
 `;
 
+const TokenIconContainer = styled.img`
+    width: 32px;
+    height: 32px;
+    margin-right: 16px;
+`;
+
 interface Props {
     tokens: Account['tokens'];
     explorerUrl: string;
@@ -147,6 +154,7 @@ const TokenList = ({ tokens, explorerUrl, isTestnet }: Props) => {
                     return (
                         <Fragment key={t.address}>
                             <Col isTestnet={isTestnet}>
+                                {t.symbol === 'usdt' && <TokenIconContainer src={USDTSvg} />}
                                 <TokenNameWrapper>
                                     <TokenSymbol>{t.symbol}</TokenSymbol>
                                     <TokenName> - {t.name}</TokenName>
