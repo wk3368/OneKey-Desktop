@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { H2, variables } from '@trezor/components';
+import { H2, variables, Button } from '@trezor/components';
 import {
     PinInput,
     Loading,
@@ -10,8 +10,9 @@ import {
     Modal,
     ModalProps,
 } from '@suite-components';
+import TrezorConnect from 'trezor-connect';
 import { TrezorDevice } from '@suite-types';
-
+import * as suiteActions from '@suite-actions/suiteActions';
 import { URLS } from '@suite-constants';
 import * as modalActions from '@suite-actions/modalActions';
 import { useActions } from '@suite-hooks';
@@ -65,6 +66,10 @@ const Text = styled(How)`
 
 const StyledImg = styled(props => <Image {...props} />)`
     padding: 34px;
+`;
+
+const StyledButton = styled(Button)`
+    margin: 24px 0;
 `;
 
 interface TextComponentProps {
@@ -144,6 +149,9 @@ type Props = OwnProps;
 const Pin = ({ device, cancelable, noBackground, ...rest }: Props) => {
     const [submitted, setSubmitted] = useState(false);
     const { onPinSubmit } = useActions({ onPinSubmit: modalActions.onPinSubmit });
+    const { acquireDevice } = useActions({
+        acquireDevice: suiteActions.acquireDevice,
+    });
 
     const pinRequestType = device.buttonRequests[device.buttonRequests.length - 1];
     const invalidCounter = device.buttonRequests.filter(r => r === 'ui-invalid_pin').length || 0;
@@ -160,6 +168,13 @@ const Pin = ({ device, cancelable, noBackground, ...rest }: Props) => {
         }
     }, [pinRequestType]);
 
+    // 3 cases when we want to show left column
+    const isExtended =
+        ['PinMatrixRequestType_NewFirst', 'PinMatrixRequestType_NewSecond'].includes(
+            pinRequestType,
+        ) || invalidCounter > 0;
+
+    const [modeType, setModeType] = useState('');
     if (!device.features) return null;
 
     const submit = (pin: string) => {
@@ -167,15 +182,70 @@ const Pin = ({ device, cancelable, noBackground, ...rest }: Props) => {
         setSubmitted(true);
     };
 
+    if (!isExtended && modeType === 'device') {
+        return (
+            <Modal
+                noPadding
+                useFixedWidth={false}
+                cancelable={cancelable}
+                noBackground={noBackground}
+                {...rest}
+                data-test="@modal/pin-select"
+            >
+                <Wrapper>
+                    <Col noYPadding={noBackground}>
+                        <H2>请在硬件设备上输入 PIN 码</H2>
+                        <How>在设备上通过物理按键输入 PIN 码解锁设备</How>
+                    </Col>
+                </Wrapper>
+            </Modal>
+        );
+    }
+
     if (submitted) {
         return <Loading />;
     }
 
-    // 3 cases when we want to show left column
-    const isExtended =
-        ['PinMatrixRequestType_NewFirst', 'PinMatrixRequestType_NewSecond'].includes(
-            pinRequestType,
-        ) || invalidCounter > 0;
+    if (!isExtended && !modeType) {
+        return (
+            <Modal
+                noPadding
+                useFixedWidth={false}
+                cancelable={cancelable}
+                noBackground={noBackground}
+                {...rest}
+                data-test="@modal/pin-select"
+            >
+                <Wrapper>
+                    <Col noYPadding={noBackground}>
+                        <H2>请选择解锁方式</H2>
+                        <How>您可以选择两种解锁方式来输入 PIN 码。</How>
+                        <How>
+                            在设备上通过物理按键输入， 或是直接在应用内通过键盘布局映射点击输入。
+                        </How>
+                        <StyledButton
+                            onClick={() => {
+                                setModeType('device');
+                                submit('@@ONEKEY_INPUT_PIN_IN_DEVICE');
+                            }}
+                            fullWidth
+                            data-test="@pin/submit-button"
+                        >
+                            在设备上解锁
+                        </StyledButton>
+                        <Button
+                            variant="secondary"
+                            fullWidth
+                            onClick={() => setModeType('desktop')}
+                            data-test="@pin/submit-button"
+                        >
+                            通过桌面端解锁
+                        </Button>
+                    </Col>
+                </Wrapper>
+            </Modal>
+        );
+    }
 
     // TODO: figure out responsive design
     return (

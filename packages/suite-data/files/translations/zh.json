@@ -544,7 +544,7 @@
 	"TR_ENABLE_PASSPHRASE": "启用密码",
 	"TR_ENABLE_PASSPHRASE_DESCRIPTION": "允许你创建隐藏的钱包",
 	"TR_ENABLE_PIN": "启用 PIN",
-	"TR_ENTERED_PIN_NOT_CORRECT": "Incorrect PIN for \"{deviceLabel}\"",
+	"TR_ENTERED_PIN_NOT_CORRECT": "\"{deviceLabel}\" 中输入了错误的 PIN 码",
 	"TR_ENTER_ALL_WORDS_IN_CORRECT": "以正确的顺序输入所有单词",
 	"TR_ENTER_CURRENT_PIN": "输入当前 PIN 码",
 	"TR_ENTER_PASSPHRASE": "请输入密码",

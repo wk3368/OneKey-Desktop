@@ -21,43 +21,61 @@ export const create = (
     deviceState: string,
     discoveryItem: DiscoveryItem,
     accountInfo: AccountInfo,
-): AccountAction => ({
-    type: ACCOUNT.CREATE,
-    payload: {
-        deviceState,
-        index: discoveryItem.index,
-        path: discoveryItem.path,
-        descriptor: accountInfo.descriptor,
-        key: `${accountInfo.descriptor}-${discoveryItem.coin}-${deviceState}`,
-        accountType: discoveryItem.accountType,
-        symbol: discoveryItem.coin,
-        empty: accountInfo.empty,
-        visible:
-            !accountInfo.empty ||
-            (discoveryItem.accountType === 'normal' && discoveryItem.index === 0),
-        balance: accountInfo.balance,
-        availableBalance: accountInfo.availableBalance,
-        formattedBalance: accountUtils.formatNetworkAmount(
-            // xrp `availableBalance` is reduced by reserve, use regular balance
-            discoveryItem.networkType === 'ripple'
-                ? accountInfo.balance
-                : accountInfo.availableBalance,
-            discoveryItem.coin,
-        ),
-        tokens: accountUtils.enhanceTokens(accountInfo.tokens),
-        addresses: accountInfo.addresses,
-        utxo: accountInfo.utxo,
-        history: accountInfo.history,
-        metadata: {
-            key: accountInfo.legacyXpub || accountInfo.descriptor,
-            fileName: '',
-            aesKey: '',
-            outputLabels: {},
-            addressLabels: {},
+): AccountAction => {
+    const account = {
+        type: ACCOUNT.CREATE,
+        payload: {
+            deviceState,
+            index: discoveryItem.index,
+            path: discoveryItem.path,
+            descriptor: accountInfo.descriptor,
+            key: `${accountInfo.descriptor}-${discoveryItem.coin}-${deviceState}`,
+            accountType: discoveryItem.accountType,
+            symbol: discoveryItem.coin,
+            empty: accountInfo.empty,
+            visible:
+                !accountInfo.empty ||
+                (discoveryItem.accountType === 'normal' && discoveryItem.index === 0),
+            balance: accountInfo.balance,
+            availableBalance: accountInfo.availableBalance,
+            formattedBalance: accountUtils.formatNetworkAmount(
+                // xrp `availableBalance` is reduced by reserve, use regular balance
+                discoveryItem.networkType === 'ripple'
+                    ? accountInfo.balance
+                    : accountInfo.availableBalance,
+                discoveryItem.coin,
+            ),
+            tokens: accountUtils.enhanceTokens(accountInfo.tokens),
+            addresses: accountInfo.addresses,
+            utxo: accountInfo.utxo,
+            history: accountInfo.history,
+            metadata: {
+                key: accountInfo.legacyXpub || accountInfo.descriptor,
+                fileName: '',
+                aesKey: '',
+                outputLabels: {},
+                addressLabels: {},
+            },
+            ...accountUtils.getAccountSpecific(accountInfo, discoveryItem.networkType),
         },
-        ...accountUtils.getAccountSpecific(accountInfo, discoveryItem.networkType),
-    },
-});
+    };
+
+    if (discoveryItem.coin === 'eth') {
+        const hasUSDT = account.payload.tokens.some(token => token.symbol !== 'usdt');
+        if (!hasUSDT) {
+            account.payload.tokens.push({
+                address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+                balance: '0',
+                decimals: 6,
+                name: 'Tether USD',
+                symbol: 'usdt',
+                type: 'ERC20',
+            });
+        }
+    }
+    // @ts-expect-error
+    return account;
+};
 
 export const update = (account: Account, accountInfo: AccountInfo): AccountAction => ({
     type: ACCOUNT.UPDATE,
