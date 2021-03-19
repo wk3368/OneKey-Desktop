@@ -15,7 +15,6 @@ const Index = () => {
             resolveButton={
                 <Button
                     onClick={() => {
-                        console.log(window?.$BLE_MODE);
                         goto(window?.$BLE_MODE ? 'ble-firmware-index' : 'firmware-index');
                     }}
                 >
