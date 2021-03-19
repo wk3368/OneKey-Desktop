@@ -6397,6 +6397,14 @@
             "oneofs": {}
         },
         {
+            "name": "UnlockInDevice",
+            "fields": [],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
             "name": "EntropyRequest",
             "fields": [],
             "enums": [],
@@ -11534,6 +11542,10 @@
                 {
                     "name": "MessageType_WebAuthnRemoveResidentCredential",
                     "id": 803
+                },
+                {
+                    "name": "MessageType_UnlockInDevice",
+                    "id": 10000
                 }
             ],
             "options": {}

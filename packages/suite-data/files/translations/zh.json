@@ -52,7 +52,7 @@
 	"FIRMWARE_RECONNECTED_BL_NEXT_STEP_DESC": "在下一步，你的 OneKey 将要求你确认此固件更新。",
 	"FIRMWARE_RECONNECT_BL_NEXT_STEP_DESC": "在下一步中，你将被要求在bootloader模式下连接你的设备。",
 	"FIRMWARE_UPDATE_AVAILABLE_DESC": "我们一直在努力改善你 OneKey 的体验，以下是更改后的总结：",
-	"FIRMWARE_UPDATE_SUCCESS_DESC": "你的OneKey已安装了最新的固件。.",
+	"FIRMWARE_UPDATE_SUCCESS_DESC": "你的OneKey已安装了最新的固件。",
 	"FIRMWARE_UPDATE_SUCCESS_HEADING": "安装完毕",
 	"FIRMWARE_UPDATE_TO_VERSION": "更新到 v{version}",
 	"BLE_FIRMWARE_UPDATE_TO_VERSION": "蓝牙固件更新到 v{version}",
