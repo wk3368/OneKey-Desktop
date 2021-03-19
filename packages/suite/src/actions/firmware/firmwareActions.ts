@@ -3,6 +3,7 @@ import { FIRMWARE } from '@firmware-actions/constants';
 import { Dispatch, GetState, AppState, AcquiredDevice } from '@suite-types';
 import * as analyticsActions from '@suite-actions/analyticsActions';
 import * as buildUtils from '@suite-utils/build';
+import { isDesktop } from '@suite-utils/env';
 import { isBitcoinOnly } from '@suite-utils/device';
 import bleData from '@trezor/suite-data/files/connect/data/firmware/ble.json';
 
@@ -90,7 +91,10 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
         const CONNECT_URL = buildUtils.isDev()
             ? 'https://localhost:8088/'
             : 'https://connect.onekey.so/';
-        $iframe.postMessage(window?.$BLE_MODE ? 'BLE_MODE_SUCCESS' : 'BLE_MODE_FAIL', CONNECT_URL);
+        $iframe.postMessage(
+            window?.$BLE_MODE ? 'BLE_MODE_SUCCESS' : 'BLE_MODE_FAIL',
+            isDesktop() ? null : CONNECT_URL,
+        );
     }
 
     if (window?.$BLE_MODE) {
