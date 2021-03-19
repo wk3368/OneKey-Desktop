@@ -100,12 +100,11 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
     if (window?.$BLE_MODE) {
         const resp = await fetch(bleData.web_update);
         const binary = await resp.arrayBuffer();
-        console.log(binary);
+
         // @ts-expect-error
         payload.binary = binary;
         // @ts-expect-error
         payload.version = bleData.version.split('.').map(Number);
-        console.log('payload', payload);
     }
 
     const updateResponse = await TrezorConnect.firmwareUpdate(payload);
