@@ -4807,6 +4807,14 @@
             "oneofs": {}
         },
         {
+            "name": "UnlockInDevice",
+            "fields": [],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
             "name": "EntropyRequest",
             "fields": [],
             "enums": [],
@@ -9351,6 +9359,10 @@
                 {
                     "name": "MessageType_BinanceSignedTx",
                     "id": 709
+                },
+                {
+                    "name": "MessageType_UnlockInDevice",
+                    "id": 10000
                 }
             ],
             "options": {}
