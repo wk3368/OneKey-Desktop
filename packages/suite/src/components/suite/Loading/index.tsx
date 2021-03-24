@@ -22,7 +22,7 @@ const LoaderWrapper = styled.div`
 const Loading = ({ imageProps, ...props }: Props) => (
     <StyledModal useFixedWidth={false} {...props}>
         <LoaderWrapper data-test="@suite/loading">
-            <Image width={80} height={80} image="SPINNER" {...imageProps} />
+            <Image width={160} height={160} image="SPINNER" {...imageProps} />
         </LoaderWrapper>
     </StyledModal>
 );
