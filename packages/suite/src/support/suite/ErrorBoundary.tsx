@@ -118,15 +118,15 @@ class ErrorBoundary extends React.Component<Props, StateProps> {
             // render fallback UI
             return (
                 <Wrapper>
-                    <H1>Error occurred</H1>
+                    <H1>发生错误</H1>
                     <GenericMessage textAlign="center">
-                        It appears something is broken. You might let us know by sending report
+                        看来有些问题，你可以通过发送错误数据让我们来进行排查问题。
                     </GenericMessage>
                     <ErrorMessage>{this.state.error.message}</ErrorMessage>
                     {/* <P>{this.state.error.stack}</P> */}
 
                     <SendReportButton variant="primary" onClick={() => Sentry.showReportDialog()}>
-                        Send report
+                        发送错误数据
                     </SendReportButton>
                     <Separator />
                     <Buttons>
@@ -137,7 +137,7 @@ class ErrorBoundary extends React.Component<Props, StateProps> {
                                 refresh();
                             }}
                         >
-                            Reload window
+                            重新加载
                         </StyledButton>
 
                         <StyledButton
@@ -148,7 +148,7 @@ class ErrorBoundary extends React.Component<Props, StateProps> {
                                 refresh();
                             }}
                         >
-                            Clear storage and reload
+                            清理缓存后重新加载
                         </StyledButton>
                     </Buttons>
                 </Wrapper>
