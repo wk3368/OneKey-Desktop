@@ -32,6 +32,8 @@ interface SuiteSettings {
     language: typeof LANGUAGES[number]['code'];
     torOnionLinks: boolean;
     debug: DebugModeOptions;
+    unlockPin: '' | 'desktop' | 'device';
+    passphraseShowSwitch: boolean;
 }
 
 export interface SuiteState {
@@ -70,6 +72,8 @@ const initialState: SuiteState = {
             variant: 'light',
         },
         language: 'zh',
+        unlockPin: '',
+        passphraseShowSwitch: false,
         torOnionLinks: isWeb(),
         debug: {
             invityAPIUrl: undefined,
@@ -125,7 +129,12 @@ const suiteReducer = (state: SuiteState = initialState, action: Action): SuiteSt
                 draft.settings.language = action.locale;
                 draft.messages = action.messages;
                 break;
-
+            case SUITE.SET_UNLOCK_PIN:
+                draft.settings.unlockPin = action.payload;
+                break;
+            case SUITE.SET_SHOW_PASSPHRASE_SWITCH_ACCOUNT:
+                draft.settings.passphraseShowSwitch = action.payload;
+                break;
             case SUITE.SET_DEBUG_MODE:
                 draft.settings.debug = { ...draft.settings.debug, ...action.payload };
                 break;

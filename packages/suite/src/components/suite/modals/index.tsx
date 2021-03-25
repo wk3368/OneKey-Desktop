@@ -8,6 +8,7 @@ import * as allModalActions from '@suite-actions/modalActions';
 import * as routerActions from '@suite-actions/routerActions';
 import { MODAL } from '@suite-actions/constants';
 import { AppState, Dispatch, AcquiredDevice } from '@suite-types';
+import { changeUnlockPinMethod } from '@settings-actions/deviceSettingsActions';
 
 import Pin from './Pin';
 import PinInvalid from './PinInvalid';
@@ -46,14 +47,16 @@ const mapStateToProps = (state: AppState) => ({
     device: state.suite.device,
     devices: state.devices,
     router: state.router,
+    settings: state.suite.settings,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     modalActions: bindActionCreators(allModalActions, dispatch),
     goto: bindActionCreators(routerActions.goto, dispatch),
+    changeUnlockPinMethod: bindActionCreators(changeUnlockPinMethod, dispatch),
 });
 
-type Props = ReturnType<typeof mapStateToProps> &
+export type Props = ReturnType<typeof mapStateToProps> &
     ReturnType<typeof mapDispatchToProps> & {
         background?: boolean;
     };
@@ -67,7 +70,14 @@ const getDeviceContextModal = (props: Props) => {
     switch (modal.windowType) {
         // T1 firmware
         case UI.REQUEST_PIN:
-            return <Pin device={device} onCancel={props.modalActions.onPinCancel} />;
+            return (
+                <Pin
+                    device={device}
+                    onCancel={props.modalActions.onPinCancel}
+                    changeUnlockPinMethod={props.changeUnlockPinMethod}
+                    settings={props.settings}
+                />
+            );
         // T1 firmware
         case UI.INVALID_PIN:
             return <PinInvalid device={device} />;

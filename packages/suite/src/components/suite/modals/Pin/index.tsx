@@ -17,6 +17,8 @@ import { URLS } from '@suite-constants';
 import * as modalActions from '@suite-actions/modalActions';
 import { useActions } from '@suite-hooks';
 
+import type { Props as ConnectedProps } from '..';
+
 const { FONT_SIZE, SCREEN_SIZE } = variables;
 
 const Wrapper = styled.div`
@@ -142,11 +144,13 @@ interface OwnProps extends ModalProps {
     cancelable?: boolean;
     noBackground?: boolean;
     onCancel: () => void;
+    settings: ConnectedProps['settings'];
+    changeUnlockPinMethod: ConnectedProps['changeUnlockPinMethod'];
 }
 
 type Props = OwnProps;
 
-const Pin = ({ device, cancelable, noBackground, ...rest }: Props) => {
+const Pin = ({ settings, changeUnlockPinMethod, device, cancelable, noBackground, ...rest }: Props) => {
     const [submitted, setSubmitted] = useState(false);
     const { onPinSubmit } = useActions({ onPinSubmit: modalActions.onPinSubmit });
     const { acquireDevice } = useActions({
@@ -174,13 +178,20 @@ const Pin = ({ device, cancelable, noBackground, ...rest }: Props) => {
             pinRequestType,
         ) || invalidCounter > 0;
 
-    const [modeType, setModeType] = useState('');
     if (!device.features) return null;
 
     const submit = (pin: string) => {
         onPinSubmit(pin);
         setSubmitted(true);
     };
+
+    const modeType = settings.unlockPin;
+
+    useEffect(() => {
+        if (modeType === 'device') {
+            submit('@@ONEKEY_INPUT_PIN_IN_DEVICE');
+        }
+    }, [modeType, submit])
 
     if (!isExtended && modeType === 'device') {
         return (
@@ -225,8 +236,7 @@ const Pin = ({ device, cancelable, noBackground, ...rest }: Props) => {
                         </How>
                         <StyledButton
                             onClick={() => {
-                                setModeType('device');
-                                submit('@@ONEKEY_INPUT_PIN_IN_DEVICE');
+                                changeUnlockPinMethod('device');
                             }}
                             fullWidth
                             data-test="@pin/submit-button"
@@ -236,7 +246,7 @@ const Pin = ({ device, cancelable, noBackground, ...rest }: Props) => {
                         <Button
                             variant="secondary"
                             fullWidth
-                            onClick={() => setModeType('desktop')}
+                            onClick={() => changeUnlockPinMethod('desktop')}
                             data-test="@pin/submit-button"
                         >
                             通过桌面端解锁
