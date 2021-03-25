@@ -48,6 +48,8 @@ export type SuiteAction =
           locale: typeof LANGUAGES[number]['code'];
           messages: { [key: string]: string };
       }
+    | { type: typeof SUITE.SET_UNLOCK_PIN; payload: 'desktop' | 'device' | '' }
+    | { type: typeof SUITE.SET_SHOW_PASSPHRASE_SWITCH_ACCOUNT; payload: boolean }
     | { type: typeof SUITE.SET_DEBUG_MODE; payload: Partial<DebugModeOptions> }
     | { type: typeof SUITE.ONLINE_STATUS; payload: boolean }
     | { type: typeof SUITE.TOR_STATUS; payload: boolean }

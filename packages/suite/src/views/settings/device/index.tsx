@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import React, { createRef, useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { SettingsLayout } from '@settings-components';
 import { Translation } from '@suite-components';
 import {
@@ -8,14 +10,14 @@ import {
     SectionItem,
     Section,
     TextColumn,
+    ActionSelect,
 } from '@suite-components/Settings';
 import { DRY_RUN_URL, FAILED_BACKUP_URL, SEED_MANUAL_URL } from '@suite-constants/urls';
 import { getFwVersion, isBitcoinOnly } from '@suite-utils/device';
 import * as homescreen from '@suite-utils/homescreen';
 import { useDevice, useAnalytics } from '@suite-hooks';
 import { variables, Switch } from '@trezor/components';
-import React, { createRef, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { UNLOCK_PIN } from '@suite-config';
 
 import { Props } from './Container';
 
@@ -37,7 +39,7 @@ const Col = styled.div`
     flex-direction: column;
 `;
 
-const Settings = ({ device, applySettings, changePin, openModal, goto }: Props) => {
+const Settings = ({ device, applySettings, changePin, openModal, goto, changeUnlockPinMethod, unlockPin, passphraseShowSwitch, changeShowPassphraseSwitch }: Props) => {
     const [label, setLabel] = useState('');
     const [customHomescreen, setCustomHomescreen] = useState('');
     const fileInputElement = createRef<HTMLInputElement>();
@@ -241,8 +243,9 @@ const Settings = ({ device, applySettings, changePin, openModal, goto }: Props) 
                     <ActionColumn>
                         <Switch
                             checked={!!features.pin_protection}
-                            onChange={() => {
-                                changePin({ remove: features.pin_protection });
+                            onChange={async () => {
+                                await changePin({ remove: features.pin_protection });
+                                changeUnlockPinMethod('');
                                 analytics.report({
                                     type: 'settings/device/change-pin-protection',
                                     payload: {
@@ -277,7 +280,38 @@ const Settings = ({ device, applySettings, changePin, openModal, goto }: Props) 
                         </ActionColumn>
                     </SectionItem>
                 )}
-
+                {features.pin_protection && (
+                    <SectionItem>
+                        <TextColumn
+                            title={<Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_TITLE" />}
+                            description={<Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESCRIPTION" />}
+                        />
+                        <ActionColumn>
+                            <ActionSelect
+                                hideTextCursor
+                                useKeyPressScroll
+                                noTopLabel
+                                placeholder={<Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_PLACEHOLDER" />}
+                                data-test="@settings/unlock-pin-method-select"
+                                options={UNLOCK_PIN.map(l => ({ value: l.code, label: l.name }))}
+                                onChange={(option: {
+                                    value: typeof UNLOCK_PIN[number]['code'];
+                                    label: typeof UNLOCK_PIN[number]['name'];
+                                }) => {
+                                    changeUnlockPinMethod(option.value);
+                                }}
+                                value={
+                                    unlockPin
+                                        ? {
+                                            value: unlockPin,
+                                            label: UNLOCK_PIN.find(l => l.code === unlockPin)!.name,
+                                        }
+                                        : null
+                                }
+                            />
+                        </ActionColumn>
+                    </SectionItem>
+                )}
                 <SectionItem>
                     <TextColumn
                         title={<Translation id="TR_DEVICE_SETTINGS_PASSPHRASE_TITLE" />}
@@ -292,10 +326,13 @@ const Settings = ({ device, applySettings, changePin, openModal, goto }: Props) 
                     <ActionColumn>
                         <Switch
                             checked={!!features.passphrase_protection}
-                            onChange={() => {
-                                applySettings({
+                            onChange={async () => {
+                                const result = await applySettings({
                                     use_passphrase: !features.passphrase_protection,
                                 });
+                                if (result?.success) {
+                                    changeShowPassphraseSwitch(false);
+                                }
                                 analytics.report({
                                     type: 'settings/device/change-passphrase-protection',
                                     payload: {
@@ -308,6 +345,28 @@ const Settings = ({ device, applySettings, changePin, openModal, goto }: Props) 
                         />
                     </ActionColumn>
                 </SectionItem>
+                {
+                    features.passphrase_protection && (
+                        <SectionItem>
+                            <TextColumn
+                                title={<Translation id="TR_DEVICE_SETTINGS_PASSPHRASE_DEFAULT_SHOW_SWITCH_TITLE" />}
+                                description={
+                                    <Translation id="TR_DEVICE_SETTINGS_PASSPHRASE_DEFAULT_SHOW_SWITCH_DESCRIPTION" />
+                                }
+                            />
+                            <ActionColumn>
+                                <Switch
+                                    checked={!!passphraseShowSwitch}
+                                    onChange={() => {
+                                        changeShowPassphraseSwitch(!passphraseShowSwitch);
+                                    }}
+                                    data-test="@settings/device/passphrase-switch"
+                                    isDisabled={isDeviceLocked}
+                                />
+                            </ActionColumn>
+                        </SectionItem>
+                    )
+                }
             </Section>
             <Section title={<Translation id="TR_PERSONALIZATION" />}>
                 <SectionItem>

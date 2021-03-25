@@ -7,6 +7,7 @@ import * as modalActions from '@suite-actions/modalActions';
 import { isWebUSB } from '@suite-utils/transport';
 import { Dispatch, GetState } from '@suite-types';
 import { DEVICE } from '@suite-constants';
+import { SUITE } from '@suite-actions/constants';
 
 export const applySettings = (params: ApplySettings) => async (
     dispatch: Dispatch,
@@ -122,3 +123,17 @@ export const resetDevice = (params: ResetDevice = {}) => async (
     }
     return result;
 };
+
+export const changeUnlockPinMethod = (method: '' | 'desktop' | 'device') => (dispatch: Dispatch) => {
+    dispatch({
+        type: SUITE.SET_UNLOCK_PIN,
+        payload: method,
+    });
+}
+
+export const changeShowPassphraseSwitch = (payload: boolean) => (dispatch: Dispatch) => {
+    dispatch({
+        type: SUITE.SET_SHOW_PASSPHRASE_SWITCH_ACCOUNT,
+        payload,
+    });
+}

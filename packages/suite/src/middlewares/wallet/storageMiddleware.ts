@@ -112,6 +112,8 @@ const storageMiddleware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dis
             api.dispatch(storageActions.saveWalletSettings());
             break;
 
+        case SUITE.SET_SHOW_PASSPHRASE_SWITCH_ACCOUNT:
+        case SUITE.SET_UNLOCK_PIN:
         case SUITE.SET_LANGUAGE:
         case SUITE.SET_FLAG:
         case SUITE.SET_DEBUG_MODE:

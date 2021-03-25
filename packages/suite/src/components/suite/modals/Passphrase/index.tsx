@@ -1,5 +1,5 @@
 import TrezorConnect from 'trezor-connect';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -36,6 +36,7 @@ const Divider = styled.div`
 
 const mapStateToProps = (state: AppState) => ({
     devices: state.devices,
+    settings: state.suite.settings,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -133,6 +134,11 @@ const Passphrase = (props: Props) => {
                 />
             </Modal>
         );
+    }
+
+    if (!props.settings.passphraseShowSwitch) {
+        onSubmit('');
+        return null;
     }
 
     // show 2-column modal for selecting between standard and hidden wallets
