@@ -38,7 +38,7 @@ module.exports = api => {
         [
             'babel-plugin-styled-components',
             {
-                ssr: true,
+                ssr: false,
                 displayName: true,
                 preprocess: false,
             },
