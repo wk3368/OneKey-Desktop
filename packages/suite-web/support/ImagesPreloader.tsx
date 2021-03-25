@@ -19,8 +19,8 @@ class ImagesPreloader extends Component {
         );
         return (
             <Wrapper>
-                {images.map((image: string) => (
-                    <Img key={image} src={image} />
+                {images.map((image: string, index: number) => (
+                    <Img key={image + index} src={image} />
                 ))}
             </Wrapper>
         );
