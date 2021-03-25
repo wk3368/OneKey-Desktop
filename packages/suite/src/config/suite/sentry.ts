@@ -3,7 +3,7 @@ import { BrowserOptions } from '@sentry/browser';
 import { TOR_DOMAIN } from '@suite-constants/urls';
 
 export default {
-    dsn: 'https://6d91ca6e6a5d4de7b47989455858b5f6@o117836.ingest.sentry.io/5193825',
+    dsn: 'https://a7d74121d386447a8a25363a61599985@o554666.ingest.sentry.io/5688891',
     normalizeDepth: 10,
     integrations: [
         new CaptureConsole({
