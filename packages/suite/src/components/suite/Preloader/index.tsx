@@ -33,8 +33,6 @@ import {
     Welcome,
 } from '@suite-views';
 
-import bleData from '@trezor/suite-data/files/connect/data/firmware/ble.json';
-
 type SuiteAppStateProps = {
     loaded: boolean;
     transport: AppState['suite']['transport'];
@@ -95,7 +93,7 @@ const getSuiteApplicationState = ({
 
     // TODO: 蓝牙更新判断
     // @ts-expect-error
-    if (device?.features?.ble_ver !== bleData.version) {
+    if (window.$BLE_DATA?.required && device?.features?.ble_ver !== window.$BLE_DATA?.version) {
         if (typeof window !== 'undefined') {
             // @ts-ignore
             window.$BLE_MODE = true;

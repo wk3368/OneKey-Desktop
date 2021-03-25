@@ -5,7 +5,6 @@ import * as analyticsActions from '@suite-actions/analyticsActions';
 import * as buildUtils from '@suite-utils/build';
 import { isDesktop } from '@suite-utils/env';
 import { isBitcoinOnly } from '@suite-utils/device';
-import bleData from '@trezor/suite-data/files/connect/data/firmware/ble.json';
 
 export type FirmwareAction =
     | {
@@ -97,14 +96,21 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
         );
     }
 
-    if (window?.$BLE_MODE) {
-        const resp = await fetch(bleData.web_update);
+    if (window?.$BLE_MODE && window.$BLE_DATA?.web_update) {
+        const resp = await fetch(window.$BLE_DATA?.web_update);
         const binary = await resp.arrayBuffer();
 
         // @ts-expect-error
         payload.binary = binary;
         // @ts-expect-error
-        payload.version = bleData.version.split('.').map(Number);
+        payload.version = window.$BLE_DATA.version.split('.').map(Number);
+    } else {
+        const stmUrl = targetRelease?.release?.url || device.firmwareRelease!.release.url;
+        const resp = await fetch(stmUrl);
+        const binary = await resp.arrayBuffer();
+
+        // @ts-expect-error
+        payload.binary = binary;
     }
 
     const updateResponse = await TrezorConnect.firmwareUpdate(payload);

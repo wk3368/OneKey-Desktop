@@ -58,6 +58,21 @@ export default class MyDocument extends Document {
                             content="http://suite.trezoriovpjcahpzkrewelclulmszwbqpzmzgub37gbcjlvluxtruqad.onion/web"
                         />
                     )}
+                    <script
+                        id="BLE_DATA_MESSAGES"
+                        dangerouslySetInnerHTML={{
+                            __html: `
+                                window.addEventListener('message', function(event) {
+                                    const payload = event.data;
+                                    if (payload.type === 'UPDATE_NRF_DATA') {
+                                        window.$BLE_DATA = payload.data;
+                                        return;
+                                    }
+                                });
+                            `
+                        }}
+                    />
+
                 </Head>
                 <body>
                     <Main />
