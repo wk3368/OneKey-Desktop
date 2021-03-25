@@ -20,6 +20,9 @@ const src = isDev
           slashes: true,
       });
 
+// @ts-expect-error
+app.commandLine.appendSwitch('ignore-certificate-errors', true);
+
 // Logger
 const log = {
     level: app.commandLine.getSwitchValue('log-level') || (isDev ? 'debug' : 'error'),

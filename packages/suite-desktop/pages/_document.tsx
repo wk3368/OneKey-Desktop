@@ -38,6 +38,20 @@ export default class MyDocument extends Document {
                         href={resolveStaticPath('fonts/fonts.css')}
                     />
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    <script
+                        id="BLE_DATA_MESSAGES"
+                        dangerouslySetInnerHTML={{
+                            __html: `
+                                window.addEventListener('message', function(event) {
+                                    const payload = event.data;
+                                    if (payload.type === 'UPDATE_NRF_DATA') {
+                                        window.$BLE_DATA = payload.data;
+                                        return;
+                                    }
+                                });
+                            `
+                        }}
+                    />
                 </Head>
                 <body style={{ overflow: 'hidden' }}>
                     <Main />

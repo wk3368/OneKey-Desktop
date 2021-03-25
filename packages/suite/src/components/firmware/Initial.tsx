@@ -6,7 +6,6 @@ import { Translation, ExternalLink } from '@suite-components';
 import { getFwVersion } from '@suite-utils/device';
 import { useDevice, useFirmware } from '@suite-hooks';
 import { ReconnectInNormalStep, NoNewFirmware, ContinueButton, P, H2 } from '@firmware-components';
-import bleData from '@trezor/suite-data/files/connect/data/firmware/ble.json';
 
 const { FONT_SIZE, FONT_WEIGHT } = variables;
 
@@ -88,7 +87,7 @@ const BLEBody = () => {
     // ensure that device is connected in requested mode
     if (device?.mode !== 'normal') return <ReconnectInNormalStep.Body />;
     // @ts-expect-error
-    if (device?.features.ble_ver === bleData.version) return <NoNewFirmware.Body />;
+    if (device?.features.ble_ver === window.$BLE_DATA?.version) return <NoNewFirmware.Body />;
 
     const { firmwareRelease } = device;
     if (!device?.features || !firmwareRelease) return null; // ts
@@ -120,18 +119,18 @@ const BLEBody = () => {
     return (
         <BodyWrapper>
             <H2 isGreen data-test="@firmware/initial/subheading/version">
-                v{bleData.version} 已发布!
+                v{window.$BLE_DATA?.version ?? ''} 已发布!
             </H2>
             <P>
                 <Translation id="FIRMWARE_UPDATE_AVAILABLE_DESC" />
             </P>
 
             <ChangesSummary data-test="@firmware/initial/changelog">
-                <ChangelogGroup key={bleData.version}>
-                    <ChangelogHeading>{bleData.version}</ChangelogHeading>
+                <ChangelogGroup key={window.$BLE_DATA?.version}>
+                    <ChangelogHeading>{window.$BLE_DATA?.version}</ChangelogHeading>
                     <ChangesUl>
                         {/* render individual changes for a given version */}
-                        <li key={bleData.changelog_cn}>{bleData.changelog_cn}</li>
+                        <li key={window.$BLE_DATA?.changelog_cn}>{window.$BLE_DATA?.changelog_cn}</li>
                     </ChangesUl>
                 </ChangelogGroup>
             </ChangesSummary>
@@ -244,7 +243,7 @@ const BLEBottomBar = () => {
         return null;
     }
     // @ts-expect-error
-    if (device.features.ble_ver !== bleData.version) {
+    if (device.features.ble_ver !== window.$BLE_DATA?.version) {
         return (
             <>
                 <ContinueButton onClick={() => setStatus('check-seed')} />

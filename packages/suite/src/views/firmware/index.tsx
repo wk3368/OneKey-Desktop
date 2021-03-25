@@ -23,7 +23,6 @@ import {
 } from '@firmware-components';
 import { DeviceAcquire, DeviceUnknown, DeviceUnreadable } from '@suite-views';
 import { Translation, Modal } from '@suite-components';
-import bleData from '@trezor/suite-data/files/connect/data/firmware/ble.json';
 
 const InnerModalWrapper = styled.div`
     display: flex;
@@ -101,7 +100,7 @@ const Firmware = ({ closeModalApp, resetReducer, firmware, device, modal }: Prop
                         ? 'BLE_FIRMWARE_UPDATE_TO_VERSION'
                         : 'FIRMWARE_UPDATE_TO_VERSION'
                 }
-                values={{ version: window?.$BLE_MODE ? bleData.version : nextVersion }}
+                values={{ version: window?.$BLE_MODE ? window.$BLE_DATA?.version : nextVersion }}
             />
         );
     };
@@ -118,7 +117,7 @@ const Firmware = ({ closeModalApp, resetReducer, firmware, device, modal }: Prop
 
         if (window?.$BLE_MODE) {
             // @ts-expect-error
-            if (device?.features?.ble_ver === bleData.version) {
+            if (device?.features?.ble_ver === window.$BLE_DATA?.version) {
                 return {
                     Heading: <NoNewFirmware.Heading />,
                     Body: <NoNewFirmware.Body />,
