@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, Tooltip } from '@trezor/components';
 import { Translation } from '@suite-components';
-import { TrezorDevice, AcquiredDevice } from '@suite-types';
+import { TrezorDevice, AcquiredDevice, AppState } from '@suite-types';
 import { useAnalytics, useSelector } from '@suite-hooks';
 import { SUITE } from '@suite-actions/constants';
 
@@ -65,6 +65,8 @@ const AddWalletButton = ({ device, instances, addDeviceInstance, selectDeviceIns
         });
     };
 
+    if (emptyPassphraseWalletExists && !device?.features?.passphrase_protection) return null;
+
     return (
         <AddWallet>
             <StyledTooltip
@@ -84,9 +86,9 @@ const AddWalletButton = ({ device, instances, addDeviceInstance, selectDeviceIns
                     isDisabled={isLocked}
                     onClick={onAddWallet}
                 >
-                    {emptyPassphraseWalletExists ? (
-                        <Translation id="TR_ADD_HIDDEN_WALLET" />
-                    ) : (
+                    {emptyPassphraseWalletExists
+                     ? <Translation id="TR_ADD_HIDDEN_WALLET" />
+                     : (
                         <Translation id="TR_ADD_WALLET" />
                     )}
                 </StyledButton>
