@@ -188,10 +188,10 @@ const Pin = ({ settings, changeUnlockPinMethod, device, cancelable, noBackground
     const modeType = settings.unlockPin;
 
     useEffect(() => {
-        if (modeType === 'device') {
+        if (!isExtended && !submitted && modeType === 'device') {
             submit('@@ONEKEY_INPUT_PIN_IN_DEVICE');
         }
-    }, [modeType, submit])
+    }, [modeType, submit, isExtended, submitted])
 
     if (!isExtended && modeType === 'device') {
         return (
