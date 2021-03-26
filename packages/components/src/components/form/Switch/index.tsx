@@ -59,7 +59,7 @@ const Switch = ({ onChange, isDisabled, isSmall, dataTest, checked, ...rest }: P
     return (
         <Wrapper data-test={dataTest}>
             <StyledReactSwitch
-                checked={isChecked}
+                checked={checked ?? isChecked}
                 disabled={isDisabled}
                 onChange={handleChange}
                 onColor={theme.BG_GREEN}
