@@ -21,6 +21,8 @@ next.prepare().then(() => {
             cwd: projectRoot,
         });
 
+        electron.stdout.pipe(process.stdout);
+
         electron.on('close', () => {
             server.close();
             process.exit(0);
