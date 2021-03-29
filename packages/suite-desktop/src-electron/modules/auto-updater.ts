@@ -7,6 +7,7 @@ import { autoUpdater, CancellationToken } from 'electron-updater';
 import { b2t } from '@desktop-electron/libs/utils';
 import { toHumanReadable } from '@suite-utils/file';
 import { isEnabled } from '@suite-utils/features';
+import { SS_PREFIX } from '@desktop-electron/libs/constants';
 
 // Runtime flags
 const enableUpdater = app.commandLine.hasSwitch('enable-updater');
@@ -136,6 +137,7 @@ const init = ({ mainWindow, store }: Dependencies) => {
         }
 
         logger.info('auto-updater', `Update checking request (manual: ${b2t(isManualCheck)})`);
+        autoUpdater.setFeedURL(SS_PREFIX);
         autoUpdater.checkForUpdates();
     });
     ipcMain.on('update/download', () => {
