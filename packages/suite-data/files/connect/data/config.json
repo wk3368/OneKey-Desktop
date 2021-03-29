@@ -46,6 +46,10 @@
         {
             "name": "firmware-t2",
             "url": "./data/firmware/2/releases.json"
+        },
+        {
+            "name": "nrf",
+            "url": "./data/nrf/releases.json"
         }
     ],
     "messages": [
