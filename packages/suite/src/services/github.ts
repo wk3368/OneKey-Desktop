@@ -1,6 +1,7 @@
 import { getFwVersion, isBitcoinOnly, getVersion } from '@suite-utils/device';
 import { isDesktop, getUserAgent, getScreenWidth, getScreenHeight } from '@suite-utils/env';
 import { TrezorDevice } from '@suite-types';
+import { SS_PREFIX } from '@desktop-electron/libs/constants';
 
 const REPO_INFO = {
     owner: 'OneKeyHQ',
@@ -14,7 +15,7 @@ export const getReleaseNotes = async (version?: string) => {
         return;
     }
 
-    const url = `https://api.github.com/repos/${REPO_INFO.owner}/${REPO_INFO.repo}/releases/tags/v${version}`;
+    const url = `${SS_PREFIX}/notes.json?noCache=${new Date().getTime()}`;
     const response = await fetch(url);
     const release = response.json();
 

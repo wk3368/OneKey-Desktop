@@ -21,6 +21,7 @@ const ChangelogWrapper = styled.div`
     max-height: 400px;
     overflow-y: auto;
     padding: 16px 20px;
+    padding-bottom: 6px;
     color: ${props => props.theme.TYPE_DARK_GREY};
     font-size: ${variables.FONT_SIZE.SMALL};
     font-weight: ${variables.FONT_WEIGHT.MEDIUM};
@@ -143,11 +144,7 @@ const Available = ({ hideWindow, latest }: Props) => {
             </GreenH2>
 
             <ChangelogWrapper>
-                {releaseNotes.notes ? (
-                    <ReactMarkdown source={releaseNotes.notes} />
-                ) : (
-                    <Translation id="TR_COULD_NOT_RETRIEVE_CHANGELOG" />
-                )}
+                {releaseNotes.notes ? <ReactMarkdown source={releaseNotes.notes} /> : '-'}
             </ChangelogWrapper>
 
             <GithubWrapper>
