@@ -135,6 +135,8 @@ export const fetchAndUpdateAccount = (account: Account) => async (
         (account.history.unconfirmed || 0) > SETTINGS.TXS_PER_PAGE
             ? account.history.unconfirmed
             : SETTINGS.TXS_PER_PAGE;
+
+    // TrezorConnect 获取账户tx记录 getAccountInfo
     const response = await TrezorConnect.getAccountInfo({
         coin: account.symbol,
         descriptor: account.descriptor,
@@ -151,6 +153,7 @@ export const fetchAndUpdateAccount = (account: Account) => async (
             dispatch(transactionActions.remove(account, analyze.remove));
         }
         if (analyze.add.length > 0) {
+            // 分发动作: TRANSACTION.ADD
             dispatch(transactionActions.add(analyze.add.reverse(), account));
         }
 

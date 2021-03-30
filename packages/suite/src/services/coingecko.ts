@@ -1,7 +1,7 @@
 import { LastWeekRates, TickerId } from '@wallet-types/fiatRates';
 import FIAT_CONFIG from '@suite-config/fiat';
 
-// coingecko转发接口，需要实现OneKey自己的，避免跨域问题
+// coingecko proxy by trezor.io, CORS supported
 const COINGECKO_API_BASE_URL = 'https://cdn.trezor.io/dynamic/coingecko/api/v3';
 
 interface HistoricalResponse extends LastWeekRates {

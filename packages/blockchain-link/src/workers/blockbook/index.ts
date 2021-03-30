@@ -475,6 +475,7 @@ onmessage = (event: { data: Message }) => {
     const { id, type } = data;
 
     common.debug('onmessage', data);
+    // TrezorConnect BlockChainLink wss websocket methods
     switch (data.type) {
         case MESSAGES.HANDSHAKE:
             common.setSettings(data.settings);

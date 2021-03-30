@@ -12,13 +12,34 @@ const fiatRatesMiddleware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: D
     next(action);
 
     switch (action.type) {
+        // ACTION来源：
+        //      BlockchainLink worker 收到已连接的message：'r_connected'
+        //  node_modules/trezor-connect/lib/backend/BlockchainLink.js.flow L93
+        //      link.on('connected')
+        //      postMessage(BlockchainMessage(BLOCKCHAIN.CONNECT,{...}))
+        //  packages/blockchain-link/src/index.ts L253
+        //      BlockchainLink emit('connected')
         case BLOCKCHAIN.CONNECTED:
+            // 启动法币价格更新定时器（1分钟轮询）
             api.dispatch(fiatRatesActions.initRates());
             break;
+        // ACTION来源：
+        //      BlockchainLink wss订阅 subscribeFiatRates，触发fiatRates事件，
+        //                     分发动作BLOCKCHAIN.FIAT_RATES_UPDATE，更新价格
+        //  node_modules/trezor-connect/lib/backend/BlockchainLink.js.flow L202
+        //        link.on('fiatRates')
+        //        postMessage(BlockchainMessage(BLOCKCHAIN.FIAT_RATES_UPDATE))
+        //  packages/blockchain-link/src/workers/blockbook/websocket.ts L350
+        //        Socket send('subscribeFiatRates', { currency })
+        //        Socket emit('fiatRates')
         case BLOCKCHAIN.FIAT_RATES_UPDATE:
+            // wss推送指定币种的价格实时更新
             api.dispatch(fiatRatesActions.onUpdateRate(action.payload));
             break;
+        // ACTION来源： 任何需要刷新account信息及tx数据时
+        //  packages/suite/src/actions/wallet/accountActions.ts L155
         case TRANSACTION.ADD:
+            // 更新tx上的时间历史价格
             // fetch historical rates for each added transaction
             api.dispatch(fiatRatesActions.updateTxsRates(action.account, action.transactions));
             break;
