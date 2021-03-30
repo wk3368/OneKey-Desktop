@@ -2,7 +2,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as routerActions from '@suite-actions/routerActions';
 import * as modalActions from '@suite-actions/modalActions';
-import { applySettings, changePin, changeUnlockPinMethod, changeShowPassphraseSwitch } from '@settings-actions/deviceSettingsActions';
+import {
+    applySettings,
+    changePin,
+    changeUnlockPinMethod,
+    changeShowPassphraseSwitch,
+} from '@settings-actions/deviceSettingsActions';
 
 import { AppState, Dispatch } from '@suite-types';
 

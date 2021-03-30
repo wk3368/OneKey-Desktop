@@ -60,6 +60,7 @@ export default class MyDocument extends Document {
                     )}
                     <script
                         id="BLE_DATA_MESSAGES"
+                        // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
                             __html: `
                                 window.addEventListener('message', function(event) {
@@ -69,10 +70,9 @@ export default class MyDocument extends Document {
                                         return;
                                     }
                                 });
-                            `
+                            `,
                         }}
                     />
-
                 </Head>
                 <body>
                     <Main />

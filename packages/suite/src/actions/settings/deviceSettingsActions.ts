@@ -124,16 +124,18 @@ export const resetDevice = (params: ResetDevice = {}) => async (
     return result;
 };
 
-export const changeUnlockPinMethod = (method: '' | 'desktop' | 'device') => (dispatch: Dispatch) => {
+export const changeUnlockPinMethod = (method: '' | 'desktop' | 'device') => (
+    dispatch: Dispatch,
+) => {
     dispatch({
         type: SUITE.SET_UNLOCK_PIN,
         payload: method,
     });
-}
+};
 
 export const changeShowPassphraseSwitch = (payload: boolean) => (dispatch: Dispatch) => {
     dispatch({
         type: SUITE.SET_SHOW_PASSPHRASE_SWITCH_ACCOUNT,
         payload,
     });
-}
+};

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { H2, variables, Button } from '@trezor/components';
 import {
@@ -150,7 +150,14 @@ interface OwnProps extends ModalProps {
 
 type Props = OwnProps;
 
-const Pin = ({ settings, changeUnlockPinMethod, device, cancelable, noBackground, ...rest }: Props) => {
+const Pin = ({
+    settings,
+    changeUnlockPinMethod,
+    device,
+    cancelable,
+    noBackground,
+    ...rest
+}: Props) => {
     const [submitted, setSubmitted] = useState(false);
     const { onPinSubmit } = useActions({ onPinSubmit: modalActions.onPinSubmit });
     const { acquireDevice } = useActions({
@@ -178,20 +185,24 @@ const Pin = ({ settings, changeUnlockPinMethod, device, cancelable, noBackground
             pinRequestType,
         ) || invalidCounter > 0;
 
-    if (!device.features) return null;
-
-    const submit = (pin: string) => {
-        onPinSubmit(pin);
-        setSubmitted(true);
-    };
+    const submit = useCallback(
+        (pin: string) => {
+            onPinSubmit(pin);
+            setSubmitted(true);
+        },
+        [onPinSubmit],
+    );
 
     const modeType = settings.unlockPin;
 
     useEffect(() => {
+        if (!device.features) return null;
         if (!isExtended && !submitted && modeType === 'device') {
             submit('@@ONEKEY_INPUT_PIN_IN_DEVICE');
         }
-    }, [modeType, submit, isExtended, submitted])
+    }, [modeType, submit, isExtended, submitted, device.features]);
+
+    if (!device.features) return null;
 
     if (!isExtended && modeType === 'device') {
         return (

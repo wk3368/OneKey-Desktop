@@ -1366,7 +1366,8 @@ const definedMessages = defineMessages({
         id: 'TR_DEVICE_SETTINGS_PASSPHRASE_DEFAULT_SHOW_SWITCH_TITLE',
     },
     TR_DEVICE_SETTINGS_PASSPHRASE_DEFAULT_SHOW_SWITCH_DESCRIPTION: {
-        defaultMessage: 'Every time you open OneKey Desktop, ask if you want to show the hidden wallet.',
+        defaultMessage:
+            'Every time you open OneKey Desktop, ask if you want to show the hidden wallet.',
         id: 'TR_DEVICE_SETTINGS_PASSPHRASE_DEFAULT_SHOW_SWITCH_DESCRIPTION',
     },
     TR_DEVICE_SETTINGS_PIN_PROTECTION_DESC: {
@@ -1392,7 +1393,8 @@ const definedMessages = defineMessages({
         id: 'TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_TITLE',
     },
     TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESCRIPTION: {
-        defaultMessage: 'When entering pin, choose to unlock on the device or unlock on the desktop.',
+        defaultMessage:
+            'When entering pin, choose to unlock on the device or unlock on the desktop.',
         id: 'TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESCRIPTION',
     },
     TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_PLACEHOLDER: {
