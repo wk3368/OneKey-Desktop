@@ -39,7 +39,17 @@ const Col = styled.div`
     flex-direction: column;
 `;
 
-const Settings = ({ device, applySettings, changePin, openModal, goto, changeUnlockPinMethod, unlockPin, passphraseShowSwitch, changeShowPassphraseSwitch }: Props) => {
+const Settings = ({
+    device,
+    applySettings,
+    changePin,
+    openModal,
+    goto,
+    changeUnlockPinMethod,
+    unlockPin,
+    passphraseShowSwitch,
+    changeShowPassphraseSwitch,
+}: Props) => {
     const [label, setLabel] = useState('');
     const [customHomescreen, setCustomHomescreen] = useState('');
     const fileInputElement = createRef<HTMLInputElement>();
@@ -284,14 +294,18 @@ const Settings = ({ device, applySettings, changePin, openModal, goto, changeUnl
                     <SectionItem>
                         <TextColumn
                             title={<Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_TITLE" />}
-                            description={<Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESCRIPTION" />}
+                            description={
+                                <Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESCRIPTION" />
+                            }
                         />
                         <ActionColumn>
                             <ActionSelect
                                 hideTextCursor
                                 useKeyPressScroll
                                 noTopLabel
-                                placeholder={<Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_PLACEHOLDER" />}
+                                placeholder={
+                                    <Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_PLACEHOLDER" />
+                                }
                                 data-test="@settings/unlock-pin-method-select"
                                 options={UNLOCK_PIN.map(l => ({ value: l.code, label: l.name }))}
                                 onChange={(option: {
@@ -303,9 +317,10 @@ const Settings = ({ device, applySettings, changePin, openModal, goto, changeUnl
                                 value={
                                     unlockPin
                                         ? {
-                                            value: unlockPin,
-                                            label: UNLOCK_PIN.find(l => l.code === unlockPin)!.name,
-                                        }
+                                              value: unlockPin,
+                                              label: UNLOCK_PIN.find(l => l.code === unlockPin)!
+                                                  .name,
+                                          }
                                         : null
                                 }
                             />
@@ -345,28 +360,28 @@ const Settings = ({ device, applySettings, changePin, openModal, goto, changeUnl
                         />
                     </ActionColumn>
                 </SectionItem>
-                {
-                    features.passphrase_protection && (
-                        <SectionItem>
-                            <TextColumn
-                                title={<Translation id="TR_DEVICE_SETTINGS_PASSPHRASE_DEFAULT_SHOW_SWITCH_TITLE" />}
-                                description={
-                                    <Translation id="TR_DEVICE_SETTINGS_PASSPHRASE_DEFAULT_SHOW_SWITCH_DESCRIPTION" />
-                                }
+                {features.passphrase_protection && (
+                    <SectionItem>
+                        <TextColumn
+                            title={
+                                <Translation id="TR_DEVICE_SETTINGS_PASSPHRASE_DEFAULT_SHOW_SWITCH_TITLE" />
+                            }
+                            description={
+                                <Translation id="TR_DEVICE_SETTINGS_PASSPHRASE_DEFAULT_SHOW_SWITCH_DESCRIPTION" />
+                            }
+                        />
+                        <ActionColumn>
+                            <Switch
+                                checked={!!passphraseShowSwitch}
+                                onChange={() => {
+                                    changeShowPassphraseSwitch(!passphraseShowSwitch);
+                                }}
+                                data-test="@settings/device/passphrase-switch"
+                                isDisabled={isDeviceLocked}
                             />
-                            <ActionColumn>
-                                <Switch
-                                    checked={!!passphraseShowSwitch}
-                                    onChange={() => {
-                                        changeShowPassphraseSwitch(!passphraseShowSwitch);
-                                    }}
-                                    data-test="@settings/device/passphrase-switch"
-                                    isDisabled={isDeviceLocked}
-                                />
-                            </ActionColumn>
-                        </SectionItem>
-                    )
-                }
+                        </ActionColumn>
+                    </SectionItem>
+                )}
             </Section>
             <Section title={<Translation id="TR_PERSONALIZATION" />}>
                 <SectionItem>

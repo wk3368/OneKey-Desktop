@@ -6,6 +6,13 @@ import * as buildUtils from '@suite-utils/build';
 import { isDesktop } from '@suite-utils/env';
 import { isBitcoinOnly } from '@suite-utils/device';
 
+declare global {
+    interface Window {
+        $BLE_MODE?: boolean;
+        $BLE_DATA?: Record<string, string>;
+    }
+}
+
 export type FirmwareAction =
     | {
           type: typeof FIRMWARE.SET_UPDATE_STATUS;
@@ -102,8 +109,7 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
 
         // @ts-expect-error
         payload.binary = binary;
-        // @ts-expect-error
-        payload.version = window.$BLE_DATA.version.split('.').map(Number);
+        payload.version = window.$BLE_DATA.version.split('.').map(Number) as [1, number, number];
     } else {
         const stmUrl = targetRelease?.release?.url || device.firmwareRelease!.release.url;
         const resp = await fetch(stmUrl);

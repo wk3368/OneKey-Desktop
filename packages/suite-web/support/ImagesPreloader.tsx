@@ -20,6 +20,7 @@ class ImagesPreloader extends Component {
         return (
             <Wrapper>
                 {images.map((image: string, index: number) => (
+                    // eslint-disable-next-line react/no-array-index-key
                     <Img key={image + index} src={image} />
                 ))}
             </Wrapper>

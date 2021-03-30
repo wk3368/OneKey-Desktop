@@ -86,9 +86,9 @@ const AddWalletButton = ({ device, instances, addDeviceInstance, selectDeviceIns
                     isDisabled={isLocked}
                     onClick={onAddWallet}
                 >
-                    {emptyPassphraseWalletExists
-                     ? <Translation id="TR_ADD_HIDDEN_WALLET" />
-                     : (
+                    {emptyPassphraseWalletExists ? (
+                        <Translation id="TR_ADD_HIDDEN_WALLET" />
+                    ) : (
                         <Translation id="TR_ADD_WALLET" />
                     )}
                 </StyledButton>

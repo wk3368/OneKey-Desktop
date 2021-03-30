@@ -130,7 +130,9 @@ const BLEBody = () => {
                     <ChangelogHeading>{window.$BLE_DATA?.version}</ChangelogHeading>
                     <ChangesUl>
                         {/* render individual changes for a given version */}
-                        <li key={window.$BLE_DATA?.changelog_cn}>{window.$BLE_DATA?.changelog_cn}</li>
+                        <li key={window.$BLE_DATA?.changelog_cn}>
+                            {window.$BLE_DATA?.changelog_cn}
+                        </li>
                     </ChangesUl>
                 </ChangelogGroup>
             </ChangesSummary>
