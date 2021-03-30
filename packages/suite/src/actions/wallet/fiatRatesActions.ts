@@ -112,13 +112,13 @@ export const updateCurrentRates = (ticker: TickerId, maxAge = MAX_AGE) => async 
         //          TrezorConnect.blockchainGetCurrentFiatRates
         //          packages/blockchain-link/src/workers/blockbook/websocket.ts: getCurrentFiatRates
         //
-        // if (!ticker.tokenAddress) {
-        //     // standalone coins
-        //     const response = await TrezorConnect.blockchainGetCurrentFiatRates({
-        //         coin: ticker.symbol,
-        //     });
-        //     results = response.success ? response.payload : null;
-        // }
+        if (!ticker.tokenAddress) {
+            // standalone coins
+            const response = await TrezorConnect.blockchainGetCurrentFiatRates({
+                coin: ticker.symbol,
+            });
+            results = response.success ? response.payload : null;
+        }
 
         // 2. 备选方案。通过 coingecko api 查询法币价格
         //      COINGECKO_API_BASE_URL='https://cdn.trezor.io/dynamic/coingecko/api/v3'
@@ -258,12 +258,13 @@ export const updateLastWeekRates = () => async (dispatch: Dispatch, getState: Ge
     const staleTickers = dispatch(getStaleTickers(lastWeekStaleFn, MAX_AGE_LAST_WEEK));
 
     const promises = staleTickers.map(async ticker => {
-        // TODO 这里更新lastWeek的历史时间点的价格，通过 TrezorConnect 。可能需要适配
+        // 1. 通过 TrezorConnect 获取历史价格。（前7天价格）
         const response = await TrezorConnect.blockchainGetFiatRatesForTimestamps({
             coin: ticker.symbol,
             timestamps,
         });
         try {
+            // 2. 备选方案： coingecko api 获取历史K线价格（前7天价格）
             const results = response.success
                 ? response.payload
                 : await fetchLastWeekRates(ticker, localCurrency);
@@ -298,12 +299,15 @@ export const updateTxsRates = (account: Account, txs: AccountTransaction[]) => a
     if (txs?.length === 0 || isTestnet(account.symbol)) return;
 
     const timestamps = txs.map(tx => tx.blockTime ?? getBlockbookSafeTime());
-    // TODO fiatRatesMiddleware TRANSACTION.ADD 触发，获取历史时间点的价格。通过 TrezorConnect
+
+    //  1. 通过 TrezorConnect 获取历史价格。（ tx的blockTime 的日期价格）
+    //          fiatRatesMiddleware TRANSACTION.ADD 时触发
     const response = await TrezorConnect.blockchainGetFiatRatesForTimestamps({
         coin: account.symbol,
         timestamps,
     });
     try {
+        // 2. 备选方案，coingecko api 获取历史价格（ txs.blockTime 的日期价格）
         const results = response.success
             ? response.payload
             : await getFiatRatesForTimestamps({ symbol: account.symbol }, timestamps);
@@ -327,6 +331,7 @@ export const updateTxsRates = (account: Account, txs: AccountTransaction[]) => a
 export const onUpdateRate = (res: BlockchainFiatRatesUpdate) => (dispatch: Dispatch) => {
     if (!res?.rates) return;
     const symbol = res.coin.shortcut.toLowerCase();
+    // 直接更新价格，存储在 indexedDB -> db-onekey-suite -> fiatRates
     dispatch({
         type: RATE_UPDATE,
         ticker: {
@@ -356,8 +361,8 @@ export const initRates = () => (dispatch: Dispatch) => {
     }
 
     // 轮询定时器： fiatRatesMiddleware BLOCKCHAIN.CONNECTED 时触发
-    //  1. 更新过期价格；
-    //  2. 更新lastWeek价格
+    //  1. 更新最新价格
+    //  2. 更新历史价格（一周内，时间粒度1小时）
     staleRatesTimeout = setInterval(() => {
         dispatch(updateStaleRates());
     }, INTERVAL);

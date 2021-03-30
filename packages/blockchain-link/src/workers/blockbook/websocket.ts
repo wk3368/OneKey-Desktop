@@ -35,6 +35,7 @@ interface Options {
 const DEFAULT_TIMEOUT = 20 * 1000;
 const DEFAULT_PING_TIMEOUT = 50 * 1000;
 
+// TrezorConnect BlockChainLink wss WebSocket Class
 export default class Socket extends EventEmitter {
     options: Options;
     ws: WebSocket | undefined;
@@ -336,6 +337,8 @@ export default class Socket extends EventEmitter {
     }
 
     subscribeFiatRates(currency?: string) {
+        // websocket wss fiatRates live push subscription
+        //      -> fiatRatesMiddleware BLOCKCHAIN.FIAT_RATES_UPDATE
         const index = this.subscriptions.findIndex(s => s.type === 'fiatRates');
         if (index >= 0) {
             // remove previous subscriptions
@@ -347,6 +350,7 @@ export default class Socket extends EventEmitter {
             id,
             type: 'fiatRates',
             callback: (result: FiatRatesNotification) => {
+                // fiatRates live push
                 this.emit('fiatRates', result);
             },
         });

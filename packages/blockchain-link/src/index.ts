@@ -250,6 +250,7 @@ class BlockchainLink extends EventEmitter {
 
     onEvent: (data: ResponseTypes.Response) => void = data => {
         if (data.type === RESPONSES.CONNECTED) {
+            // BlockchainLink worker收到已连接的message
             this.emit('connected');
         }
         if (data.type === RESPONSES.DISCONNECTED) {
