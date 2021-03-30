@@ -1,0 +1,28 @@
+{
+    "name": "@trezor/suite-data",
+    "version": "21.3.0",
+    "author": "Trezor <info@trezor.io>",
+    "keywords": [
+        "Trezor",
+        "trezor-data"
+    ],
+    "license": "SEE LICENSE IN LICENSE.md",
+    "description": "Trezor data",
+    "scripts": {
+        "copy-static-files": "ts-node ./index.ts",
+        "test-same-svgs": "ts-node ./test/test-same-svgs.ts"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@types/fs-extra": "^9.0.6",
+        "copy-webpack-plugin": "^6.0.2",
+        "fs-extra": "^9.0.1",
+        "html-webpack-plugin": "^4.5.0",
+        "remove-files-webpack-plugin": "^1.4.3",
+        "sharedworker-loader": "^2.1.1",
+        "ts-node": "^8.10.2",
+        "webpack": "^4.44.2",
+        "webpack-cli": "3.3.12",
+        "worker-loader": "^3.0.7"
+    }
+}
