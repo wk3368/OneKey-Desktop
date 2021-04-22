@@ -16,25 +16,25 @@ const ConnectDeviceImage = (props: Omit<ImageProps, 'image'>) => {
     return (
         <Image
             image="CONNECT_DEVICE"
-            onClick={() => {
-                if (!isDesktop()) {
-                    return;
-                }
+            // onClick={() => {
+            //     if (!isDesktop()) {
+            //         return;
+            //     }
 
-                // same logic as in views/suite/device-connect
-                setClickCounter(prev => prev + 1);
-                if (clickCounter === 4) {
-                    const toggledValue = !bridgeDevMode;
-                    setDebugMode({
-                        bridgeDevMode: toggledValue,
-                    });
-                    setClickCounter(0);
-                    addToast({
-                        type: 'bridge-dev-restart',
-                        devMode: toggledValue,
-                    });
-                }
-            }}
+            //     // same logic as in views/suite/device-connect
+            //     setClickCounter(prev => prev + 1);
+            //     if (clickCounter === 4) {
+            //         const toggledValue = !bridgeDevMode;
+            //         setDebugMode({
+            //             bridgeDevMode: toggledValue,
+            //         });
+            //         setClickCounter(0);
+            //         addToast({
+            //             type: 'bridge-dev-restart',
+            //             devMode: toggledValue,
+            //         });
+            //     }
+            // }}
             {...props}
         />
     );
