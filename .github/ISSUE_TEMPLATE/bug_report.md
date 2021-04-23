@@ -11,11 +11,11 @@ A clear and concise description of what the bug is.
 
 **Info:**
  - Remembered Wallet: yes/no
- - Suite Version: app/web, commit
+ - Desktop Version: app/web, commit
  - Browser: , version
  - OS: system, build
  - Bridge: build version
- - Firmware Version: model , revision 
+ - Firmware Version: model , revision
 
 **Steps to reproduce:**
 1. a
