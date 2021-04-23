@@ -73,7 +73,7 @@ const getAppUrl = (platform: Platform) => {
     } else {
         ext = 'exe';
     }
-    return encodeURI(`../web/static/desktop/OneKey-Suite-${version}-${platform}.${ext}`);
+    return encodeURI(`../web/static/desktop/OneKey-Desktop-${version}-${platform}.${ext}`);
 };
 
 const getAppSignatureUrl = (platform: Platform) => {

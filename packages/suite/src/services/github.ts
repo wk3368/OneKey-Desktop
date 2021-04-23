@@ -5,7 +5,7 @@ import { SS_PREFIX } from '@desktop-electron/libs/constants';
 
 const REPO_INFO = {
     owner: 'OneKeyHQ',
-    repo: 'OneKey-suite',
+    repo: 'OneKey-Desktop',
 };
 
 const RELEASE_URL = `https://github.com/${REPO_INFO.owner}/${REPO_INFO.repo}`;

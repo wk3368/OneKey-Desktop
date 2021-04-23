@@ -115,7 +115,7 @@ const getIconForCurrentPlatform = (platform: Platform) => {
 const getInstallerURI = (platform: Platform, version: string) => {
     const extension = dropdownItemsData.find(item => platform === item.platform)!
         .installerExtension;
-    return encodeURI(`./web/static/desktop/OneKey-Suite-${version}-${platform}.${extension}`);
+    return encodeURI(`./web/static/desktop/OneKey-Desktop-${version}-${platform}.${extension}`);
 };
 
 const getInstallerSignatureURI = (platform: Platform, version: string) => {
