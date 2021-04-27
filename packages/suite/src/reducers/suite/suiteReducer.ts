@@ -75,7 +75,7 @@ const initialState: SuiteState = {
         language: 'zh',
         unlockPin: '',
         passphraseShowSwitch: false,
-        torOnionLinks: isWeb(),
+        torOnionLinks: false,
         debug: {
             invityAPIUrl: undefined,
             showDebugMenu: false,

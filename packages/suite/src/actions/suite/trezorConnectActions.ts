@@ -9,7 +9,7 @@ import { SUITE } from '@suite-actions/constants';
 import { lockDevice } from '@suite-actions/suiteActions';
 import { resolveStaticPath } from '@suite-utils/nextjs';
 import { Dispatch, GetState } from '@suite-types';
-import { isDesktop, isWeb } from '@suite-utils/env';
+import { isDesktop } from '@suite-utils/env';
 import { toTorUrl } from '@suite-utils/tor';
 
 const CONNECT_URL = buildUtils.isDev() ? 'https://localhost:8088/' : 'https://connect.onekey.so/';
@@ -75,11 +75,11 @@ export const init = () => async (dispatch: Dispatch, getState: GetState) => {
             transportReconnect: true,
             debug: false,
             popup: false,
-            webusb: isWeb(),
+            webusb: false,
             pendingTransportEvent: getState().devices.length < 1,
             manifest: {
-                email: 'info@trezor.io',
-                appUrl: '@trezor/suite',
+                email: 'hi@onekey.so',
+                appUrl: 'https://desktop.onekey.so',
             },
         });
 

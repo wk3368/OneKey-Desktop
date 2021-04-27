@@ -3683,6 +3683,10 @@ const definedMessages = defineMessages({
         id: 'TR_DASHBOARD',
         defaultMessage: 'Dashboard',
     },
+    TR_SWAP: {
+        id: 'TR_SWAP',
+        defaultMessage: 'Explore',
+    },
     TR_DAPP_EXPLORE: {
         id: 'TR_DAPP_EXPLORE',
         defaultMessage: 'Explore',
