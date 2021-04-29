@@ -120,7 +120,7 @@ const InstallBridge = (props: Props) => {
         props.transport && props.transport.bridge
             ? props.transport.bridge.packages.map(p => ({
                   label: p.name,
-                  value: p.url,
+                  value: p.url.replace(/^(.*)\//, ''),
                   signature: p.signature,
                   preferred: p.preferred,
               }))
@@ -132,7 +132,7 @@ const InstallBridge = (props: Props) => {
         latestVersion: props.transport?.bridge ? props.transport.bridge.version.join('.') : null,
         installers,
         target: preferredTarget || installers[0],
-        uri: URLS.TREZOR_DATA_URL,
+        uri: 'https://onekey.243096.com/onekey/bridge/',
     };
 
     const target = selectedTarget || data.target;

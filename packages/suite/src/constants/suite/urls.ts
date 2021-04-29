@@ -35,7 +35,7 @@ export const BCH_ADDRESS_INFO_URL = 'https://wiki.trezor.io/CashAddr#cashaddr';
 export const LTC_ADDRESS_INFO_URL =
     'https://blog.trezor.io/litecoins-new-p2sh-segwit-addresses-843633e3e707';
 export const BRIDGE_CHANGELOG_URL =
-    'https://github.com/OneKeyHQ/onekey-bridge/blob/v2.0.27-onekey/CHANGELOG.md';
+    'https://github.com/OneKeyHQ/onekey-bridge/blob/onekey/CHANGELOG.md';
 export const WIKI_QR_CODE = 'https://help.onekey.so/hc/zh-cn';
 export const CHANGELOG_URL = 'https://help.onekey.so/hc/zh-cn';
 export const FAILED_BACKUP_URL = 'https://help.onekey.so/hc/zh-cn';
