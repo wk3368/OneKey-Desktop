@@ -18,11 +18,11 @@ export const MAIN_MENU_ITEMS = [
         icon: 'SWAP',
         route: 'swap-index',
         isDisabled: false,
-        isBeta: true,
+        isBeta: false,
     },
     {
         translationId: 'TR_DAPP_EXPLORE',
-        icon: 'SWAP',
+        icon: 'EXPLORE',
         route: 'dapp-explore-index',
         isDisabled: false,
         isBeta: true,

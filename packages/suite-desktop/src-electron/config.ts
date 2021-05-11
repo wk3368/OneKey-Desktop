@@ -21,6 +21,7 @@ export const allowedDomains = [
     'googleapis.com',
     'onekey.so',
     'swap.onekey.so',
+    'dapp.onekey.so',
     '243096.com',
     onionDomain,
 ];

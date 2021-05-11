@@ -54,6 +54,7 @@ const IMAGES = {
     T_BRIDGE_CHECK: 't-bridge-check.svg',
     SPINNER: 'spinner.svg',
     RELOAD: 'reload.svg',
+    BACK: 'back.svg',
     SET_UP_PIN_DIALOG: 'set-up-pin-dialog.svg',
     ONE_DEVICE_CONFIRM: 'one-device-confirm.svg',
     DEVICE_ANOTHER_SESSION: 'device-another-session.svg',

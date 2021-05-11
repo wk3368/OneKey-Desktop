@@ -219,8 +219,8 @@ const routes = [
     },
     {
         name: 'dapp-explore-index',
-        pattern: '/dapp-explore',
-        app: 'dapp-explore',
+        pattern: '/explore',
+        app: 'explore',
     },
     {
         name: 'portfolio-index',

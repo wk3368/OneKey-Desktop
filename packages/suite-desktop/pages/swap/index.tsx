@@ -204,6 +204,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
         ref.innerHTML = `
             <webview
                 allowpopups
+                sandbox
                 id="onekey-swap"
                 src=${currentUrl}
                 preload="file://${window.INJECT_PATH}"
