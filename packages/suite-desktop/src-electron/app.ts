@@ -132,7 +132,7 @@ ipcMain.on('app/restart', () => {
     app.exit();
 });
 
-const REDIRECT_WHITE_LIST = ['https://app.dodoex.io/exchange/BUSD-USDT?network=bsc-mainnet'];
+const REDIRECT_WHITE_LIST = ['https://app.dodoex.io/exchange/'];
 
 app.on('web-contents-created', (_, contents) => {
     if (contents.getType() === 'webview') {
@@ -143,7 +143,7 @@ app.on('web-contents-created', (_, contents) => {
 
         contents.on('will-navigate', (event, url) => {
             const prevUrl = contents.getURL();
-            if (REDIRECT_WHITE_LIST.includes(url) && prevUrl === url) {
+            if (REDIRECT_WHITE_LIST.some(item => new RegExp(item).test(url)) && prevUrl === url) {
                 event.preventDefault();
             }
         });

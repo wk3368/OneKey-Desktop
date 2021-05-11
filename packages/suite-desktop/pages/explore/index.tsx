@@ -62,6 +62,11 @@ const Footer = styled.div`
     padding: 0 24px;
 `;
 
+const TextInfo = styled.p`
+    color: rgba(60, 60, 67, 0.6);
+    font-size: 12px;
+`;
+
 const WebviewContainer = styled.div`
     #onekey-explore {
         margin: 0 auto;
@@ -80,7 +85,7 @@ const CHAIN_SYMBOL_RPC = {
     [CHAIN_SYMBOL_ID.kovan]: 'https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
     [CHAIN_SYMBOL_ID.bsc]: 'https://rpc.blkdb.cn/bsc',
     [CHAIN_SYMBOL_ID.heco]: 'https://rpc.blkdb.cn/heco',
-    [CHAIN_SYMBOL_ID.okex]: 'http://OKExChaintest.okexcn.com:26659',
+    [CHAIN_SYMBOL_ID.okex]: 'https://exchainrpc.okex.org',
 };
 
 const symbolToChainId = {
@@ -234,7 +239,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
                 'config',
                 JSON.stringify({
                     address: `${freshAddress.address}`,
-                    rpcUrl: chainRPCUrl,
+                    rpcUrl: encodeURIComponent(chainRPCUrl!),
                     chainId: activeChainId,
                     debug: true,
                 }),
@@ -279,7 +284,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
 
     useEffect(() => {
         if (!webviewRef) return;
-        function didFailLoading() {
+        function didFailLoading(e) {
             // setLoadFailed(true);
             setIsLoading(false);
         }
@@ -313,9 +318,10 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
                 setActiveChainId(chainId);
             } else if (event.channel === 'open/link') {
                 const { id, payload } = arg;
+                const link = payload.trim();
                 setActiveDAppInfo({
                     code: id,
-                    url: payload,
+                    url: link.startsWith('http') ? link : `https://${link}`,
                 });
             } else if (event.channel === 'get/config') {
                 const { id } = arg;
@@ -398,6 +404,11 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
                             image="RELOAD"
                         />
                     </div>
+                    <TextInfo>
+                        您在第三方 DApp 上的使用行为将适用于第三方 DApp
+                        的《隐私政策》和《用户协议》，由 {dapp.name || dapp.link}
+                        直接并单独向您承担责任
+                    </TextInfo>
                     <ActionSelect
                         isShowTop
                         hideTextCursor

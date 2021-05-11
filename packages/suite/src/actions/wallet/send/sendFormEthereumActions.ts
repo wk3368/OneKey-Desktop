@@ -326,24 +326,16 @@ export const signAndPublishTransactionInSwap = (
     const { account, network } = selectedAccount;
     if (account.networkType !== 'ethereum' || !network.chainId) return;
 
-    // Ethereum account `misc.nonce` is not updated before pending tx is mined
-    // Calculate `pendingNonce`: greatest value in pending tx + 1
-    // This may lead to unexpected/unwanted behavior
-    // whenever pending tx gets rejected all following txs (with higher nonce) will be rejected as well
-    // const pendingTxs = (transactions.transactions[account.key] || []).filter(isPending);
-    // const pendingNonce = pendingTxs.reduce((value, tx) => {
-    //     if (!tx.ethereumSpecific) return value;
-    //     return Math.max(value, tx.ethereumSpecific.nonce + 1);
-    // }, 0);
-    // const pendingNonceBig = new BigNumber(pendingNonce);
-    // const nonce =
-    //     pendingNonceBig.gt(0) && pendingNonceBig.gt(account.misc.nonce)
-    //         ? pendingNonceBig.toString()
-    //         : account.misc.nonce;
     const web3 = new Web3(values.rpcUrl);
     const count = await web3.eth.getTransactionCount(values.from);
     const defaultValue = '0x00';
     const defaultGasPrice = await web3.eth.getGasPrice();
+    const defaultGasLimit = await web3.eth.estimateGas({
+        from: values.from,
+        nonce: count,
+        to: values.to,
+        data: values.data,
+    });
 
     const transaction = {
         to: values.to,
@@ -351,7 +343,7 @@ export const signAndPublishTransactionInSwap = (
         data: values.data,
         chainId: values.chainId,
         nonce: web3.utils.toHex(count),
-        gasLimit: values.gasLimit,
+        gasLimit: values.gasLimit || web3.utils.toHex(defaultGasLimit),
         gasPrice: values.gasPrice || web3.utils.toHex(defaultGasPrice),
     };
 
