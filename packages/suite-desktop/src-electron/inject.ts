@@ -66,16 +66,16 @@ function safeTouchJSONStr<T = Record<string, unknown>>(str: string | undefined |
 
 try {
     console.log('Onekey web3 provider init start');
-
+    const timestamp = new Date().getTime();
     async function injectWeb3Config() {
         console.log('Onekey web3 injecter start');
 
         const jsonStr = getParameterByName('config') || localStorage.getItem('web3-config') || '{}';
         localStorage.setItem('web3-config', jsonStr!);
-        const timestamp = new Date().getTime();
+
         let config = safeTouchJSONStr<Config>(jsonStr);
 
-        await new Promise(resolve => {
+        const promise = new Promise(resolve => {
             if (config.address) return resolve(config);
 
             ipcRenderer.on('response/config', (event, params) => {
@@ -85,11 +85,14 @@ try {
                     resolve(config);
                 }
             });
-            console.log('send to host');
+
+            console.log('send to host', timestamp);
             ipcRenderer.sendToHost('get/config', {
                 id: timestamp,
             });
         });
+        await promise;
+
         window.onekeyConfig = config;
         const provider = new window.trustwallet.Provider(config);
         function debugPrint(...args: any[]) {

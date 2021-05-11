@@ -267,7 +267,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
                 id="onekey-explore"
                 src=${currentUrl}
                 useragent="Mozilla/5.0 (Linux; U; Android 2.2.1; en-us; Nexus One Build/FRG83) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"
-                preload="file://${window.INJECT_PATH}"
+                preload="file://${window.INJECT_PATH}?timestamp=${new Date().getTime()}"
                 style="width: 100%; height: 100%;"
             />
         `;
