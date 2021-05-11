@@ -151,6 +151,35 @@ function buildCustomOptions(tx: TxData & EthereumTransaction) {
             ),
         };
     }
+
+    if (tx.chainId === 128) {
+        return {
+            common: Common.forCustomChain(
+                'mainnet',
+                {
+                    name: 'heco',
+                    networkId: 128,
+                    chainId: 128,
+                },
+                'petersburg',
+            ),
+        };
+    }
+
+    if (tx.chainId === 66) {
+        return {
+            common: Common.forCustomChain(
+                'mainnet',
+                {
+                    name: 'okt',
+                    networkId: 66,
+                    chainId: 66,
+                },
+                'petersburg',
+            ),
+        };
+    }
+
     return {
         chain: tx.chainId,
     };
