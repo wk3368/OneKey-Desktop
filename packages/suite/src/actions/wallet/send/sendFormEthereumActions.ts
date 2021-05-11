@@ -1,7 +1,8 @@
 import TrezorConnect, { FeeLevel, TokenInfo } from '@onekeyhq/connect';
 import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
-import { toWei, toChecksumAddress } from 'web3-utils';
+import BN from 'bn.js';
+import { toWei, toChecksumAddress, isHexStrict } from 'web3-utils';
 
 import * as notificationActions from '@suite-actions/notificationActions';
 import {
@@ -26,6 +27,61 @@ import {
     ExternalOutput,
 } from '@wallet-types/sendForm';
 import { Dispatch, GetState } from '@suite-types';
+
+const addHexPrefix = (str: string) => {
+    if (typeof str !== 'string' || str.match(/^-?0x/u)) {
+        return str;
+    }
+
+    if (str.match(/^-?0X/u)) {
+        return str.replace('0X', '0x');
+    }
+
+    if (str.startsWith('-')) {
+        return str.replace('-', '-0x');
+    }
+
+    return `0x${str}`;
+};
+
+const stripHexPrefix = (str: string | number) => {
+    if (typeof str !== 'string') {
+        return str;
+    }
+    return isHexStrict(str) ? str.slice(2) : str;
+};
+
+function bnToHex(inputBn: BN) {
+    return addHexPrefix(inputBn.toString(16));
+}
+
+function hexToBn(inputHex: string | number) {
+    return new BN(stripHexPrefix(inputHex), 16);
+}
+
+function BnMultiplyByFraction(targetBN: BN, numerator: number, denominator: number) {
+    const numBN = new BN(numerator);
+    const denomBN = new BN(denominator);
+    return targetBN.mul(numBN).div(denomBN);
+}
+
+function addGasBuffer(initialGasLimitHex: string, blockGasLimitHex: string, multiplier = 1.5) {
+    const initialGasLimitBn = hexToBn(initialGasLimitHex);
+    const blockGasLimitBn = hexToBn(blockGasLimitHex);
+    const upperGasLimitBn = blockGasLimitBn.muln(0.9);
+    const bufferedGasLimitBn = initialGasLimitBn.muln(multiplier);
+
+    // if initialGasLimit is above blockGasLimit, dont modify it
+    if (initialGasLimitBn.gt(upperGasLimitBn)) {
+        return bnToHex(initialGasLimitBn);
+    }
+    // if bufferedGasLimit is below blockGasLimit, use bufferedGasLimit
+    if (bufferedGasLimitBn.lt(upperGasLimitBn)) {
+        return bnToHex(bufferedGasLimitBn);
+    }
+    // otherwise use blockGasLimit
+    return bnToHex(upperGasLimitBn);
+}
 
 const calculate = (
     availableBalance: string,
@@ -330,12 +386,22 @@ export const signAndPublishTransactionInSwap = (
     const count = await web3.eth.getTransactionCount(values.from);
     const defaultValue = '0x00';
     const defaultGasPrice = await web3.eth.getGasPrice();
-    const defaultGasLimit = await web3.eth.estimateGas({
-        from: values.from,
-        nonce: count,
-        to: values.to,
-        data: values.data,
-    });
+
+    const latestBlock = await web3.eth.getBlock('latest');
+    const blockGasLimitBN = hexToBn(latestBlock.gasLimit);
+    const saferGasLimitBN = BnMultiplyByFraction(blockGasLimitBN, 19, 20);
+    let estimatedGasHex = bnToHex(saferGasLimitBN);
+    try {
+        const gasNumber = await web3.eth.estimateGas({
+            from: values.from,
+            value: values.value,
+            to: values.to,
+            data: values.data,
+        });
+        estimatedGasHex = web3.utils.toHex(gasNumber);
+    } catch (e) {
+        // ignore
+    }
 
     const transaction = {
         to: values.to,
@@ -343,7 +409,9 @@ export const signAndPublishTransactionInSwap = (
         data: values.data,
         chainId: values.chainId,
         nonce: web3.utils.toHex(count),
-        gasLimit: values.gasLimit || web3.utils.toHex(defaultGasLimit),
+        gasLimit:
+            values.gasLimit ||
+            addGasBuffer(addHexPrefix(estimatedGasHex), web3.utils.toHex(latestBlock.gasLimit)),
         gasPrice: values.gasPrice || web3.utils.toHex(defaultGasPrice),
     };
 

@@ -148,6 +148,7 @@
         }
     },
     "dependencies": {
+        "bn.js": "^5.2.0",
         "chalk": "^4.1.0",
         "electron-is-dev": "^1.2.0",
         "electron-localshortcut": "^3.2.1",
