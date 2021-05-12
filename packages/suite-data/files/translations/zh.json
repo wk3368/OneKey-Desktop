@@ -1098,7 +1098,7 @@
 	"TR_TO_ACCESS_STANDARD_NO_PASSPHRASE": "从你的恢复种子中导出的默认内置钱包",
 	"TR_TO_ADD_NEW_ACCOUNT_PLEASE_CONNECT": "连接你的硬件设备，添加新的账户",
 	"TR_TO_ADD_NEW_ACCOUNT_WAIT_FOR_DISCOVERY": "账户仍在加载中。请稍后添加新账户",
-	"TR_TO_FIND_YOUR_ACCOUNTS_AND": "OneKey 硬件设备正在发现和检查检查资产，以找到你的账户和资金。",
+	"TR_TO_FIND_YOUR_ACCOUNTS_AND": "OneKey 硬件设备正在查询你的账户和资产。",
 	"TR_TO_MAKE_YOUR_LABELS_PERSISTENT": "要使你的标签持久化并在不同的设备上可用，请连接到云存储提供商",
 	"TR_TO_PREVENT_PHISHING_ATTACKS_COMMA": "为了防止钓鱼攻击，你应该验证你OneKey 硬件设备上的地址。 {claim}",
 	"TR_TRADE_BUYS": "buys",
