@@ -670,7 +670,7 @@
 	"TR_FOR_EASIER_AND_SAFER_INPUT": "请将二维码放在电脑摄像头前",
 	"TR_FOUND_OK_DEVICE": "你的 OneKey 硬件设备是空的；在连接 Desktop 之前，我们需要再检查一下",
 	"TR_FULL_LABEL": "全部功能",
-	"TR_FW_INSTALLATION_FAILED": "安装失败",
+	"TR_FW_INSTALLATION_FAILED": "安装失败，您也可以前往 https://firmware.onekey.so/ 进行固件升级",
 	"TR_GAS_LIMIT": "Gas limit",
 	"TR_GAS_PRICE": "Gas price",
 	"TR_GATHERING_INFO": "正在收集资料，请稍等... ...",
