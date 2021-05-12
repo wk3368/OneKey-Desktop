@@ -46,16 +46,19 @@ const waitForReboot = async (device?: AcquiredDevice) => {
               },
           }
         : undefined;
+    // 每次轮询之间隔半秒
+    // eslint-disable-next-line no-await-in-loop
+    await new Promise(r => setTimeout(r, 500));
     // 最多轮询十次，超过就报错
     for (let i = 0; i < 20; i++) {
         // eslint-disable-next-line no-await-in-loop
-        const reacquire = await TrezorConnect.getFeatures(param);
+        const reacquire = await TrezorConnect.getFeatures({
+            ...param,
+            keepSession: false,
+        });
         if (reacquire.success && reacquire.payload.bootloader_mode) {
             return;
         }
-        // 每次轮询之间隔半秒
-        // eslint-disable-next-line no-await-in-loop
-        await new Promise(r => setTimeout(r, 500));
     }
     throw Error;
 };
@@ -149,11 +152,7 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
             }
             await waitForReboot(device);
         } catch {
-            dispatch({
-                type: FIRMWARE.SET_ERROR,
-                payload: 'device must be connected in bootloader mode',
-            });
-            return;
+            // ignore
         }
     }
 
