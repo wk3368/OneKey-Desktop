@@ -2924,10 +2924,10 @@
     "@octokit/openapi-types" "^2.2.0"
     "@types/node" ">= 8"
 
-"@onekeyhq/connect@8.1.28-extended":
-  version "8.1.28-extended"
-  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.1.28-extended/cb7294ec3e2483b5331926b8c6c2fac08016cd8a390901db165228fcbdc4dce4#eca3163b239cfc15d1d69842dd95be2409a83d50"
-  integrity sha512-QfqQzk34K01Hl9fc0TfW3Uwu5WpHmiKww84UhL9/wiCY34MvtwRxN1llmg3tLrH5a+HFsKuQf8oUja6ipH0nwQ==
+"@onekeyhq/connect@8.1.32-extended":
+  version "8.1.32-extended"
+  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.1.32-extended/fe356ac42a2fffc1e67a4c31854fd430a3ca9905e48efb4dd331d6a512dd0e6f#78a22637388f751c292d4d3767755171e5d918b3"
+  integrity sha512-Nk8wDoTTiW8gfIqmvRsMzG23MYEUN13oORjcYqjLJm4JSCFY2Ke6JuShyiqK9vV1Ue2OcXdhZ0DNeU6ilmzwiw==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@onekeyhq/blockchain-link" "1.0.18"
@@ -4478,7 +4478,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@>=16.9.0", "@types/react@^17.0.0":
+"@types/react@*", "@types/react@17.0.0", "@types/react@>=16.9.0", "@types/react@^17.0.0":
   version "17.0.0"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.0.tgz#5af3eb7fad2807092f0046a1302b7823e27919b8"
   integrity sha512-aj/L7RIMsRlWML3YB6KZiXB3fV2t41+5RBGYF8z+tAKU43Px8C3cYUZsDvf1/+Bm4FK21QWBrDutu8ZJ/70qOw==
