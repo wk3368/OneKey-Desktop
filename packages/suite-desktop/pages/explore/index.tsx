@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import React, { FC, useEffect, useCallback, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -328,15 +329,25 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush }) => {
 
                 const chainRPCUrl = CHAIN_SYMBOL_RPC[activeChainId!];
 
-                await webviewRef.send('response/config', {
-                    id,
-                    payload: {
-                        address: `${freshAddress.address}`,
-                        rpcUrl: chainRPCUrl,
-                        chainId: activeChainId,
-                        debug: true,
-                    },
-                });
+                try {
+                    // eslint-disable-next-line no-underscore-dangle
+                    for (const _i of new Array(3)) {
+                        // eslint-disable-next-line no-await-in-loop
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                        // eslint-disable-next-line no-await-in-loop
+                        await webviewRef.send('response/config', {
+                            id,
+                            payload: {
+                                address: `${freshAddress.address}`,
+                                rpcUrl: chainRPCUrl,
+                                chainId: activeChainId,
+                                debug: true,
+                            },
+                        });
+                    }
+                } catch (e) {
+                    // ingore
+                }
             }
         }
 

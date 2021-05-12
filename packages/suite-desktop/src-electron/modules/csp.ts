@@ -4,7 +4,7 @@
 
 import { app, dialog, session } from 'electron';
 
-import * as config from '../config';
+// import * as config from '../config';
 
 const disableCspFlag = app.commandLine.hasSwitch('disable-csp');
 
@@ -24,7 +24,6 @@ const init = ({ mainWindow }: Dependencies) => {
             logger.debug('csp', `Header applied to ${details.url}`);
             callback({
                 responseHeaders: {
-                    'Content-Security-Policy': [config.cspRules.join(';')],
                     ...details.responseHeaders,
                 },
             });

@@ -47,7 +47,7 @@ const waitForReboot = async (device?: AcquiredDevice) => {
           }
         : undefined;
     // 最多轮询十次，超过就报错
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
         // eslint-disable-next-line no-await-in-loop
         const reacquire = await TrezorConnect.getFeatures(param);
         if (reacquire.success && reacquire.payload.bootloader_mode) {

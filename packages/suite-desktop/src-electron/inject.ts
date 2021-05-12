@@ -2,8 +2,9 @@
 /* eslint-disable no-inner-declarations */
 /* eslint-disable import/extensions */
 import './dist.js';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, session, app, webFrame, webContents } from 'electron';
 
+console.log(session, app, webFrame, webContents);
 declare global {
     interface Window {
         onekeyConfig: Config;
@@ -71,7 +72,6 @@ try {
         console.log('Onekey web3 injecter start');
 
         const jsonStr = getParameterByName('config') || localStorage.getItem('web3-config') || '{}';
-        localStorage.setItem('web3-config', jsonStr!);
 
         let config = safeTouchJSONStr<Config>(jsonStr);
 
@@ -80,10 +80,10 @@ try {
 
             ipcRenderer.on('response/config', (event, params) => {
                 console.log('inject.ts config event', event, params);
-                if (params.id === timestamp) {
-                    config = params.payload;
-                    resolve(config);
-                }
+                // if (params.id === timestamp) {
+                config = params.payload;
+                resolve(config);
+                // }
             });
 
             console.log('send to host', timestamp);
@@ -92,7 +92,7 @@ try {
             });
         });
         await promise;
-
+        localStorage.setItem('web3-config', JSON.stringify(config)!);
         window.onekeyConfig = config;
         const provider = new window.trustwallet.Provider(config);
         function debugPrint(...args: any[]) {
