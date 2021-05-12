@@ -149,7 +149,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 
 export type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }) => {
+const Container: FC<Props> = ({ selectedAccount, signWithPush }) => {
     const [ref, setRef] = useState<HTMLElement>();
     const [isLoading, setLoadingStatus] = useState(false);
     const [webviewRef, setWebviewRef] = useState<Electron.WebviewTag>();
@@ -284,7 +284,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
 
     useEffect(() => {
         if (!webviewRef) return;
-        function didFailLoading(e) {
+        function didFailLoading() {
             // setLoadFailed(true);
             setIsLoading(false);
         }
