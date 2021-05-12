@@ -176,7 +176,10 @@ try {
                 requestAccounts: {
                     postMessage: (message: Message) => {
                         debugPrint('init.js request accounts', JSON.stringify(message));
-                        executeCallback(message.id, null, [config.address]);
+                        const { id } = message;
+                        ipcRenderer.sendToHost('request/account', {
+                            id,
+                        });
                     },
                 },
                 addEthereumChain: {
@@ -191,6 +194,12 @@ try {
             debugPrint('inject.ts sign/broadcast event', event, params);
             if (params.id) {
                 executeCallback(params.id, params.error, params.txid);
+            }
+        });
+        ipcRenderer.on('response/account', (event, params) => {
+            debugPrint('inject.ts sign/broadcast event', event, params);
+            if (params.id) {
+                executeCallback(params.id, null, [params.address]);
             }
         });
         console.log('Onekey web3 injecter done');

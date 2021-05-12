@@ -226,8 +226,8 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
 
         async function registerEvent(event: Electron.IpcMessageEvent) {
             if (!webviewRef) return;
+            const payload = event.args[0];
             if (event.channel === 'sign/transaction') {
-                const payload = event.args[0];
                 const { id, transaction } = payload;
                 const params = {
                     ...transaction,
@@ -246,6 +246,12 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
                         error: e,
                     });
                 }
+            } else if (event.channel === 'request/account') {
+                const { id } = payload;
+                webviewRef.send('response/account', {
+                    id,
+                    address: freshAddress.address,
+                });
             }
         }
 
@@ -257,7 +263,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
             webviewRef.removeEventListener('did-fail-load', didFailLoading);
             webviewRef.removeEventListener('ipc-message', registerEvent);
         };
-    }, [webviewRef, chainRPCUrl, activeChainId, signWithPush]);
+    }, [webviewRef, chainRPCUrl, activeChainId, signWithPush, freshAddress.address]);
 
     if (selectedAccount.status === 'loading') {
         return (

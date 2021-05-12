@@ -348,6 +348,12 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush }) => {
                 } catch (e) {
                     // ingore
                 }
+            } else if (event.channel === 'request/account') {
+                const { id } = arg;
+                webviewRef.send('response/account', {
+                    id,
+                    address: freshAddress.address,
+                });
             }
         }
 
