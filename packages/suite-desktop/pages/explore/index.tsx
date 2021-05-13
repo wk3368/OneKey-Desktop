@@ -80,6 +80,7 @@ enum CHAIN_SYMBOL_ID {
     bsc = 56,
     okex = 66,
     heco = 128,
+    okexTest = 65,
 }
 const CHAIN_SYMBOL_RPC = {
     [CHAIN_SYMBOL_ID.eth]: 'https://rpc.blkdb.cn/eth',
@@ -87,6 +88,7 @@ const CHAIN_SYMBOL_RPC = {
     [CHAIN_SYMBOL_ID.bsc]: 'https://rpc.blkdb.cn/bsc',
     [CHAIN_SYMBOL_ID.heco]: 'https://rpc.blkdb.cn/heco',
     [CHAIN_SYMBOL_ID.okex]: 'https://exchainrpc.okex.org',
+    [CHAIN_SYMBOL_ID.okexTest]: 'https://exchaintestrpc.okex.org',
 };
 
 const symbolToChainId = {
@@ -94,6 +96,7 @@ const symbolToChainId = {
     BSC: CHAIN_SYMBOL_ID.bsc,
     HECO: CHAIN_SYMBOL_ID.heco,
     OKT: CHAIN_SYMBOL_ID.okex,
+    OKT_TEST: CHAIN_SYMBOL_ID.okexTest,
 };
 
 const CHAIN_OPTIONS = [
@@ -116,6 +119,10 @@ const CHAIN_OPTIONS = [
     {
         label: 'Kovan 测试网络',
         value: CHAIN_SYMBOL_ID.kovan,
+    },
+    {
+        label: '欧易交易链 OKEx 测试网',
+        value: CHAIN_SYMBOL_ID.okexTest,
     },
 ];
 

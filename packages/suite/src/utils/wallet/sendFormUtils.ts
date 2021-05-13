@@ -180,6 +180,20 @@ function buildCustomOptions(tx: TxData & EthereumTransaction) {
         };
     }
 
+    if (tx.chainId === 65) {
+        return {
+            common: Common.forCustomChain(
+                'mainnet',
+                {
+                    name: 'okt',
+                    networkId: 65,
+                    chainId: 65,
+                },
+                'petersburg',
+            ),
+        };
+    }
+
     return {
         chain: tx.chainId,
     };
