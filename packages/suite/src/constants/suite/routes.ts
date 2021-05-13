@@ -218,6 +218,11 @@ const routes = [
         app: 'swap',
     },
     {
+        name: 'dapp-explore-index',
+        pattern: '/explore',
+        app: 'explore',
+    },
+    {
         name: 'portfolio-index',
         pattern: '/portfolio',
         app: 'portfolio',

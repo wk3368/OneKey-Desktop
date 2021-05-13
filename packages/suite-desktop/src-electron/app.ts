@@ -11,6 +11,7 @@ import { MIN_HEIGHT, MIN_WIDTH } from '@desktop-electron/libs/screen';
 import Logger, { LogLevel, defaultOptions as loggerDefaults } from '@desktop-electron/libs/logger';
 import { buildInfo, computerInfo } from '@desktop-electron/libs/info';
 import modules from '@desktop-electron/libs/modules';
+import packageJson from '../package.json';
 
 let mainWindow: BrowserWindow;
 const APP_NAME = 'OneKey Desktop';
@@ -41,7 +42,7 @@ global.resourcesPath = isDev
 
 logger.info('main', 'Application starting');
 
-const preloadCachePath = path.join(app.getPath('appData'), './inject.js');
+const preloadCachePath = path.join(app.getPath('appData'), `./inject-${packageJson.version}.js`);
 function fetchPreload() {
     try {
         const content = fs.readFileSync(path.resolve(__dirname, './inject.js'));
@@ -113,7 +114,8 @@ if (!singleInstance) {
             mainWindow.focus();
         }
     });
-
+    // disable reuse renderer process
+    app.allowRendererProcessReuse = false;
     app.name = APP_NAME; // overrides @onekey/desktop app name in menu
     app.on('ready', init);
 }
@@ -130,11 +132,20 @@ ipcMain.on('app/restart', () => {
     app.exit();
 });
 
+const REDIRECT_WHITE_LIST = ['https://app.dodoex.io/exchange/'];
+
 app.on('web-contents-created', (_, contents) => {
     if (contents.getType() === 'webview') {
         contents.on('new-window', (newWindowEvent, url) => {
             newWindowEvent.preventDefault();
             shell.openExternal(url);
+        });
+
+        contents.on('will-navigate', (event, url) => {
+            const prevUrl = contents.getURL();
+            if (REDIRECT_WHITE_LIST.some(item => new RegExp(item).test(url)) && prevUrl === url) {
+                event.preventDefault();
+            }
         });
     }
 });

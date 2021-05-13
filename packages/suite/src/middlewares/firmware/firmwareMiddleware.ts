@@ -10,7 +10,7 @@ import { FIRMWARE } from '@suite/actions/firmware/constants';
 
 const waitForReboot = async (api: MiddlewareAPI<Dispatch, AppState>) => {
     // 最多轮询十次，超过就报错
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
         const newDevice = api.getState().devices.find(device => device.connected);
         if (newDevice) {
             return api.dispatch({ type: SUITE.SELECT_DEVICE, payload: newDevice });

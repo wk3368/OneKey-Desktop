@@ -2,11 +2,12 @@
 /* eslint-disable no-inner-declarations */
 /* eslint-disable import/extensions */
 import './dist.js';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, session, app, webFrame, webContents } from 'electron';
 
+console.log(session, app, webFrame, webContents);
 declare global {
     interface Window {
-        config: Config;
+        onekeyConfig: Config;
         injectWeb3Config: (config: Config) => void;
         trustwallet: {
             Provider: any;
@@ -20,6 +21,10 @@ declare global {
         web3: any;
         webkit: any;
         store: any;
+        WebViewJavascriptBridge: {
+            init(): void;
+            callHandler(funcName: string, dataJson: any, callback?: (val: string) => void): void;
+        };
         $ONEKEY_WEB3_INJECTED: boolean;
         $ONEKEY_WEB3_INJECTED_PLATFORM: 'DESKTOP';
         $ONEKEY_SETTINGS_THEME: 'light' | 'dark';
@@ -62,13 +67,33 @@ function safeTouchJSONStr<T = Record<string, unknown>>(str: string | undefined |
 
 try {
     console.log('Onekey web3 provider init start');
-
-    function injectWeb3Config() {
+    const timestamp = new Date().getTime();
+    async function injectWeb3Config() {
         console.log('Onekey web3 injecter start');
-        const jsonStr = getParameterByName('config');
 
-        const config = safeTouchJSONStr<Config>(jsonStr);
-        window.config = config;
+        const jsonStr = getParameterByName('config') || localStorage.getItem('web3-config') || '{}';
+
+        let config = safeTouchJSONStr<Config>(jsonStr);
+
+        const promise = new Promise(resolve => {
+            if (config.address) return resolve(config);
+
+            ipcRenderer.on('response/config', (event, params) => {
+                console.log('inject.ts config event', event, params);
+                // if (params.id === timestamp) {
+                config = params.payload;
+                resolve(config);
+                // }
+            });
+
+            console.log('send to host', timestamp);
+            ipcRenderer.sendToHost('get/config', {
+                id: timestamp,
+            });
+        });
+        await promise;
+        localStorage.setItem('web3-config', JSON.stringify(config)!);
+        window.onekeyConfig = config;
         const provider = new window.trustwallet.Provider(config);
         function debugPrint(...args: any[]) {
             if (provider.isDebug) {
@@ -151,7 +176,10 @@ try {
                 requestAccounts: {
                     postMessage: (message: Message) => {
                         debugPrint('init.js request accounts', JSON.stringify(message));
-                        executeCallback(message.id, null, [config.address]);
+                        const { id } = message;
+                        ipcRenderer.sendToHost('request/account', {
+                            id,
+                        });
                     },
                 },
                 addEthereumChain: {
@@ -163,12 +191,17 @@ try {
         };
 
         ipcRenderer.on('sign/broadcast', (event, params) => {
-            debugPrint('inject.ts event', event, params);
+            debugPrint('inject.ts sign/broadcast event', event, params);
             if (params.id) {
                 executeCallback(params.id, params.error, params.txid);
             }
         });
-
+        ipcRenderer.on('response/account', (event, params) => {
+            debugPrint('inject.ts sign/broadcast event', event, params);
+            if (params.id) {
+                executeCallback(params.id, null, [params.address]);
+            }
+        });
         console.log('Onekey web3 injecter done');
     }
 
@@ -177,6 +210,37 @@ try {
     const settings = safeTouchJSONStr<{ theme: 'light' | 'dark'; language: 'zh' | 'en' }>(
         getParameterByName('settings'),
     );
+
+    window.WebViewJavascriptBridge = {
+        init() {},
+        callHandler(funcName, dataJson, callback) {
+            console.log('receive funName, dataJson, callback', funcName, dataJson);
+            if (funcName === 'callNativeMethod') {
+                const { id, method, params } = dataJson;
+                if (method === 'openDapp') {
+                    const payload = JSON.parse(params);
+                    ipcRenderer.sendToHost('open/dapp', {
+                        id,
+                        payload,
+                    });
+                } else if (method === 'openURL') {
+                    ipcRenderer.sendToHost('open/link', {
+                        id,
+                        payload: params,
+                    });
+                }
+
+                if (callback) {
+                    callback(
+                        JSON.stringify({
+                            result: 'success',
+                            id,
+                        }),
+                    );
+                }
+            }
+        },
+    };
 
     window.$ONEKEY_WEB3_INJECTED = true;
     window.$ONEKEY_WEB3_INJECTED_PLATFORM = 'DESKTOP';

@@ -61,7 +61,9 @@ const Overlay = styled.div`
     background-image: linear-gradient(
         to right,
         rgba(0, 0, 0, 0) 0%,
-        ${props => props.theme.BG_WHITE} 220px
+        ${props => props.theme.BG_WHITE} 180px,
+        ${props => props.theme.BG_WHITE} 220px,
+        rgba(0, 0, 0, 0) 100%
     );
 `;
 
@@ -125,7 +127,7 @@ const FreshAddress = ({
             return <Translation id="RECEIVE_ADDRESS_LIMIT_EXCEEDED" />;
         }
 
-        return `${address.address.substring(0, 20)}`;
+        return `${address.address.slice(0, 12)} ... ${address.address.slice(-12)}`;
     };
 
     const addressValue = getAddressValue(firstFreshAddress);
@@ -135,7 +137,7 @@ const FreshAddress = ({
             <AddressContainer>
                 <TooltipLabel isBitcoin={isBitcoin} symbol={account.symbol} />
                 <FreshAddressWrapper>
-                    <Overlay />
+                    {/* <Overlay /> */}
                     <StyledFreshAddress>{addressValue}</StyledFreshAddress>
                 </FreshAddressWrapper>
             </AddressContainer>

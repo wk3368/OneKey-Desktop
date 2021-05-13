@@ -50,7 +50,8 @@ const discoveryMiddleware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: D
         interruptionIntent =
             getApp(action.url) !== 'wallet' &&
             getApp(action.url) !== 'dashboard' &&
-            getApp(action.url) !== 'swap';
+            getApp(action.url) !== 'swap' &&
+            getApp(action.url) !== 'explore';
     }
 
     // discovery interruption ends after DISCOVERY.STOP action
@@ -74,7 +75,8 @@ const discoveryMiddleware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: D
     if (
         nextState.router.app !== 'wallet' &&
         nextState.router.app !== 'dashboard' &&
-        nextState.router.app !== 'swap'
+        nextState.router.app !== 'swap' &&
+        nextState.router.app !== 'explore'
     )
         return action;
 

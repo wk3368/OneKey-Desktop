@@ -68,7 +68,7 @@ function buildDiscoveryParams(state: ReturnType<GetState>, discovery: any) {
         return state.router.params;
     }
 
-    if (state.router.app === 'swap') {
+    if (state.router.app === 'swap' || state.router.app === 'explore') {
         return {
             accountIndex: 0,
             accountType: 'normal' as const,
@@ -114,7 +114,10 @@ const getAccountState = () => (dispatch: Dispatch, getState: GetState) => {
 
     const mode = dispatch(getAccountStateWithMode());
 
-    if (state.router.app === 'swap' && !discovery.networks.includes('eth')) {
+    if (
+        (state.router.app === 'swap' || state.router.app === 'explore') &&
+        !discovery.networks.includes('eth')
+    ) {
         return {
             status: 'exception',
             loader: 'discovery-eth-empty',
@@ -237,7 +240,12 @@ export const getStateForAction = (action: Action) => (dispatch: Dispatch, getSta
     if (actions.indexOf(action.type) < 0) return;
     const state = getState();
     // ignore if not in wallet
-    if (state.router.app !== 'wallet' && state.router.app !== 'swap') return;
+    if (
+        state.router.app !== 'wallet' &&
+        state.router.app !== 'swap' &&
+        state.router.app !== 'explore'
+    )
+        return;
 
     // get new state
     const newState = dispatch(getAccountState());
