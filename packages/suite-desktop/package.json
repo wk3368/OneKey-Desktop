@@ -123,6 +123,7 @@
             ],
             "icon": "build/static/images/icons/512x512.png",
             "artifactName": "OneKey-Desktop-${version}-win-${arch}.${ext}",
+            "verifyUpdateCodeSignature": false,
             "target": [
                 "nsis"
             ]
