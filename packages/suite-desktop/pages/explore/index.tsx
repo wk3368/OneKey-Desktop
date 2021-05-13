@@ -423,7 +423,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush }) => {
                     </div>
                     <TextInfo>
                         您在第三方 DApp 上的使用行为将适用于第三方 DApp
-                        的《隐私政策》和《用户协议》，由 {dapp.name || dapp.link}
+                        的《隐私政策》和《用户协议》，由 {dapp.name || dapp.url}
                         直接并单独向您承担责任
                     </TextInfo>
                     <ActionSelect
