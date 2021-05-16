@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -11,6 +12,8 @@ import * as recoveryActions from '@recovery-actions/recoveryActions';
 import { InjectedModalApplicationProps, AppState, Dispatch } from '@suite-types';
 import { WordCount } from '@recovery-types';
 import { useDevice } from '@suite-hooks';
+// @ts-ignore
+import ImagePng from './image.jpg';
 
 const Wrapper = styled.div`
     display: flex;
@@ -48,6 +51,16 @@ const InfoBoxText = styled.div`
     text-align: left;
     margin-left: 12px;
 `;
+
+const InfoBoxTextRed = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 12px;
+    margin-bottom: 12px;
+    color: red;
+`;
+
 const InfoBoxTitle = styled.div`
     font-size: ${variables.FONT_SIZE.SMALL};
     color: ${props => props.theme.TYPE_DARK_GREY};
@@ -160,6 +173,9 @@ const Recovery = ({
             <Wrapper>
                 {recovery.status === 'initial' && model === 1 && (
                     <>
+                        <InfoBoxTextRed>
+                            重要！！检查您的设备是否是有异常的批次，以及检查您的助记词是否正确！！
+                        </InfoBoxTextRed>
                         <StyledP>
                             <Translation id="TR_CHECK_RECOVERY_SEED_DESC_T1" />
                         </StyledP>
@@ -302,6 +318,9 @@ const Recovery = ({
                         <StyledP>
                             <Translation id="TR_SEED_CHECK_SUCCESS_DESC" />
                         </StyledP>
+                        <InfoBoxTextRed>
+                            您的助记词是完全正确且匹配当前硬件的，您不属于出现问题的批次范围！
+                        </InfoBoxTextRed>
                         <StyledImage image="UNI_SUCCESS" />
                         <Buttons>
                             <CloseButton onClick={() => closeModalApp()} />
@@ -314,7 +333,22 @@ const Recovery = ({
                         <H2>
                             <Translation id="TR_SEED_CHECK_FAIL_TITLE" />
                         </H2>
+                        <InfoBoxTextRed>SE 版本：{device.features.se_ver}</InfoBoxTextRed>
+                        <InfoBoxTextRed>固件版本：{device.features.onekey_version}</InfoBoxTextRed>
                         <Error error={recovery.error} />
+                        {device.features.se_ver === '1.1.0.2' && (
+                            <>
+                                <InfoBoxTextRed>
+                                    您的设备属于影响批次！建议转移您的资产，可以联系客服获取更详细的咨询！
+                                </InfoBoxTextRed>
+                                <img
+                                    style={{
+                                        width: 500,
+                                    }}
+                                    src={ImagePng}
+                                />
+                            </>
+                        )}
                         <Buttons>
                             <CloseButton onClick={() => closeModalApp()} />
                         </Buttons>
