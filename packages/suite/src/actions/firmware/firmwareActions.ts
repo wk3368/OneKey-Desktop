@@ -38,37 +38,20 @@ export const setTargetRelease = (payload: AcquiredDevice['firmwareRelease']): Fi
     payload,
 });
 
-const waitForReboot = async (device?: AcquiredDevice) => {
-    const param = device
-        ? {
-              device: {
-                  path: device.path,
-              },
-          }
-        : undefined;
-    // 每次轮询之间隔半秒
-    // eslint-disable-next-line no-await-in-loop
-    await new Promise(r => setTimeout(r, 500));
-    // 最多轮询十次，超过就报错
-    for (let i = 0; i < 20; i++) {
-        // eslint-disable-next-line no-await-in-loop
-        const reacquire = await TrezorConnect.getFeatures({
-            ...param,
-            keepSession: false,
-        });
-        if (reacquire.success && reacquire.payload.bootloader_mode) {
-            return;
-        }
-    }
-    throw Error;
-};
-
 export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetState) => {
     const { device } = getState().suite;
     const { targetRelease, prevDevice } = getState().firmware;
 
     if (!device || !device.connected || !device.features) {
         dispatch({ type: FIRMWARE.SET_ERROR, payload: 'no device connected' });
+        return;
+    }
+
+    if (device.mode !== 'bootloader') {
+        dispatch({
+            type: FIRMWARE.SET_ERROR,
+            payload: 'device must be connected in bootloader mode',
+        });
         return;
     }
 
@@ -142,18 +125,6 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
         }
     } catch (e) {
         return dispatch({ type: FIRMWARE.SET_ERROR, payload: e.message });
-    }
-
-    if (device.mode !== 'bootloader') {
-        try {
-            const result = await TrezorConnect.bixinReboot();
-            if (!result.success) {
-                return dispatch({ type: FIRMWARE.SET_ERROR, payload: result.payload.code });
-            }
-            await waitForReboot(device);
-        } catch {
-            // ignore
-        }
     }
 
     const updateResponse = await TrezorConnect.firmwareUpdate(payload);
