@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,6 +12,8 @@ import * as recoveryActions from '@recovery-actions/recoveryActions';
 import { InjectedModalApplicationProps, AppState, Dispatch } from '@suite-types';
 import { WordCount } from '@recovery-types';
 import { useDevice } from '@suite-hooks';
+import { findErrorBatchDevice } from '@suite-utils/device';
+
 // @ts-ignore
 import ImagePng from './image.jpg';
 
@@ -59,6 +61,11 @@ const InfoBoxTextRed = styled.div`
     margin-left: 12px;
     margin-bottom: 12px;
     color: red;
+<<<<<<< HEAD
+=======
+    font-size: 14px;
+    font-weight: bold;
+>>>>>>> 01876e81d... feat: add recovery device batch detect
 `;
 
 const InfoBoxTitle = styled.div`
@@ -146,6 +153,44 @@ const Recovery = ({
             ? ['initial', 'select-word-count', 'select-recovery-type', 'in-progress', 'finished']
             : ['initial', 'in-progress', 'finished'];
 
+    const errorInfo = useMemo(() => {
+        if (!device || !device.features) return null;
+        return (
+            <>
+                <InfoBoxTextRed style={{ width: '100%', textAlign: 'center', fontSize: 20 }}>
+                    您的设备属于受影响批次，请不要「升级固件」或「重置」，保持不动
+                </InfoBoxTextRed>
+                <InfoBoxTextRed style={{ width: 500, textAlign: 'left' }}>
+                    序列号：{device.features.onekey_serial}
+                </InfoBoxTextRed>
+                <InfoBoxTextRed style={{ width: 500, textAlign: 'left' }}>
+                    SE 版本：{device.features.se_ver}
+                </InfoBoxTextRed>
+                <InfoBoxTextRed style={{ width: 500, textAlign: 'left' }}>
+                    固件版本：{device.features.onekey_version}
+                </InfoBoxTextRed>
+                <>
+                    <InfoBoxTextRed style={{ width: 500, textAlign: 'left' }}>
+                        您的设备属于受影响批次，请不要升级固件或重置，保持不动。
+                    </InfoBoxTextRed>
+                    <InfoBoxTextRed style={{ width: 500, textAlign: 'left' }}>
+                        联系我们下方的客服，按照提示有条不紊的转移资产。
+                    </InfoBoxTextRed>
+                    <InfoBoxTextRed style={{ width: 500, textAlign: 'left' }}>
+                        请放心，OneKey
+                        用户的资产不会被盗，我们也没有被攻击或植马，我们要求这样做的目的是防止这些用户后续使用过程中万一硬件钱包故障，而手中的助记词无法恢复旧地址的情况。
+                    </InfoBoxTextRed>
+                    <img
+                        style={{
+                            width: '100%',
+                        }}
+                        src={ImagePng}
+                    />
+                </>
+            </>
+        );
+    }, [device]);
+
     if (!device || !device.features) {
         return (
             <Modal
@@ -162,6 +207,19 @@ const Recovery = ({
             </Modal>
         );
     }
+
+    const isErrorBatchDevice = findErrorBatchDevice(device);
+    const isErrorBatchDeviceWithWrongFirmware = !!(
+        isErrorBatchDevice &&
+        device.features.onekey_version &&
+        ['2.0.8', '2.0.9', '2.1.0'].includes(device.features.onekey_version)
+    );
+
+    const isErrorSEWithWrongFirmware = !!(
+        !isErrorBatchDevice &&
+        device.features.se_ver === '1.1.0.2' &&
+        device.features.onekey_version === '2.1.1'
+    );
 
     return (
         <Modal
@@ -268,7 +326,7 @@ const Recovery = ({
                     </>
                 )}
 
-                {recovery.status === 'select-word-count' && (
+                {recovery.status === 'select-word-count' && !isErrorBatchDeviceWithWrongFirmware && (
                     <>
                         <H2>
                             <Translation id="TR_SELECT_NUMBER_OF_WORDS" />
@@ -278,6 +336,22 @@ const Recovery = ({
                             <CloseButton onClick={() => closeModalApp()}>
                                 <Translation id="TR_CANCEL" />
                             </CloseButton>
+                        </Buttons>
+                    </>
+                )}
+                {recovery.status === 'select-word-count' && isErrorSEWithWrongFirmware && (
+                    <>
+                        {errorInfo}
+                        <Buttons>
+                            <CloseButton onClick={() => closeModalApp()} />
+                        </Buttons>
+                    </>
+                )}
+                {recovery.status === 'select-word-count' && isErrorBatchDeviceWithWrongFirmware && (
+                    <>
+                        {errorInfo}
+                        <Buttons>
+                            <CloseButton onClick={() => closeModalApp()} />
                         </Buttons>
                     </>
                 )}
@@ -327,7 +401,6 @@ const Recovery = ({
                         </Buttons>
                     </>
                 )}
-
                 {recovery.status === 'finished' && recovery.error && (
                     <>
                         <H2>
@@ -336,17 +409,17 @@ const Recovery = ({
                         <InfoBoxTextRed>SE 版本：{device.features.se_ver}</InfoBoxTextRed>
                         <InfoBoxTextRed>固件版本：{device.features.onekey_version}</InfoBoxTextRed>
                         <Error error={recovery.error} />
-                        {device.features.se_ver === '1.1.0.2' && (
+                        {isErrorBatchDevice ? (
+                            errorInfo
+                        ) : (
                             <>
                                 <InfoBoxTextRed>
-                                    您的设备属于影响批次！建议转移您的资产，可以联系客服获取更详细的咨询！
+                                    序列号：{device.features.onekey_serial}
                                 </InfoBoxTextRed>
-                                <img
-                                    style={{
-                                        width: 500,
-                                    }}
-                                    src={ImagePng}
-                                />
+                                <InfoBoxTextRed>SE 版本：{device.features.se_ver}</InfoBoxTextRed>
+                                <InfoBoxTextRed>
+                                    固件版本：{device.features.onekey_version}
+                                </InfoBoxTextRed>
                             </>
                         )}
                         <Buttons>

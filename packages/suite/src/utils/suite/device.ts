@@ -311,3 +311,15 @@ export const isBitcoinOnly = (device: TrezorDevice | Device) => {
         !features.capabilities.includes('Capability_Bitcoin_like')
     );
 };
+
+export const findErrorBatchDevice = (device?: AcquiredDevice) => {
+    if (!device) return;
+    const onekeySerial = device.features.onekey_serial;
+    if (!onekeySerial) return;
+    const versionNum = +onekeySerial.slice(5);
+    if (Number.isNaN(versionNum)) return;
+    if (versionNum >= 21032200001 && versionNum <= 21032201500) {
+        return true;
+    }
+    return false;
+};

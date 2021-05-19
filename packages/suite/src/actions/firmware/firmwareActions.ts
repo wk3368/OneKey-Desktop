@@ -4,7 +4,7 @@ import { Dispatch, GetState, AppState, AcquiredDevice } from '@suite-types';
 import * as analyticsActions from '@suite-actions/analyticsActions';
 import * as buildUtils from '@suite-utils/build';
 import { isDesktop } from '@suite-utils/env';
-import { isBitcoinOnly } from '@suite-utils/device';
+import { isBitcoinOnly, findErrorBatchDevice } from '@suite-utils/device';
 
 declare global {
     interface Window {
@@ -45,6 +45,14 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
     if (!device || !device.connected || !device.features) {
         dispatch({ type: FIRMWARE.SET_ERROR, payload: 'no device connected' });
         return;
+    }
+
+    const isErrorbatchDevice = findErrorBatchDevice(device);
+    if (isErrorbatchDevice) {
+        return dispatch({
+            type: FIRMWARE.SET_ERROR,
+            payload: 'error batch device',
+        });
     }
 
     if (device.mode !== 'bootloader') {
