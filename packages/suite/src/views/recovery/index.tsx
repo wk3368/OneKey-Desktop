@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/alt-text */
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,6 +12,11 @@ import * as recoveryActions from '@recovery-actions/recoveryActions';
 import { InjectedModalApplicationProps, AppState, Dispatch } from '@suite-types';
 import { WordCount } from '@recovery-types';
 import { useDevice } from '@suite-hooks';
+import { findErrorBatchDevice } from '@suite-utils/device';
+import { isNewerOrEqual, convertOneKeyVersionToStatic } from '@firmware-utils';
+
+// @ts-ignore
+import ImagePng from './image.jpg';
 
 const Wrapper = styled.div`
     display: flex;
@@ -48,6 +54,23 @@ const InfoBoxText = styled.div`
     text-align: left;
     margin-left: 12px;
 `;
+
+const InfoBoxTextMention = styled.div<{ titleMode?: boolean }>`
+    width: ${({ titleMode }) => (titleMode ? '100%' : '500px')};
+    display: flex;
+    flex-direction: column;
+    text-align: ${({ titleMode }) => (titleMode ? 'center' : 'left')};
+    margin-left: 12px;
+    margin-bottom: 12px;
+    font-size: ${({ titleMode }) => (titleMode ? '20px' : '14px')};
+    color: red;
+    font-weight: bold;
+`;
+
+const AlertImageContainer = styled.img`
+    width: 100%;
+`;
+
 const InfoBoxTitle = styled.div`
     font-size: ${variables.FONT_SIZE.SMALL};
     color: ${props => props.theme.TYPE_DARK_GREY};
@@ -133,6 +156,53 @@ const Recovery = ({
             ? ['initial', 'select-word-count', 'select-recovery-type', 'in-progress', 'finished']
             : ['initial', 'in-progress', 'finished'];
 
+    const errorInfo = useMemo(() => {
+        if (!device || !device.features) return null;
+        return (
+            <>
+                <InfoBoxTextMention titleMode>
+                    <Translation id="TR_RECOVERY_ERROR_BATCH_TITLE" />
+                </InfoBoxTextMention>
+                <InfoBoxTextMention>
+                    <Translation
+                        id="TR_SE_VERSION"
+                        values={{
+                            version: device.features.se_ver,
+                        }}
+                    />
+                </InfoBoxTextMention>
+                <InfoBoxTextMention>
+                    <Translation
+                        id="TR_SERIAL_NUMBER"
+                        values={{
+                            version: device.features.onekey_serial,
+                        }}
+                    />
+                </InfoBoxTextMention>
+                <InfoBoxTextMention>
+                    <Translation
+                        id="TR_FIRMWARE_VERSION_INLINE"
+                        values={{
+                            version: device.features.onekey_version,
+                        }}
+                    />
+                </InfoBoxTextMention>
+                <>
+                    <InfoBoxTextMention>
+                        <Translation id="TR_RECOVERY_ERROR_BATCH_TITLE" />
+                    </InfoBoxTextMention>
+                    <InfoBoxTextMention>
+                        <Translation id="TR_RECOVERY_ERROR_BATCH_DESC_1" />
+                    </InfoBoxTextMention>
+                    <InfoBoxTextMention>
+                        <Translation id="TR_RECOVERY_ERROR_BATCH_DESC_2" />
+                    </InfoBoxTextMention>
+                    <AlertImageContainer src={ImagePng} />
+                </>
+            </>
+        );
+    }, [device]);
+
     if (!device || !device.features) {
         return (
             <Modal
@@ -150,6 +220,19 @@ const Recovery = ({
         );
     }
 
+    const isErrorBatchDevice = findErrorBatchDevice(device);
+    const isErrorBatchDeviceWithWrongFirmware = !!(
+        isErrorBatchDevice &&
+        device.features.onekey_version &&
+        isNewerOrEqual([2, 1, 0], convertOneKeyVersionToStatic(device))
+    );
+
+    const isErrorSEWithWrongFirmware = !!(
+        !isErrorBatchDevice &&
+        device.features.se_ver === '1.1.0.2' &&
+        device.features.onekey_version === '2.1.1'
+    );
+
     return (
         <Modal
             useFixedHeight
@@ -160,6 +243,9 @@ const Recovery = ({
             <Wrapper>
                 {recovery.status === 'initial' && model === 1 && (
                     <>
+                        <InfoBoxTextMention>
+                            <Translation id="TR_RECOVERY_MENTION_TITLE" />
+                        </InfoBoxTextMention>
                         <StyledP>
                             <Translation id="TR_CHECK_RECOVERY_SEED_DESC_T1" />
                         </StyledP>
@@ -252,7 +338,7 @@ const Recovery = ({
                     </>
                 )}
 
-                {recovery.status === 'select-word-count' && (
+                {recovery.status === 'select-word-count' && !isErrorBatchDeviceWithWrongFirmware && (
                     <>
                         <H2>
                             <Translation id="TR_SELECT_NUMBER_OF_WORDS" />
@@ -262,6 +348,22 @@ const Recovery = ({
                             <CloseButton onClick={() => closeModalApp()}>
                                 <Translation id="TR_CANCEL" />
                             </CloseButton>
+                        </Buttons>
+                    </>
+                )}
+                {recovery.status === 'select-word-count' && isErrorSEWithWrongFirmware && (
+                    <>
+                        {errorInfo}
+                        <Buttons>
+                            <CloseButton onClick={() => closeModalApp()} />
+                        </Buttons>
+                    </>
+                )}
+                {recovery.status === 'select-word-count' && isErrorBatchDeviceWithWrongFirmware && (
+                    <>
+                        {errorInfo}
+                        <Buttons>
+                            <CloseButton onClick={() => closeModalApp()} />
                         </Buttons>
                     </>
                 )}
@@ -308,13 +410,44 @@ const Recovery = ({
                         </Buttons>
                     </>
                 )}
-
                 {recovery.status === 'finished' && recovery.error && (
                     <>
                         <H2>
                             <Translation id="TR_SEED_CHECK_FAIL_TITLE" />
                         </H2>
                         <Error error={recovery.error} />
+                        {isErrorBatchDevice ? (
+                            errorInfo
+                        ) : (
+                            <>
+                                <InfoBoxTextMention>
+                                    <Translation
+                                        id="TR_SERIAL_NUMBER"
+                                        values={{
+                                            version: device.features.onekey_serial,
+                                        }}
+                                    />
+                                    :
+                                </InfoBoxTextMention>
+                                <InfoBoxTextMention>
+                                    <Translation
+                                        id="TR_SE_VERSION"
+                                        values={{
+                                            version: device.features.se_ver,
+                                        }}
+                                    />
+                                </InfoBoxTextMention>
+                                <InfoBoxTextMention>
+                                    <Translation
+                                        id="TR_FIRMWARE_VERSION_INLINE"
+                                        values={{
+                                            version: device.features.onekey_version,
+                                        }}
+                                    />
+                                    :
+                                </InfoBoxTextMention>
+                            </>
+                        )}
                         <Buttons>
                             <CloseButton onClick={() => closeModalApp()} />
                         </Buttons>

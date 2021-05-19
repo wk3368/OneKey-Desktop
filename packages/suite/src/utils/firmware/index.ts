@@ -1,4 +1,4 @@
-import { AppState } from '@suite-types';
+import { AppState, TrezorDevice } from '@suite-types';
 
 export const getFormattedFingerprint = (fingerprint: string) => {
     return [
@@ -20,8 +20,6 @@ export const getTextForStatus = (status: AppState['firmware']['status']) => {
             return 'TR_INSTALLING';
         case 'wait-for-reboot':
             return 'TR_WAIT_FOR_REBOOT';
-        case 'reconnect-timeout':
-            return 'TR_RECONNECT_TIMEOUT';
         case 'unplug':
             return 'TR_DISCONNECT_YOUR_DEVICE';
         default:
@@ -34,8 +32,6 @@ export const getDescriptionForStatus = (status: AppState['firmware']['status']) 
         case 'installing':
         case 'wait-for-reboot':
             return 'TR_DO_NOT_DISCONNECT';
-        case 'reconnect-timeout':
-            return 'TR_NO_NEED_TO_DISCONNECT';
         default:
             return null;
     }
@@ -75,3 +71,26 @@ export const isEqual = (versionX: VersionArray, versionY: VersionArray) =>
 
 export const isNewerOrEqual = (versionX: VersionArray, versionY: VersionArray) =>
     isNewer(versionX, versionY) || isEqual(versionX, versionY);
+
+export const convertOneKeyVersionToStatic = (device: TrezorDevice): VersionArray => {
+    const INITIAL_VERSION: VersionArray = [1, 0, 0];
+    if (!device || !device.features) return INITIAL_VERSION;
+    const { features } = device;
+    const trezorVersionArray: VersionArray = [
+        features.major_version,
+        features.minor_version,
+        features.patch_version,
+    ];
+    if (!features.onekey_version) return trezorVersionArray;
+    const onekeyVersionList = features.onekey_version
+        .split('.')
+        .slice(0, 3)
+        .map((str, index) => {
+            const converted = Number(str);
+            if (Number.isNaN(converted)) {
+                return INITIAL_VERSION[index];
+            }
+            return converted;
+        });
+    return onekeyVersionList as VersionArray;
+};

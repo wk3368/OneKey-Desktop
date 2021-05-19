@@ -85,6 +85,8 @@ export const ICONS: IconType[] = [
     'QUESTION_ACTIVE',
     'RECEIVE',
     'REFRESH',
+    'POWER',
+    'DOWN_BUTTON',
     'SEARCH',
     'SEND',
     'SETTINGS',

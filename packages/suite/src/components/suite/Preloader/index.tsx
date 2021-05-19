@@ -33,6 +33,7 @@ import {
     Version,
     Welcome,
 } from '@suite-views';
+import { findErrorBatchDevice } from '@suite-utils/device';
 
 type SuiteAppStateProps = {
     loaded: boolean;
@@ -84,7 +85,7 @@ const getSuiteApplicationState = ({
         return device.features.firmware_present ? DeviceBootloader : DeviceNoFirmware;
 
     // device firmware update required
-    if (device.firmware === 'required') {
+    if (device.firmware === 'required' && !findErrorBatchDevice(device)) {
         if (typeof window !== 'undefined') {
             // @ts-ignore
             window.$BLE_MODE = false;

@@ -1560,6 +1560,38 @@ const definedMessages = defineMessages({
         defaultMessage: 'Firmware version',
         id: 'TR_FIRMWARE_VERSION',
     },
+    TR_FIRMWARE_VERSION_INLINE: {
+        defaultMessage: 'Firmware version: {version}',
+        id: 'TR_FIRMWARE_VERSION_INLINE',
+    },
+    TR_SE_VERSION: {
+        defaultMessage: 'SE version: {version}',
+        id: 'TR_SE_VERSION',
+    },
+    TR_SERIAL_NUMBER: {
+        defaultMessage: 'Serial Number: {version}',
+        id: 'TR_SERIAL_NUMBER',
+    },
+    TR_RECOVERY_MENTION_TITLE: {
+        defaultMessage:
+            'Important! Check whether your device is in abnormal batch and check whether your seed is correct!',
+        id: 'TR_RECOVERY_MENTION_TITLE',
+    },
+    TR_RECOVERY_ERROR_BATCH_TITLE: {
+        defaultMessage:
+            'Your device is in abnormal batch, please do not 「upgrade the firmware」 or 「reset」, keep it still',
+        id: 'TR_RECOVERY_ERROR_BATCH_TITLE',
+    },
+    TR_RECOVERY_ERROR_BATCH_DESC_1: {
+        defaultMessage:
+            'Contact our customer service below and follow the prompts to transfer assets in an orderly manner.',
+        id: 'TR_RECOVERY_ERROR_BATCH_DESC_1',
+    },
+    TR_RECOVERY_ERROR_BATCH_DESC_2: {
+        defaultMessage:
+            'Please rest assured that the assets of OneKey users will not be stolen, and we have not been attacked. The purpose of our request is to prevent these users from the hardware wallet failure during the subsequent use, and the seed in hand cannot be restored your wallet before',
+        id: 'TR_RECOVERY_ERROR_BATCH_DESC_2',
+    },
     TR_BLE_FIRMWARE_VERSION: {
         defaultMessage: 'BLE Firmware version',
         id: 'TR_BLE_FIRMWARE_VERSION',
@@ -2648,14 +2680,6 @@ const definedMessages = defineMessages({
         defaultMessage: 'Wait for your device to reboot',
         description: 'Info what is happening with users device.',
         id: 'TR_WAIT_FOR_REBOOT',
-    },
-    TR_RECONNECT_TIMEOUT: {
-        defaultMessage: 'Please manually reboot your device',
-        id: 'TR_RECONNECT_TIMEOUT',
-    },
-    TR_NO_NEED_TO_DISCONNECT: {
-        defaultMessage: 'no need to disconnect',
-        id: 'TR_NO_NEED_TO_DISCONNECT',
     },
     TR_WALLET_DUPLICATE_DESC: {
         defaultMessage: 'The hidden wallet that you are trying to create already exists',
@@ -4227,9 +4251,14 @@ const definedMessages = defineMessages({
         id: 'TR_LANDING_CONTINUE',
         defaultMessage: 'Continue in browser',
     },
-    TR_HOLD_LEFT_BUTTON: {
-        id: 'TR_HOLD_LEFT_BUTTON',
-        defaultMessage: 'Hold left or both buttons while connecting device',
+    TR_HOLD_LEFT_BUTTON_1: {
+        id: 'TR_HOLD_LEFT_BUTTON_1',
+        defaultMessage:
+            'Press and hold the power button {power} and the down button {down} at the same time and do not let go until reboot, release the power button first when finished.',
+    },
+    TR_HOLD_LEFT_BUTTON_2: {
+        id: 'TR_HOLD_LEFT_BUTTON_2',
+        defaultMessage: 'Reconnect the computer after you see the word Bootloader.',
     },
     BACKUP_BACKUP_ALREADY_FINISHED_HEADING: {
         id: 'BACKUP_BACKUP_ALREADY_FINISHED',
