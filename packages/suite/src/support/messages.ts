@@ -1560,6 +1560,38 @@ const definedMessages = defineMessages({
         defaultMessage: 'Firmware version',
         id: 'TR_FIRMWARE_VERSION',
     },
+    TR_FIRMWARE_VERSION_INLINE: {
+        defaultMessage: 'Firmware version: {version}',
+        id: 'TR_FIRMWARE_VERSION_INLINE',
+    },
+    TR_SE_VERSION: {
+        defaultMessage: 'SE version: {version}',
+        id: 'TR_SE_VERSION',
+    },
+    TR_SERIAL_NUMBER: {
+        defaultMessage: 'Serial Number: {version}',
+        id: 'TR_SERIAL_NUMBER',
+    },
+    TR_RECOVERY_MENTION_TITLE: {
+        defaultMessage:
+            'Important! Check whether your device is an abnormal batch and check whether your seed is correct!',
+        id: 'TR_RECOVERY_MENTION_TITLE',
+    },
+    TR_RECOVERY_ERROR_BATCH_TITLE: {
+        defaultMessage:
+            'Your device is in abnormal batch, please do not 「upgrade the firmware」 or 「reset」, keep it still',
+        id: 'TR_RECOVERY_ERROR_BATCH_TITLE',
+    },
+    TR_RECOVERY_ERROR_BATCH_DESC_1: {
+        defaultMessage:
+            'Contact our customer service below and follow the prompts to transfer assets in an orderly manner.',
+        id: 'TR_RECOVERY_ERROR_BATCH_DESC_1',
+    },
+    TR_RECOVERY_ERROR_BATCH_DESC_2: {
+        defaultMessage:
+            'Please rest assured that the assets of OneKey users will not be stolen, and we have not been attacked. The purpose of our request is to prevent these users from the hardware wallet failure during the subsequent use, and the seed in hand cannot be restored your wallet before',
+        id: 'TR_RECOVERY_ERROR_BATCH_DESC_2',
+    },
     TR_BLE_FIRMWARE_VERSION: {
         defaultMessage: 'BLE Firmware version',
         id: 'TR_BLE_FIRMWARE_VERSION',

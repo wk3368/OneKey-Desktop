@@ -13,6 +13,7 @@ import { InjectedModalApplicationProps, AppState, Dispatch } from '@suite-types'
 import { WordCount } from '@recovery-types';
 import { useDevice } from '@suite-hooks';
 import { findErrorBatchDevice } from '@suite-utils/device';
+import { isNewerOrEqual, convertOneKeyVersionToStatic } from '@firmware-utils';
 
 // @ts-ignore
 import ImagePng from './image.jpg';
@@ -54,18 +55,20 @@ const InfoBoxText = styled.div`
     margin-left: 12px;
 `;
 
-const InfoBoxTextRed = styled.div`
+const InfoBoxTextMention = styled.div<{ titleMode?: boolean }>`
+    width: ${({ titleMode }) => (titleMode ? '100%' : '500px')};
     display: flex;
     flex-direction: column;
-    text-align: left;
+    text-align: ${({ titleMode }) => (titleMode ? 'center' : 'left')};
     margin-left: 12px;
     margin-bottom: 12px;
+    font-size: ${({ titleMode }) => (titleMode ? '20px' : '14px')};
     color: red;
-<<<<<<< HEAD
-=======
-    font-size: 14px;
     font-weight: bold;
->>>>>>> 01876e81d... feat: add recovery device batch detect
+`;
+
+const AlertImageContainer = styled.img`
+    width: 100%;
 `;
 
 const InfoBoxTitle = styled.div`
@@ -157,35 +160,44 @@ const Recovery = ({
         if (!device || !device.features) return null;
         return (
             <>
-                <InfoBoxTextRed style={{ width: '100%', textAlign: 'center', fontSize: 20 }}>
-                    您的设备属于受影响批次，请不要「升级固件」或「重置」，保持不动
-                </InfoBoxTextRed>
-                <InfoBoxTextRed style={{ width: 500, textAlign: 'left' }}>
-                    序列号：{device.features.onekey_serial}
-                </InfoBoxTextRed>
-                <InfoBoxTextRed style={{ width: 500, textAlign: 'left' }}>
-                    SE 版本：{device.features.se_ver}
-                </InfoBoxTextRed>
-                <InfoBoxTextRed style={{ width: 500, textAlign: 'left' }}>
-                    固件版本：{device.features.onekey_version}
-                </InfoBoxTextRed>
-                <>
-                    <InfoBoxTextRed style={{ width: 500, textAlign: 'left' }}>
-                        您的设备属于受影响批次，请不要升级固件或重置，保持不动。
-                    </InfoBoxTextRed>
-                    <InfoBoxTextRed style={{ width: 500, textAlign: 'left' }}>
-                        联系我们下方的客服，按照提示有条不紊的转移资产。
-                    </InfoBoxTextRed>
-                    <InfoBoxTextRed style={{ width: 500, textAlign: 'left' }}>
-                        请放心，OneKey
-                        用户的资产不会被盗，我们也没有被攻击或植马，我们要求这样做的目的是防止这些用户后续使用过程中万一硬件钱包故障，而手中的助记词无法恢复旧地址的情况。
-                    </InfoBoxTextRed>
-                    <img
-                        style={{
-                            width: '100%',
+                <InfoBoxTextMention titleMode>
+                    <Translation id="TR_RECOVERY_ERROR_BATCH_TITLE" />
+                </InfoBoxTextMention>
+                <InfoBoxTextMention>
+                    <Translation
+                        id="TR_SE_VERSION"
+                        values={{
+                            version: device.features.se_ver,
                         }}
-                        src={ImagePng}
                     />
+                </InfoBoxTextMention>
+                <InfoBoxTextMention>
+                    <Translation
+                        id="TR_SERIAL_NUMBER"
+                        values={{
+                            version: device.features.onekey_serial,
+                        }}
+                    />
+                </InfoBoxTextMention>
+                <InfoBoxTextMention>
+                    <Translation
+                        id="TR_FIRMWARE_VERSION_INLINE"
+                        values={{
+                            version: device.features.onekey_version,
+                        }}
+                    />
+                </InfoBoxTextMention>
+                <>
+                    <InfoBoxTextMention>
+                        <Translation id="TR_RECOVERY_ERROR_BATCH_TITLE" />
+                    </InfoBoxTextMention>
+                    <InfoBoxTextMention>
+                        <Translation id="TR_RECOVERY_ERROR_BATCH_DESC_1" />
+                    </InfoBoxTextMention>
+                    <InfoBoxTextMention>
+                        <Translation id="TR_RECOVERY_ERROR_BATCH_DESC_2" />
+                    </InfoBoxTextMention>
+                    <AlertImageContainer src={ImagePng} />
                 </>
             </>
         );
@@ -212,7 +224,7 @@ const Recovery = ({
     const isErrorBatchDeviceWithWrongFirmware = !!(
         isErrorBatchDevice &&
         device.features.onekey_version &&
-        ['2.0.8', '2.0.9', '2.1.0'].includes(device.features.onekey_version)
+        isNewerOrEqual([2, 1, 0], convertOneKeyVersionToStatic(device))
     );
 
     const isErrorSEWithWrongFirmware = !!(
@@ -231,9 +243,9 @@ const Recovery = ({
             <Wrapper>
                 {recovery.status === 'initial' && model === 1 && (
                     <>
-                        <InfoBoxTextRed>
-                            重要！！检查您的设备是否是有异常的批次，以及检查您的助记词是否正确！！
-                        </InfoBoxTextRed>
+                        <InfoBoxTextMention>
+                            <Translation id="TR_RECOVERY_MENTION_TITLE" />
+                        </InfoBoxTextMention>
                         <StyledP>
                             <Translation id="TR_CHECK_RECOVERY_SEED_DESC_T1" />
                         </StyledP>
@@ -392,9 +404,6 @@ const Recovery = ({
                         <StyledP>
                             <Translation id="TR_SEED_CHECK_SUCCESS_DESC" />
                         </StyledP>
-                        <InfoBoxTextRed>
-                            您的助记词是完全正确且匹配当前硬件的，您不属于出现问题的批次范围！
-                        </InfoBoxTextRed>
                         <StyledImage image="UNI_SUCCESS" />
                         <Buttons>
                             <CloseButton onClick={() => closeModalApp()} />
@@ -406,20 +415,37 @@ const Recovery = ({
                         <H2>
                             <Translation id="TR_SEED_CHECK_FAIL_TITLE" />
                         </H2>
-                        <InfoBoxTextRed>SE 版本：{device.features.se_ver}</InfoBoxTextRed>
-                        <InfoBoxTextRed>固件版本：{device.features.onekey_version}</InfoBoxTextRed>
                         <Error error={recovery.error} />
                         {isErrorBatchDevice ? (
                             errorInfo
                         ) : (
                             <>
-                                <InfoBoxTextRed>
-                                    序列号：{device.features.onekey_serial}
-                                </InfoBoxTextRed>
-                                <InfoBoxTextRed>SE 版本：{device.features.se_ver}</InfoBoxTextRed>
-                                <InfoBoxTextRed>
-                                    固件版本：{device.features.onekey_version}
-                                </InfoBoxTextRed>
+                                <InfoBoxTextMention>
+                                    <Translation
+                                        id="TR_SERIAL_NUMBER"
+                                        values={{
+                                            version: device.features.onekey_serial,
+                                        }}
+                                    />
+                                    :
+                                </InfoBoxTextMention>
+                                <InfoBoxTextMention>
+                                    <Translation
+                                        id="TR_SE_VERSION"
+                                        values={{
+                                            version: device.features.se_ver,
+                                        }}
+                                    />
+                                </InfoBoxTextMention>
+                                <InfoBoxTextMention>
+                                    <Translation
+                                        id="TR_FIRMWARE_VERSION_INLINE"
+                                        values={{
+                                            version: device.features.onekey_version,
+                                        }}
+                                    />
+                                    :
+                                </InfoBoxTextMention>
                             </>
                         )}
                         <Buttons>
