@@ -1574,7 +1574,7 @@ const definedMessages = defineMessages({
     },
     TR_RECOVERY_MENTION_TITLE: {
         defaultMessage:
-            'Important! Check whether your device is an abnormal batch and check whether your seed is correct!',
+            'Important! Check whether your device is in abnormal batch and check whether your seed is correct!',
         id: 'TR_RECOVERY_MENTION_TITLE',
     },
     TR_RECOVERY_ERROR_BATCH_TITLE: {
