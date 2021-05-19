@@ -4251,9 +4251,14 @@ const definedMessages = defineMessages({
         id: 'TR_LANDING_CONTINUE',
         defaultMessage: 'Continue in browser',
     },
-    TR_HOLD_LEFT_BUTTON: {
-        id: 'TR_HOLD_LEFT_BUTTON',
-        defaultMessage: 'Hold left or both buttons while connecting device',
+    TR_HOLD_LEFT_BUTTON_1: {
+        id: 'TR_HOLD_LEFT_BUTTON_1',
+        defaultMessage:
+            'Press and hold the power button {power} and the down button {down} at the same time and do not let go until reboot, release the power button first when finished.',
+    },
+    TR_HOLD_LEFT_BUTTON_2: {
+        id: 'TR_HOLD_LEFT_BUTTON_2',
+        defaultMessage: 'Reconnect the computer after you see the word Bootloader.',
     },
     BACKUP_BACKUP_ALREADY_FINISHED_HEADING: {
         id: 'BACKUP_BACKUP_ALREADY_FINISHED',

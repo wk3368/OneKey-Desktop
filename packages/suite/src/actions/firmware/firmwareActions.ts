@@ -38,6 +38,11 @@ export const setTargetRelease = (payload: AcquiredDevice['firmwareRelease']): Fi
     payload,
 });
 
+export const setFirmwareError = (payload: string): FirmwareAction => ({
+    type: FIRMWARE.SET_ERROR,
+    payload,
+});
+
 export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetState) => {
     const { device } = getState().suite;
     const { targetRelease, prevDevice } = getState().firmware;

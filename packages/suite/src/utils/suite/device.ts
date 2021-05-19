@@ -312,8 +312,8 @@ export const isBitcoinOnly = (device: TrezorDevice | Device) => {
     );
 };
 
-export const findErrorBatchDevice = (device?: AcquiredDevice) => {
-    if (!device) return;
+export const findErrorBatchDevice = (device?: TrezorDevice) => {
+    if (!device || !device.features) return;
     const onekeySerial = device.features.onekey_serial;
     if (!onekeySerial) return;
     const versionNum = +onekeySerial.slice(5);

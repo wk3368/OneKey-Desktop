@@ -28,6 +28,8 @@ export const ICONS = {
     QUESTION_ACTIVE: require('../../images/icons/question_active.svg'),
     RECEIVE: require('../../images/icons/receive.svg'),
     REFRESH: require('../../images/icons/refresh.svg'),
+    POWER: require('../../images/icons/power.svg'),
+    DOWN_BUTTON: require('../../images/icons/down_btn.svg'),
     SEARCH: require('../../images/icons/search.svg'),
     SEND: require('../../images/icons/send.svg'),
     SETTINGS: require('../../images/icons/settings.svg'),
