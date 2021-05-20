@@ -1,5 +1,5 @@
 {
-    "name": "@trezor/suite-web",
+    "name": "@onekey/web",
     "version": "21.3.7",
     "private": true,
     "scripts": {
