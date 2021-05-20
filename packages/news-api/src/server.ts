@@ -14,7 +14,7 @@ const options: cors.CorsOptions = {
 app.use(cors(options));
 
 app.get('/', (_req, res) => {
-    res.send(`trezor news api`);
+    res.send(`onekey news api`);
 });
 
 app.get('/posts', (req, res) => {
