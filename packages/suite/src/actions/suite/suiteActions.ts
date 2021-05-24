@@ -279,25 +279,24 @@ export const createDeviceInstance = (device: TrezorDevice, useEmptyPassphrase = 
  * Triggered by `@onekeyhq/connect DEVICE_EVENT`
  * @param {Device} device
  */
-export const handleDeviceConnect = (device: Device) => (dispatch: Dispatch) => {
-    dispatch(selectDevice(device));
-    // const selectedDevice = getState().suite.device;
-    // const { firmware } = getState();
+export const handleDeviceConnect = (device: Device) => (dispatch: Dispatch, getState: GetState) => {
+    const selectedDevice = getState().suite.device;
+    const { firmware } = getState();
     // todo:
     // We are waiting for device in bootloader mode (only in firmware update)
-    // if (
-    //     selectedDevice &&
-    //     device.features &&
-    //     device.mode === 'bootloader' &&
-    //     firmware.status === 'waiting-for-bootloader'
-    // ) {
-    //     dispatch(selectDevice(device));
-    // }
-    // if (!selectedDevice) {
-    //     dispatch(selectDevice(device));
-    // } else {
-    //     // TODO: show some nice notification/tooltip in DeviceMenu
-    // }
+    if (
+        selectedDevice &&
+        device.features &&
+        device.mode === 'bootloader' &&
+        firmware.status === 'waiting-for-bootloader'
+    ) {
+        dispatch(selectDevice(device));
+    }
+    if (!selectedDevice) {
+        dispatch(selectDevice(device));
+    } else {
+        // TODO: show some nice notification/tooltip in DeviceMenu
+    }
 };
 
 /**
