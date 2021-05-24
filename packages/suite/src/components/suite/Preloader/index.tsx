@@ -95,6 +95,7 @@ const getSuiteApplicationState = ({
 
     if (
         window.$BLE_DATA?.required &&
+        !findErrorBatchDevice(device) &&
         isNewer(
             (window.$BLE_DATA?.version.split('.').map(Number) as [number, number, number]) ?? [
                 1,

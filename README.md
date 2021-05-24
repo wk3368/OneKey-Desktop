@@ -6,12 +6,10 @@
 
 | Name                 | Packages                                                                                                                                                                                          |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| suite                | [core](./packages/suite), [web](./packages/suite-web), [desktop](./packages/suite-desktop), [native](./packages/suite-native), [data](./packages/suite-data), [storage](./packages/suite-storage) |
-| components           | [components](./packages/components), [storybook native](./packages/components-storybook-native)                                                                                                   |
+| suite                | [core](./packages/suite), [web](./packages/suite-web), [desktop](./packages/suite-desktop), [data](./packages/suite-data), [storage](./packages/suite-storage) |
+| components           | [components](./packages/components)                                                                                                   |
 | rollout              | [rollout](./packages/rollout)                                                                                                                                                                     |
 | blockchain-link      | [blockchain-link](./packages/blockchain-link)                                                                                                                                                     |
-| translations-manager | [translations-manager](./packages/translations-manager)                                                                                                                                           |
-| integration-tests    | [integration-tests](./packages/integration-tests)                                                                                                                                                 |
 
 ## Development
 
@@ -20,14 +18,10 @@ Before you start make sure you have downloaded and installed [Node.js LTS](https
 -   `git clone git@github.com:OneKeyHQ/OneKey-Desktop.git`
 -   `yarn && yarn build:libs`
 
-_To set up your dev environment for a native platform (iOS/Android) follow [these additional steps](https://github.com/trezor/trezor-suite/tree/develop/packages/suite-native#development)._
-
 Run a dev build:
 
 -   `yarn desktop:dev` (web app)
 -   `yarn desktop:dev:desktop` (electron app)
--   `yarn desktop:dev:android` (react-native Android)
--   `yarn desktop:dev:ios` (react-native iOS)
 
 ## Contribute
 
@@ -62,9 +56,3 @@ Please report suspected security vulnerabilities in private to [hi@onekey.so](ma
 ## IDE specific settings
 
 Find specific settings for Integrated Development Environments (IDE) in [IDE.md](./IDE.md)
-
-## Frequently issue
-
-### `Module not found: Can't resolve '@trezor/components'`
-
-It happends because the modules hasn't been properly installed, run `yarn && yarn build:libs` to fix the problem.
