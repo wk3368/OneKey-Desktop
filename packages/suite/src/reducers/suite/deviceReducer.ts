@@ -3,7 +3,6 @@ import { Device, DEVICE } from '@onekeyhq/connect';
 import { SUITE, STORAGE, METADATA } from '@suite-actions/constants';
 import * as deviceUtils from '@suite-utils/device';
 import { TrezorDevice, AcquiredDevice, Action } from '@suite-types';
-import { remove } from 'lodash';
 
 type State = TrezorDevice[];
 const initialState: State = [];
@@ -110,12 +109,6 @@ const connectDevice = (draft: State, device: Device) => {
         // add new device
         draft.push(newDevice);
     }
-    /**
-     * remove unconnected device
-     */
-    remove(draft, item => {
-        return !item.path;
-    });
 };
 
 /**
