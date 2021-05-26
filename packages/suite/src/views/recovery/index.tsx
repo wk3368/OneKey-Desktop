@@ -427,7 +427,6 @@ const Recovery = ({
                                             version: device.features.onekey_serial,
                                         }}
                                     />
-                                    :
                                 </InfoBoxTextMention>
                                 <InfoBoxTextMention>
                                     <Translation
@@ -444,7 +443,6 @@ const Recovery = ({
                                             version: device.features.onekey_version,
                                         }}
                                     />
-                                    :
                                 </InfoBoxTextMention>
                             </>
                         )}
