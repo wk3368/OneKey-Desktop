@@ -123,6 +123,10 @@ class ErrorBoundary extends React.Component<Props, StateProps> {
                         看来有些问题，你可以通过发送错误数据让我们来进行排查问题。
                     </GenericMessage>
                     <ErrorMessage>{this.state.error.message}</ErrorMessage>
+                    <P>
+                        您可以尝试断开设备与电脑的连接，点击重新加载，等待 desktop
+                        客户端完全启动后重新连接设备！
+                    </P>
                     {/* <P>{this.state.error.stack}</P> */}
 
                     <SendReportButton variant="primary" onClick={() => Sentry.showReportDialog()}>

@@ -15,7 +15,7 @@ export const getReleaseNotes = async (version?: string) => {
         return;
     }
 
-    const url = `${SS_PREFIX}/notes.json?noCache=${new Date().getTime()}`;
+    const url = `${SS_PREFIX}notes.json?noCache=${new Date().getTime()}`;
     const response = await fetch(url);
     const release = response.json();
 
