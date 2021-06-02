@@ -41,6 +41,7 @@ import DisconnectDevice from './DisconnectDevice';
 import MetadataProvider from './metadata/MetadataProvider';
 import AdvancedCoinSettings from './AdvancedCoinSettings/Container';
 import AddToken from './AddToken';
+import ChangeGas from './ChangeGas';
 
 const mapStateToProps = (state: AppState) => ({
     modal: state.modal,
@@ -229,6 +230,8 @@ const getUserContextModal = (props: Props) => {
             return <AdvancedCoinSettings {...payload} onCancel={modalActions.onCancel} />;
         case 'add-token':
             return <AddToken {...payload} onCancel={modalActions.onCancel} />;
+        case 'change-gas':
+            return <ChangeGas {...payload} onCancel={modalActions.onCancel} />;
         default:
             return null;
     }

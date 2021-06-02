@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useCallback, useState, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as sendFormEthereumActions from '@wallet-actions/send/sendFormEthereumActions';
 import { Button } from '@trezor/components';
-import { Translation, Image } from '@suite-components';
+import { Image, Translation } from '@suite-components';
 import { ActionSelect as Select } from '@suite-components/Settings';
 import { AppState, Dispatch } from '@suite-types';
 
@@ -15,6 +15,7 @@ import { MAX_WIDTH_WALLET_CONTENT } from '@suite-constants/layout';
 
 import type Electron from 'electron';
 import Swap from '@swap-views';
+import { openDeferredModal, Transaction } from "@suite-actions/modalActions";
 
 const ActionSelect = styled(Select)`
     width: 260px;
@@ -61,6 +62,7 @@ enum CHAIN_SYMBOL_ID {
     kovan = 42,
     bsc = 56,
 }
+
 const CHAIN_SYMBOL_RPC = {
     [CHAIN_SYMBOL_ID.eth]: 'https://rpc.blkdb.cn/eth',
     [CHAIN_SYMBOL_ID.kovan]: 'https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
@@ -101,13 +103,14 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(
         {
             signWithPush: sendFormEthereumActions.signAndPublishTransactionInSwap,
+            openDeferredModal,
         },
         dispatch,
     );
 
 export type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }) => {
+const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme, openDeferredModal }) => {
     const [ref, setRef] = useState<HTMLElement>();
     const [isLoading, setIsLoading] = useState(true);
     const [webviewRef, setWebviewRef] = useState<Electron.WebviewTag>();
@@ -120,12 +123,12 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
     const unused = account?.addresses
         ? account?.addresses.unused
         : [
-              {
-                  path: account?.path,
-                  address: account?.descriptor,
-                  transfers: account?.history.total,
-              },
-          ];
+            {
+                path: account?.path,
+                address: account?.descriptor,
+                transfers: account?.history.total,
+            },
+        ];
     const freshAddress = unused[0];
 
     useEffect(() => {
@@ -215,6 +218,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
 
     useEffect(() => {
         if (!webviewRef) return;
+
         function didFailLoading() {
             setLoadFailed(true);
             setIsLoading(false);
@@ -229,13 +233,18 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
             const payload = event.args[0];
             if (event.channel === 'sign/transaction') {
                 const { id, transaction } = payload;
-                const params = {
-                    ...transaction,
-                    chainId: activeChainId,
-                    rpcUrl: chainRPCUrl,
-                };
                 try {
-                    const txid = await signWithPush(params, ({ type: 'final' } as unknown) as any);
+                    const alteredTransaction = await openDeferredModal({
+                        transaction,
+                        type: 'change-gas'
+                    } as any) as Transaction;
+
+                    const params = {
+                        ...alteredTransaction,
+                        chainId: activeChainId,
+                        rpcUrl: chainRPCUrl,
+                    };
+                    const txid = await signWithPush(params, { type: 'final' } as any);
                     webviewRef.send('sign/broadcast', {
                         id,
                         txid,
