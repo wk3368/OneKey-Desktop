@@ -1,30 +1,72 @@
 import React, { useState } from 'react';
-import { Modal, Translation } from '@suite-components';
+import { Translation } from '@suite-components';
 import { UserContextPayload } from "@suite-actions/modalActions";
 import { fromWei, hexToNumberString, numberToHex, toWei } from "web3-utils";
 import styled from "styled-components";
-import { Input } from "@trezor/components";
+import { Input, Modal } from "@trezor/components";
+
+const TransactionFee = styled.div`
+  font-size: 0.75rem;
+  line-height: 140%;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  color: #888ea3;
+`
+
+const TransactionFeeNum = styled.div`
+  font-size: 1rem;
+  line-height: 140%;
+  margin-top: 0;
+`
 
 const InputWrapper = styled.div`
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-gap: 0.5rem;
+  display: flex;
   border: black;
-  background: lightgray;
-  padding: 1rem 2rem 2rem;
+  font-size: 0.625rem;
+  margin-top: 8px;
+  padding: 0 8px;
+  height: 265px;
+  background: #f8f9fb;
+  border-bottom: 1px solid #d2d8dd;
+  border-top: 1px solid #d2d8dd;
+  gap: 0.5rem;
+`
+
+const InputRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: start;
 `
 
 const PreviewWrapper = styled.div`
-  display: grid;
-  grid-template-columns: auto auto;
-  border: black;
-  padding: 1rem 2rem 2rem;
+  font-size: 0.75rem;
+  line-height: 140%;
+  background: #fafcfe;
+  padding: 15px 0;
+  display: flex;
+  flex-flow: column;
+  color: #5d5d5d;
 `
 
-const StyledInput = styled(Input)`
+const PreviewRow = styled.div`
   display: flex;
-  flex: 1;
-  min-width: 260px;
+  flex-flow: row;
+  justify-content: space-between;
+`
+
+const StyledInput = styled.input`
+  font-size: 1rem;
+  line-height: 140%;
+  direction: ltr;
+  border: 1px solid #9b9b9b;
+  border-radius: 4px;
+  color: #5b5d67;
+  height: 24px;
+  width: 100%;
+  padding-left: 8px;
+  padding-top: 2px;
+  margin-top: 7px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -34,6 +76,8 @@ const ButtonWrapper = styled.div`
 
 const StyledButton = styled.div`
   color: ${props => props.theme.TYPE_GREEN};
+  border: 1px solid ${props => props.theme.TYPE_GREEN};
+  border-radius: 6px;
   text-align: center;
   width: 200px;
   margin-top: 7px;
@@ -63,24 +107,36 @@ const ChangeGas = (props: Extract<UserContextPayload, { type: 'change-gas' }> & 
             cancelable
             onCancel={cancel}
             heading={<Translation id="FEE" />}
+            useFixedWidth={true}
+            fixedWidth={["360px", "360px", "360px", "360px"]}
         >
             <div>
-                <div>Transaction Fee</div>
-                <div>{getFeeETH()}ETH</div>
+                <TransactionFee><Translation id="TR_BUMP_FEE" /></TransactionFee>
+                <TransactionFeeNum>{getFeeETH()}ETH</TransactionFeeNum>
             </div>
             <InputWrapper>
-                <div>Gas Price (GWEI)</div>
-                <div>Gas Limit</div>
-                <StyledInput value={gasPrice} onChange={e => setGasPrice(e.target.value)} />
-                <StyledInput value={gasLimit} onChange={e => setGasLimit(e.target.value)} />
+                <InputRow>
+                    <div><Translation id="TR_GAS_PRICE" /> (GWEI)</div>
+                    <StyledInput value={gasPrice} onChange={e => setGasPrice(e.target.value)} />
+                </InputRow>
+                <InputRow>
+                    <div><Translation id="TR_GAS_LIMIT" /></div>
+                    <StyledInput value={gasLimit} onChange={e => setGasLimit(e.target.value)} />
+                </InputRow>
             </InputWrapper>
             <PreviewWrapper>
-                <div>Send Amount</div>
-                <div>{getValueETH()} ETH</div>
-                <div>Transaction Fee</div>
-                <div>{getFeeETH()} ETH</div>
-                <div>New Total</div>
-                <div>{parseFloat(getFeeETH()) + parseFloat(getValueETH())} ETH</div>
+                <PreviewRow>
+                    <div><Translation id="AMOUNT" /></div>
+                    <div>{getValueETH()} ETH</div>
+                </PreviewRow>
+                <PreviewRow>
+                    <div><Translation id="TR_BUMP_FEE" /></div>
+                    <div>{getFeeETH()} ETH</div>
+                </PreviewRow>
+                <PreviewRow>
+                    <div><Translation id="AMOUNT" />(<Translation id="INCLUDING_FEE" />)</div>
+                    <div>{parseFloat(getFeeETH()) + parseFloat(getValueETH())} ETH</div>
+                </PreviewRow>
             </PreviewWrapper>
             <ButtonWrapper>
                 <StyledButton onClick={save}>Save</StyledButton>
