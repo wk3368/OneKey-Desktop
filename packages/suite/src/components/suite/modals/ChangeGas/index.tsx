@@ -91,7 +91,7 @@ const ChangeGas = (props: Extract<UserContextPayload, { type: 'change-gas' }> & 
     const save = () => {
         props.decision.resolve({
             ...props.transaction,
-            gasPrice: numberToHex(gasPrice),
+            gasPrice: numberToHex(toWei(gasPrice, 'Gwei')),
             gasLimit: numberToHex(gasLimit)
         });
         props.onCancel();
