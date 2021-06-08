@@ -121,7 +121,7 @@ export type Transaction = {
     data: string;
     nonce: string;
     rpcUrl: string;
-}
+};
 
 export type ModalAction =
     | {
