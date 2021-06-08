@@ -3,7 +3,7 @@ import { Translation } from '@suite-components';
 import { UserContextPayload } from '@suite-actions/modalActions';
 import { fromWei, hexToNumberString, numberToHex, toWei } from 'web3-utils';
 import styled from 'styled-components';
-import { Input, Modal } from '@trezor/components';
+import { Modal } from '@trezor/components';
 
 const TransactionFee = styled.div`
     font-size: 0.75rem;

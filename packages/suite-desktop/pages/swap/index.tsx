@@ -15,7 +15,7 @@ import { MAX_WIDTH_WALLET_CONTENT } from '@suite-constants/layout';
 
 import type Electron from 'electron';
 import Swap from '@swap-views';
-import { openDeferredModal, Transaction } from "@suite-actions/modalActions";
+import { openDeferredModal, Transaction } from '@suite-actions/modalActions';
 
 const ActionSelect = styled(Select)`
     width: 260px;
@@ -110,7 +110,13 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 
 export type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme, openDeferredModal }) => {
+const Container: FC<Props> = ({
+    selectedAccount,
+    signWithPush,
+    language,
+    theme,
+    openDeferredModal,
+}) => {
     const [ref, setRef] = useState<HTMLElement>();
     const [isLoading, setIsLoading] = useState(true);
     const [webviewRef, setWebviewRef] = useState<Electron.WebviewTag>();
@@ -123,12 +129,12 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme, 
     const unused = account?.addresses
         ? account?.addresses.unused
         : [
-            {
-                path: account?.path,
-                address: account?.descriptor,
-                transfers: account?.history.total,
-            },
-        ];
+              {
+                  path: account?.path,
+                  address: account?.descriptor,
+                  transfers: account?.history.total,
+              },
+          ];
     const freshAddress = unused[0];
 
     useEffect(() => {
@@ -234,10 +240,10 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme, 
             if (event.channel === 'sign/transaction') {
                 const { id, transaction } = payload;
                 try {
-                    const alteredTransaction = await openDeferredModal({
+                    const alteredTransaction = (await openDeferredModal({
                         transaction,
-                        type: 'change-gas'
-                    } as any) as Transaction;
+                        type: 'change-gas',
+                    } as any)) as Transaction;
 
                     const params = {
                         ...alteredTransaction,
