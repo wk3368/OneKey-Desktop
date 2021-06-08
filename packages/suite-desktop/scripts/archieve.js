@@ -22,7 +22,7 @@ archive.pipe(output);
 
 // append files
 archive.file(path.join(OutputDir, file), {name: file});
-archive.file('./zadig-2.5.exe', {name: 'zadig-2.5.exe'});
+archive.file('../../suite-data/files/bin/zadig-2.5.exe', {name: 'zadig-2.5.exe'});
 
 //
 archive.finalize();
