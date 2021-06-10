@@ -2991,6 +2991,15 @@ const definedMessages = defineMessages({
         id: 'TOAST_AUTO_UPDATER_ERROR',
         defaultMessage: 'Auto updater error ({state})',
     },
+    TOAST_AUTO_UPDATE_ERROR: {
+        id: 'TOAST_AUTO_UPDATE_ERROR',
+        defaultMessage: 'Auto update error',
+    },
+    TOAST_AUTO_UPDATE_ERROR_DESC: {
+        id: 'TOAST_AUTO_UPDATE_ERROR_DESC',
+        defaultMessage:
+            'Auto update failed，please go to OneKey website and download latest version manually',
+    },
     TOAST_AUTO_UPDATER_NO_NEW: {
         id: 'TOAST_AUTO_UPDATER_NO_NEW',
         defaultMessage: 'No new updates available.',

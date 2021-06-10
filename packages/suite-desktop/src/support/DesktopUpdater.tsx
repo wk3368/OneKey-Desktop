@@ -5,6 +5,7 @@ import * as desktopUpdateActions from '@suite-actions/desktopUpdateActions';
 import Available from './DesktopUpdater/Available';
 import Downloading from './DesktopUpdater/Downloading';
 import Ready from './DesktopUpdater/Ready';
+import Error from './DesktopUpdater/Error';
 
 interface Props {
     setIsUpdateVisible: (isVisible: boolean) => void;
@@ -83,6 +84,10 @@ const DesktopUpdater = ({ setIsUpdateVisible }: Props) => {
             return false;
         }
 
+        if (['error'].includes(desktopUpdate.state)) {
+            return true;
+        }
+
         // If the latest version is skipped, there's nothing to show
         if (!desktopUpdate.latest || desktopUpdate.skip === desktopUpdate.latest.version) {
             return false;
@@ -108,6 +113,8 @@ const DesktopUpdater = ({ setIsUpdateVisible }: Props) => {
             return <Downloading hideWindow={hideWindow} progress={desktopUpdate.progress} />;
         case 'ready':
             return <Ready hideWindow={hideWindow} />;
+        case 'error':
+            return <Error hideWindow={hideWindow} />;
         default:
             return null;
     }

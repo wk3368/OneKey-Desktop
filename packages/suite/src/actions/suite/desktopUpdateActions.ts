@@ -11,7 +11,8 @@ export type DesktopUpdateAction =
     | { type: typeof DESKTOP_UPDATE.DOWNLOADING; payload: UpdateProgress }
     | { type: typeof DESKTOP_UPDATE.READY; payload: UpdateInfo }
     | { type: typeof DESKTOP_UPDATE.SKIP; payload: string }
-    | { type: typeof DESKTOP_UPDATE.WINDOW; payload: UpdateWindow };
+    | { type: typeof DESKTOP_UPDATE.WINDOW; payload: UpdateWindow }
+    | { type: typeof DESKTOP_UPDATE.ERROR };
 
 export const enable = (): DesktopUpdateAction => ({ type: DESKTOP_UPDATE.ENABLE });
 
@@ -60,7 +61,7 @@ export const error = (err: Error) => (dispatch: Dispatch, getState: GetState) =>
     }
 
     dispatch({
-        type: DESKTOP_UPDATE.NOT_AVAILABLE,
+        type: DESKTOP_UPDATE.ERROR,
     });
 };
 
