@@ -104,7 +104,24 @@ export type UserContextPayload =
       }
     | {
           type: 'add-token';
+      }
+    | {
+          type: 'change-gas';
+          transaction: Transaction;
+          decision: Deferred<Transaction>;
       };
+
+export type Transaction = {
+    chainId: number;
+    gasLimit: string;
+    gasPrice?: string;
+    value?: string;
+    from: string;
+    to: string;
+    data: string;
+    nonce: string;
+    rpcUrl: string;
+};
 
 export type ModalAction =
     | {
@@ -208,7 +225,8 @@ type DeferredModals = Extract<
             | 'coinmarket-review-transaction'
             | 'import-transaction'
             | 'coinmarket-buy-terms'
-            | 'coinmarket-exchange-terms';
+            | 'coinmarket-exchange-terms'
+            | 'change-gas';
     }
 >;
 // extract single modal by `type` util

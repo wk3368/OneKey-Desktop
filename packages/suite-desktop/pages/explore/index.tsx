@@ -16,6 +16,7 @@ import { MAX_WIDTH_WALLET_CONTENT } from '@suite-constants/layout';
 
 import type Electron from 'electron';
 import Explore from '@explore-views';
+import { openDeferredModal, Transaction } from "@suite-actions/modalActions";
 
 const ActionSelect = styled(Select)`
     width: 260px;
@@ -151,13 +152,14 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(
         {
             signWithPush: sendFormEthereumActions.signAndPublishTransactionInSwap,
+            openDeferredModal,
         },
         dispatch,
     );
 
 export type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-const Container: FC<Props> = ({ selectedAccount, signWithPush }) => {
+const Container: FC<Props> = ({ selectedAccount, signWithPush, openDeferredModal }) => {
     const [ref, setRef] = useState<HTMLElement>();
     const [isLoading, setLoadingStatus] = useState(false);
     const [webviewRef, setWebviewRef] = useState<Electron.WebviewTag>();
@@ -302,13 +304,18 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush }) => {
             const arg = event.args[0];
             if (event.channel === 'sign/transaction') {
                 const { id, transaction } = arg;
-                const params = {
-                    ...transaction,
-                    chainId: activeChainId,
-                    rpcUrl: chainRPCUrl,
-                };
                 try {
-                    const txid = await signWithPush(params, ({ type: 'final' } as unknown) as any);
+                    const alteredTransaction = (await openDeferredModal({
+                        transaction,
+                        type: 'change-gas',
+                    } as any)) as Transaction;
+
+                    const params = {
+                        ...alteredTransaction,
+                        chainId: activeChainId!,
+                        rpcUrl: chainRPCUrl!,
+                    };
+                    const txid = await signWithPush(params, { type: 'final' } as any);
                     webviewRef.send('sign/broadcast', {
                         id,
                         txid,
