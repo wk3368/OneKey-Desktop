@@ -168,6 +168,8 @@
 	"TOAST_AUTH_CONFIRM_ERROR_DEFAULT": "无效的 passphrase",
 	"TOAST_AUTH_FAILED": "授权错误： {error}",
 	"TOAST_AUTO_UPDATER_ERROR": "自动更新器错误 ({state})",
+	"TOAST_AUTO_UPDATE_ERROR": "自动更新错误",
+	"TOAST_AUTO_UPDATE_ERROR_DESC": "「自动更新失败，请到 Onekey 官网下载最新版本并覆盖安装」注意下 OneKey 周围的空格",
 	"TOAST_AUTO_UPDATER_NO_NEW": "没有可用的新更新。",
 	"TOAST_BACKUP_FAILED": "备份失败",
 	"TOAST_BACKUP_SUCCESS": "备份成功",

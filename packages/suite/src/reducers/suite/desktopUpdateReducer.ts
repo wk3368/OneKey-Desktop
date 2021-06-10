@@ -20,7 +20,7 @@ import { UpdateInfo, UpdateProgress, UpdateWindow } from '@suite-types/desktop';
  */
 export interface State {
     enabled: boolean;
-    state: 'checking' | 'available' | 'not-available' | 'downloading' | 'ready';
+    state: 'checking' | 'available' | 'not-available' | 'downloading' | 'ready' | 'error';
     skip?: string;
     progress?: UpdateProgress;
     latest?: UpdateInfo;
@@ -67,6 +67,9 @@ const desktopUpdateReducer = (state: State = initialState, action: Action): Stat
                 break;
             case DESKTOP_UPDATE.WINDOW:
                 draft.window = action.payload;
+                break;
+            case DESKTOP_UPDATE.ERROR:
+                draft.state = 'error';
                 break;
             // no default
         }
