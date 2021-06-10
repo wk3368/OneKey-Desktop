@@ -20,7 +20,7 @@
         "build:app:win": "yarn build:app && electron-builder --win --x64 -p never",
         "build:linux": "yarn clean && yarn build:ui && yarn build:app:linux",
         "build:mac": "yarn clean && yarn build:ui && yarn build:app:mac",
-        "build:win": "yarn clean && yarn build:ui && yarn build:app:win",
+        "build:win": "yarn clean && yarn build:ui && yarn build:app:win && node scripts/archieve.js",
         "build:dev:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false yarn build:mac",
         "build:dev:win": "CSC_IDENTITY_AUTO_DISCOVERY=false yarn build:win",
         "build:dev:linux": "CSC_IDENTITY_AUTO_DISCOVERY=false yarn build:linux",
@@ -150,6 +150,7 @@
         "afterSign": "scripts/notarize.js"
     },
     "dependencies": {
+        "archiver": "^5.3.0",
         "bn.js": "^5.2.0",
         "chalk": "^4.1.0",
         "electron-is-dev": "^1.2.0",
