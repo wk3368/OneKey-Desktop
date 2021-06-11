@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Translation } from '@suite-components';
 import { UserContextPayload } from '@suite-actions/modalActions';
 import { fromWei, hexToNumberString, numberToHex, toWei } from 'web3-utils';
 import styled from 'styled-components';
 import { Modal } from '@trezor/components';
+import Web3 from 'web3';
 
 const TransactionFee = styled.div`
     font-size: 0.75rem;
@@ -11,7 +12,7 @@ const TransactionFee = styled.div`
     display: flex;
     flex-flow: row;
     justify-content: space-between;
-    color: #888ea3;
+    color: ${props => props.theme.BG_LIGHT_GREY};
 `;
 
 const TransactionFeeNum = styled.div`
@@ -22,14 +23,14 @@ const TransactionFeeNum = styled.div`
 
 const InputWrapper = styled.div`
     display: flex;
-    border: black;
+    border: ${props => props.theme.TYPE_DARK_GREY};
     font-size: 0.625rem;
     margin-top: 8px;
     padding: 0 8px;
     height: 265px;
-    background: #f8f9fb;
-    border-bottom: 1px solid #d2d8dd;
-    border-top: 1px solid #d2d8dd;
+    background: ${props => props.theme.BG_GREY_ALT};
+    border-bottom: 1px solid ${props => props.theme.TYPE_LIGHTER_GREY};
+    border-top: 1px solid ${props => props.theme.TYPE_LIGHTER_GREY};
     gap: 0.5rem;
 `;
 
@@ -42,11 +43,11 @@ const InputRow = styled.div`
 const PreviewWrapper = styled.div`
     font-size: 0.75rem;
     line-height: 140%;
-    background: #fafcfe;
+    background: ${props => props.theme.BG_LIGHT_GREY};
     padding: 15px 0;
     display: flex;
     flex-flow: column;
-    color: #5d5d5d;
+    color: ${props => props.theme.TYPE_DARK_GREY};
 `;
 
 const PreviewRow = styled.div`
@@ -59,9 +60,10 @@ const StyledInput = styled.input`
     font-size: 1rem;
     line-height: 140%;
     direction: ltr;
-    border: 1px solid #9b9b9b;
+    background: ${props => props.theme.BG_LIGHT_GREY};
+    border: 1px solid ${props => props.theme.TYPE_LIGHT_GREY};
     border-radius: 4px;
-    color: #5b5d67;
+    color: ${props => props.theme.TYPE_DARK_GREY};
     height: 24px;
     width: 100%;
     padding-left: 8px;
@@ -83,15 +85,27 @@ const StyledButton = styled.div`
     margin-top: 7px;
     margin-bottom: 14px;
 `;
-
+interface Props extends Extract<UserContextPayload, { type: 'change-gas' }> {
+    onCancel: () => void;
+}
 // wrapper for shareable Fees component
-const ChangeGas = (
-    props: Extract<UserContextPayload, { type: 'change-gas' }> & { onCancel: () => void },
-) => {
+const ChangeGas = (props: Props) => {
+    const web3 = new Web3(props.transaction.rpcUrl);
     const [gasPrice, setGasPrice] = useState(
-        fromWei(hexToNumberString(props.transaction.gasPrice!), 'Gwei'),
+        props.transaction.gasPrice
+            ? fromWei(hexToNumberString(props.transaction.gasPrice), 'Gwei')
+            : '',
     );
     const [gasLimit, setGasLimit] = useState(hexToNumberString(props.transaction.gasLimit));
+
+    useEffect(() => {
+        if (!props.transaction.gasPrice) {
+            web3.eth.getGasPrice().then(defaultGasPrice => {
+                setGasPrice(fromWei(defaultGasPrice, 'Gwei'));
+            });
+        }
+    }, [props.transaction.gasPrice, web3.eth]);
+
     const save = () => {
         props.decision.resolve({
             ...props.transaction,
