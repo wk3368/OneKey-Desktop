@@ -240,17 +240,17 @@ const Container: FC<Props> = ({
             if (event.channel === 'sign/transaction') {
                 const { id, transaction } = payload;
                 try {
-                    const alteredTransaction = (await openDeferredModal({
-                        transaction,
-                        type: 'change-gas',
-                    } as any)) as Transaction;
-
                     const params = {
-                        ...alteredTransaction,
+                        ...transaction,
                         chainId: activeChainId,
                         rpcUrl: chainRPCUrl,
                     };
-                    const txid = await signWithPush(params, { type: 'final' } as any);
+                    const alteredParams = (await openDeferredModal({
+                        transaction: params,
+                        type: 'change-gas',
+                    } as any)) as Transaction;
+
+                    const txid = await signWithPush(alteredParams, { type: 'final' } as any);
                     webviewRef.send('sign/broadcast', {
                         id,
                         txid,
