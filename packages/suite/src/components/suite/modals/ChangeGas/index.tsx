@@ -3,7 +3,7 @@ import { Translation } from '@suite-components';
 import { UserContextPayload } from '@suite-actions/modalActions';
 import { fromWei, hexToNumberString, numberToHex, toWei } from 'web3-utils';
 import styled from 'styled-components';
-import { Modal } from '@trezor/components';
+import { Input, Modal } from '@trezor/components';
 import Web3 from 'web3';
 
 const TransactionFee = styled.div`
@@ -22,11 +22,10 @@ const TransactionFeeNum = styled.div`
 `;
 
 const InputWrapper = styled.div`
-    display: flex;
     border: ${props => props.theme.TYPE_DARK_GREY};
-    font-size: 0.625rem;
+    font-size: 1rem;
     margin-top: 8px;
-    padding: 0 8px;
+    padding: 8px 8px;
     height: 265px;
     background: ${props => props.theme.BG_GREY_ALT};
     border-bottom: 1px solid ${props => props.theme.TYPE_LIGHTER_GREY};
@@ -54,21 +53,6 @@ const PreviewRow = styled.div`
     display: flex;
     flex-flow: row;
     justify-content: space-between;
-`;
-
-const StyledInput = styled.input`
-    font-size: 1rem;
-    line-height: 140%;
-    direction: ltr;
-    background: ${props => props.theme.BG_LIGHT_GREY};
-    border: 1px solid ${props => props.theme.TYPE_LIGHT_GREY};
-    border-radius: 4px;
-    color: ${props => props.theme.TYPE_DARK_GREY};
-    height: 24px;
-    width: 100%;
-    padding-left: 8px;
-    padding-top: 2px;
-    margin-top: 7px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -105,7 +89,7 @@ const ChangeGas = (props: Props) => {
                 setGasPrice(fromWei(defaultGasPrice, 'Gwei'));
             });
         }
-    }, [props.transaction.gasPrice, web3.eth]);
+    }, [props.transaction.gasPrice]);
 
     const save = () => {
         if (gasLimit && gasPrice) {
@@ -154,13 +138,13 @@ const ChangeGas = (props: Props) => {
                     <div>
                         <Translation id="TR_GAS_PRICE" /> (GWEI)
                     </div>
-                    <StyledInput value={gasPrice} onChange={e => setGasPrice(e.target.value)} />
+                    <Input value={gasPrice} onChange={e => setGasPrice(e.target.value)} />
                 </InputRow>
                 <InputRow>
                     <div>
                         <Translation id="TR_GAS_LIMIT" />
                     </div>
-                    <StyledInput value={gasLimit} onChange={e => setGasLimit(e.target.value)} />
+                    <Input value={gasLimit} onChange={e => setGasLimit(e.target.value)} />
                 </InputRow>
             </InputWrapper>
             <PreviewWrapper>
