@@ -85,9 +85,6 @@ const StyledButton = styled.div`
     margin-top: 7px;
     margin-bottom: 14px;
 `;
-const checkValidNumber = (str?: any) => {
-    return str && typeof str === 'string' && /^-?[0-9.]+/.test(str);
-};
 
 interface Props extends Extract<UserContextPayload, { type: 'change-gas' }> {
     onCancel: () => void;
@@ -96,14 +93,14 @@ interface Props extends Extract<UserContextPayload, { type: 'change-gas' }> {
 const ChangeGas = (props: Props) => {
     const web3 = new Web3(props.transaction.rpcUrl);
     const [gasPrice, setGasPrice] = useState(
-        checkValidNumber(props.transaction.gasPrice)
-            ? fromWei(hexToNumberString(props.transaction.gasPrice!), 'Gwei')
+        props.transaction.gasPrice
+            ? fromWei(hexToNumberString(props.transaction.gasPrice), 'Gwei')
             : '',
     );
     const [gasLimit, setGasLimit] = useState(hexToNumberString(props.transaction.gasLimit));
 
     useEffect(() => {
-        if (!checkValidNumber(props.transaction.gasPrice)) {
+        if (!props.transaction.gasPrice) {
             web3.eth.getGasPrice().then(defaultGasPrice => {
                 setGasPrice(fromWei(defaultGasPrice, 'Gwei'));
             });
@@ -111,20 +108,33 @@ const ChangeGas = (props: Props) => {
     }, [props.transaction.gasPrice, web3.eth]);
 
     const save = () => {
-        props.decision.resolve({
-            ...props.transaction,
-            gasPrice: numberToHex(toWei(gasPrice, 'Gwei')),
-            gasLimit: numberToHex(gasLimit),
-        });
-        props.onCancel();
+        if (gasLimit && gasPrice) {
+            props.decision.resolve({
+                ...props.transaction,
+                gasPrice: numberToHex(toWei(gasPrice, 'Gwei')),
+                gasLimit: numberToHex(gasLimit),
+            });
+            props.onCancel();
+        }
     };
     const cancel = () => {
         props.decision.reject(Error('user canceled'));
         props.onCancel();
     };
-    const getFeeETH = () =>
-        fromWei(String(parseFloat(toWei(gasPrice, 'Gwei')) * parseFloat(gasLimit)));
-    const getValueETH = () => fromWei(hexToNumberString(props.transaction.value!));
+    const getFeeETH = () => {
+        try {
+            return fromWei(String(parseFloat(toWei(gasPrice, 'Gwei')) * parseFloat(gasLimit)));
+        } catch {
+            return '0';
+        }
+    };
+    const getValueETH = () => {
+        try {
+            return fromWei(hexToNumberString(props.transaction.value!));
+        } catch {
+            return '0';
+        }
+    };
     return (
         <Modal
             cancelable
