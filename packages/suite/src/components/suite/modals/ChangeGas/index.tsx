@@ -3,7 +3,7 @@ import { Translation } from '@suite-components';
 import { UserContextPayload } from '@suite-actions/modalActions';
 import { fromWei, hexToNumberString, numberToHex, toWei } from 'web3-utils';
 import styled from 'styled-components';
-import { Input, Modal } from '@trezor/components';
+import { Button, Input, Modal } from '@trezor/components';
 import Web3 from 'web3';
 
 const TransactionFee = styled.div`
@@ -27,7 +27,6 @@ const InputWrapper = styled.div`
     margin-top: 8px;
     padding: 8px 8px;
     height: 265px;
-    background: ${props => props.theme.BG_GREY_ALT};
     border-bottom: 1px solid ${props => props.theme.TYPE_LIGHTER_GREY};
     border-top: 1px solid ${props => props.theme.TYPE_LIGHTER_GREY};
     gap: 0.5rem;
@@ -58,16 +57,6 @@ const PreviewRow = styled.div`
 const ButtonWrapper = styled.div`
     display: grid;
     place-items: center;
-`;
-
-const StyledButton = styled.div`
-    color: ${props => props.theme.TYPE_GREEN};
-    border: 1px solid ${props => props.theme.TYPE_GREEN};
-    border-radius: 6px;
-    text-align: center;
-    width: 200px;
-    margin-top: 7px;
-    margin-bottom: 14px;
 `;
 
 interface Props extends Extract<UserContextPayload, { type: 'change-gas' }> {
@@ -135,16 +124,22 @@ const ChangeGas = (props: Props) => {
             </div>
             <InputWrapper>
                 <InputRow>
-                    <div>
-                        <Translation id="TR_GAS_PRICE" /> (GWEI)
-                    </div>
-                    <Input value={gasPrice} onChange={e => setGasPrice(e.target.value)} />
+                    <Input
+                        label={
+                            <div>
+                                <Translation id="TR_GAS_PRICE" /> (GWEI)
+                            </div>
+                        }
+                        value={gasPrice}
+                        onChange={e => setGasPrice(e.target.value)}
+                    />
                 </InputRow>
                 <InputRow>
-                    <div>
-                        <Translation id="TR_GAS_LIMIT" />
-                    </div>
-                    <Input value={gasLimit} onChange={e => setGasLimit(e.target.value)} />
+                    <Input
+                        label={<Translation id="TR_GAS_LIMIT" />}
+                        value={gasLimit}
+                        onChange={e => setGasLimit(e.target.value)}
+                    />
                 </InputRow>
             </InputWrapper>
             <PreviewWrapper>
@@ -168,7 +163,9 @@ const ChangeGas = (props: Props) => {
                 </PreviewRow>
             </PreviewWrapper>
             <ButtonWrapper>
-                <StyledButton onClick={save}>Save</StyledButton>
+                <Button variant="primary" onClick={save}>
+                    <Translation id="SAVE" />
+                </Button>
             </ButtonWrapper>
         </Modal>
     );

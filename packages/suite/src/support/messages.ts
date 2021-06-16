@@ -5375,6 +5375,10 @@ const definedMessages = defineMessages({
         id: 'TR_BUMP_FEE',
         defaultMessage: 'Bump fee',
     },
+    SAVE: {
+        id: 'SAVE',
+        defaultMessage: 'Save',
+    },
     TR_REPLACE_TX: {
         id: 'TR_REPLACE_TX',
         defaultMessage: 'Replace transaction',
