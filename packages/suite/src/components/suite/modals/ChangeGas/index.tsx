@@ -85,6 +85,10 @@ const StyledButton = styled.div`
     margin-top: 7px;
     margin-bottom: 14px;
 `;
+const checkValidNumber = (str?: any) => {
+    return str && typeof str === 'string' && /^-?[0-9.]+/.test(str);
+};
+
 interface Props extends Extract<UserContextPayload, { type: 'change-gas' }> {
     onCancel: () => void;
 }
@@ -92,14 +96,14 @@ interface Props extends Extract<UserContextPayload, { type: 'change-gas' }> {
 const ChangeGas = (props: Props) => {
     const web3 = new Web3(props.transaction.rpcUrl);
     const [gasPrice, setGasPrice] = useState(
-        props.transaction.gasPrice
-            ? fromWei(hexToNumberString(props.transaction.gasPrice), 'Gwei')
+        checkValidNumber(props.transaction.gasPrice)
+            ? fromWei(hexToNumberString(props.transaction.gasPrice!), 'Gwei')
             : '',
     );
     const [gasLimit, setGasLimit] = useState(hexToNumberString(props.transaction.gasLimit));
 
     useEffect(() => {
-        if (!props.transaction.gasPrice) {
+        if (!checkValidNumber(props.transaction.gasPrice)) {
             web3.eth.getGasPrice().then(defaultGasPrice => {
                 setGasPrice(fromWei(defaultGasPrice, 'Gwei'));
             });
