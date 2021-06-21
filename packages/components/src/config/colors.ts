@@ -10,8 +10,8 @@ export const THEME = {
         BG_GREEN_HOVER: '#339714',
         BG_LIGHT_GREEN_HOVER: '#e8f3e5',
         BG_GREY: '#f4f4f4',
-        BG_GREY_ALT: '#f4f4f4',
-        BG_LIGHT_GREY: '#fcfcfc',
+        BG_GREY_ALT: '#e7ecf0',
+        BG_LIGHT_GREY: '#fefefe',
         BG_WHITE: '#ffffff',
         BG_WHITE_ALT: '#ffffff', // used for dropdown menus
         BG_WHITE_ALT_HOVER: '#f4f4f4', // used for dropdown menus
@@ -20,6 +20,7 @@ export const THEME = {
         BG_LIGHT_RED: '#F6E2E2',
         BG_TOOLTIP: '#262742',
         BG_ICON: 'transparent',
+        BG_NAVBAR: '#F7FAFC',
 
         TYPE_GREEN: '#00B812',
         TYPE_ORANGE: '#c19009',
@@ -68,6 +69,7 @@ export const THEME = {
         BG_LIGHT_RED: '#5a1616', // used for outer glow for disconnected device status dot
         BG_TOOLTIP: '#3a3b3c', // same as STROKE_GREY in dark theme
         BG_ICON: '#ffffff',
+        BG_NAVBAR: '#030607',
 
         TYPE_GREEN: '#66ab4e',
         TYPE_ORANGE: '#9b813b',
