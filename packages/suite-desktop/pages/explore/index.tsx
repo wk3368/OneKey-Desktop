@@ -16,7 +16,7 @@ import { MAX_WIDTH_WALLET_CONTENT } from '@suite-constants/layout';
 
 import type Electron from 'electron';
 import Explore from '@explore-views';
-import { openDeferredModal, Transaction } from "@suite-actions/modalActions";
+import { openDeferredModal, Transaction } from '@suite-actions/modalActions';
 
 const ActionSelect = styled(Select)`
     width: 260px;
@@ -234,7 +234,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, openDeferredModal
         setActiveDAppInfo(null);
         setActiveChainId(null);
         try {
-            webviewRef?.loadURL(`https://dapp.onekey.so/`);
+            webviewRef?.loadURL(`https://discover.onekey.so/`);
         } catch (e) {
             // ignore
         }
@@ -267,7 +267,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, openDeferredModal
     useEffect(() => {
         if (!ref) return;
         // React 会删除 allowpopups 属性
-        const currentUrl = `https://dapp.onekey.so/`;
+        const currentUrl = `https://discover.onekey.so/`;
 
         ref.innerHTML = `
             <webview
