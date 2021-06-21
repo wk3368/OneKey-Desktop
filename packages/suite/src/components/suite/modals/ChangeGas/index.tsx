@@ -1,7 +1,7 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { Translation } from '@suite-components';
 import { UserContextPayload } from '@suite-actions/modalActions';
-import { fromWei, hexToNumberString, numberToHex, toWei } from 'web3-utils';
+import { fromWei, hexToNumber, hexToNumberString, numberToHex, toBN, toWei } from 'web3-utils';
 import styled from 'styled-components';
 import { Button, Input, Modal } from '@trezor/components';
 import Web3 from 'web3';
@@ -83,6 +83,8 @@ interface GasNowData {
     };
 }
 
+type GasNowTypes = 'standard' | 'fast' | 'rapid';
+
 interface Props extends Extract<UserContextPayload, { type: 'change-gas' }> {
     onCancel: () => void;
 }
@@ -97,13 +99,37 @@ const ChangeGas = (props: Props) => {
             ? fromWei(hexToNumberString(props.transaction.gasPrice), 'Gwei')
             : '',
     );
-    const [gasLimit, setGasLimit] = useState(hexToNumberString(props.transaction.gasLimit));
+    const [customGasLimit, setCustomGasLimit] = useState(
+        hexToNumberString(props.transaction.gasLimit),
+    );
+
+    // gas now page doesn't show the actually gasLimit number, so no need to rerender, no need to use state.
+    const gasLimitRef = useRef(21000);
+    const [selectedType, setSelectedType] = useState<GasNowTypes>();
 
     useEffect(() => {
         fetch('https://www.gasnow.org/api/v3/gas/price?utm_source=onekey')
             .then(response => response.json())
             .then(data => setGasNowData(data));
     }, []);
+
+    const getGasLimit = async () => {
+        const resp = await web3.eth.getCode(props.transaction.to);
+        if (hexToNumberString(resp) === '0') {
+            gasLimitRef.current = 21000;
+        } else {
+            const { chainId, gasLimit, rpcUrl, ...rest } = props.transaction;
+            const estimateGas = await web3.eth.estimateGas({
+                ...rest,
+                nonce: hexToNumber(rest.nonce),
+            });
+            gasLimitRef.current = Math.round(estimateGas * 1.2);
+        }
+    };
+
+    useEffect(() => {
+        getGasLimit();
+    }, [props.transaction, web3.eth]);
 
     useEffect(() => {
         if (!props.transaction.gasPrice) {
@@ -114,12 +140,25 @@ const ChangeGas = (props: Props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.transaction.gasPrice]);
 
+    const setGasPriceWithGasNowData = (price?: number) => {
+        if (!price) return;
+        props.decision.resolve({
+            ...props.transaction,
+            gasPrice: numberToHex(price),
+            gasLimit: numberToHex(gasLimitRef.current),
+        });
+        props.onCancel();
+    };
+
     const save = () => {
-        if (gasLimit && gasPrice) {
+        if (!isCustomPrice && selectedType) {
+            return setGasPriceWithGasNowData(gasNowData?.data[selectedType]);
+        }
+        if (isCustomPrice && customGasLimit && gasPrice) {
             props.decision.resolve({
                 ...props.transaction,
                 gasPrice: numberToHex(toWei(gasPrice, 'Gwei')),
-                gasLimit: numberToHex(gasLimit),
+                gasLimit: numberToHex(customGasLimit),
             });
             props.onCancel();
         }
@@ -129,14 +168,11 @@ const ChangeGas = (props: Props) => {
         props.onCancel();
     };
 
-    const setGasPriceWithGasNowData = (price?: number) => {
-        if (!price) return;
-        setGasPrice(fromWei(String(price), 'Gwei'));
-    };
-
     const getFeeETHFromGasPriceInput = () => {
         try {
-            return fromWei(String(parseFloat(toWei(gasPrice, 'Gwei')) * parseFloat(gasLimit)));
+            return fromWei(
+                String(parseFloat(toWei(gasPrice, 'Gwei')) * parseFloat(customGasLimit)),
+            );
         } catch {
             return '0';
         }
@@ -152,7 +188,7 @@ const ChangeGas = (props: Props) => {
     const getFeeETH = (price?: number) => {
         if (!price) return '0';
         try {
-            return fromWei(String(price * parseFloat(gasLimit)));
+            return fromWei(String(price * parseFloat(customGasLimit)));
         } catch {
             return '0';
         }
@@ -173,19 +209,15 @@ const ChangeGas = (props: Props) => {
             </div>
             {!isCustomPrice && (
                 <InputWrapper>
-                    {(['standard', 'fast', 'rapid'] as Array<'standard' | 'fast' | 'rapid'>).map(
-                        type => (
-                            <PreDefinedPriceButton
-                                variant="secondary"
-                                onClick={() => setGasPriceWithGasNowData(gasNowData?.data[type])}
-                            >
-                                <Translation
-                                    id={`TR_GAS_PRICE_TYPE_${type.toUpperCase()}` as any}
-                                />
-                                <div>{getFeeETH(gasNowData?.data[type])}</div>
-                            </PreDefinedPriceButton>
-                        ),
-                    )}
+                    {(['standard', 'fast', 'rapid'] as Array<GasNowTypes>).map(type => (
+                        <PreDefinedPriceButton
+                            variant={type === selectedType ? 'primary' : 'secondary'}
+                            onClick={() => setSelectedType(type)}
+                        >
+                            <Translation id={`TR_GAS_PRICE_TYPE_${type.toUpperCase()}` as any} />
+                            <div>{getFeeETH(gasNowData?.data[type])}</div>
+                        </PreDefinedPriceButton>
+                    ))}
                     <ToggleCustomPriceButton variant="tertiary" onClick={toggleCustomPrice}>
                         <Translation id="TR_GAS_PRICE_CUSTOM" />
                     </ToggleCustomPriceButton>
@@ -207,8 +239,8 @@ const ChangeGas = (props: Props) => {
                     <InputRow>
                         <Input
                             label={<Translation id="TR_GAS_LIMIT" />}
-                            value={gasLimit}
-                            onChange={e => setGasLimit(e.target.value)}
+                            value={customGasLimit}
+                            onChange={e => setCustomGasLimit(e.target.value)}
                         />
                     </InputRow>
                     <ToggleCustomPriceButton variant="tertiary" onClick={toggleCustomPrice}>
