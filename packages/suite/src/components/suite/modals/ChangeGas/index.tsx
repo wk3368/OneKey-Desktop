@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { Translation } from '@suite-components';
 import { UserContextPayload } from '@suite-actions/modalActions';
-import { fromWei, hexToNumber, hexToNumberString, numberToHex, toBN, toWei } from 'web3-utils';
+import { fromWei, hexToNumber, hexToNumberString, numberToHex, toWei } from 'web3-utils';
 import styled from 'styled-components';
 import { Button, Input, Modal } from '@trezor/components';
 import Web3 from 'web3';
@@ -64,6 +64,7 @@ const PreDefinedPriceButton = styled(Button)`
     display: flex;
     flex-direction: column;
     margin: 8px auto;
+    width: 100%;
 `;
 
 const ToggleCustomPriceButton = styled(Button)`
@@ -120,11 +121,15 @@ const ChangeGas = (props: Props) => {
                 gasLimitRef.current = 21000;
             } else {
                 const { chainId, gasLimit, rpcUrl, ...rest } = props.transaction;
-                const estimateGas = await web3.eth.estimateGas({
-                    ...rest,
-                    nonce: hexToNumber(rest.nonce),
-                });
-                gasLimitRef.current = Math.round(estimateGas * 1.2);
+                try {
+                    const estimateGas = await web3.eth.estimateGas({
+                        ...rest,
+                        nonce: hexToNumber(rest.nonce),
+                    });
+                    gasLimitRef.current = Math.round(estimateGas * 1.2);
+                } catch {
+                    gasLimitRef.current = 21000;
+                }
             }
         };
         getGasLimit();
@@ -192,6 +197,9 @@ const ChangeGas = (props: Props) => {
             return '0';
         }
     };
+    const isSaveButtonDisabled =
+        (!isCustomPrice && !selectedType) || (isCustomPrice && !(customGasLimit && gasPrice));
+
     return (
         <Modal
             cancelable
@@ -270,7 +278,7 @@ const ChangeGas = (props: Props) => {
                 </PreviewRow>
             </PreviewWrapper>
             <ButtonWrapper>
-                <Button variant="primary" onClick={save}>
+                <Button variant="primary" onClick={save} isDisabled={isSaveButtonDisabled}>
                     <Translation id="SAVE" />
                 </Button>
             </ButtonWrapper>
