@@ -113,21 +113,20 @@ const ChangeGas = (props: Props) => {
             .then(data => setGasNowData(data));
     }, []);
 
-    const getGasLimit = async () => {
-        const resp = await web3.eth.getCode(props.transaction.to);
-        if (hexToNumberString(resp) === '0') {
-            gasLimitRef.current = 21000;
-        } else {
-            const { chainId, gasLimit, rpcUrl, ...rest } = props.transaction;
-            const estimateGas = await web3.eth.estimateGas({
-                ...rest,
-                nonce: hexToNumber(rest.nonce),
-            });
-            gasLimitRef.current = Math.round(estimateGas * 1.2);
-        }
-    };
-
     useEffect(() => {
+        const getGasLimit = async () => {
+            const resp = await web3.eth.getCode(props.transaction.to);
+            if (hexToNumberString(resp) === '0') {
+                gasLimitRef.current = 21000;
+            } else {
+                const { chainId, gasLimit, rpcUrl, ...rest } = props.transaction;
+                const estimateGas = await web3.eth.estimateGas({
+                    ...rest,
+                    nonce: hexToNumber(rest.nonce),
+                });
+                gasLimitRef.current = Math.round(estimateGas * 1.2);
+            }
+        };
         getGasLimit();
     }, [props.transaction, web3.eth]);
 
