@@ -32,7 +32,15 @@ export type FlagType = keyof typeof FLAGS;
 
 export type ParagraphSize = 'normal' | 'small' | 'tiny';
 
-export type TrezorLogoType = 'horizontal' | 'vertical' | 'symbol' | 'suite' | 'suite_compact';
+export type TrezorLogoType =
+    | 'horizontal'
+    | 'vertical'
+    | 'symbol'
+    | 'suite'
+    | 'suite_compact'
+    | 'horizontal_light'
+    | 'horizontal_dark'
+    | 'app_icon';
 
 export type TrezorLogoVariant = 'white' | 'black';
 

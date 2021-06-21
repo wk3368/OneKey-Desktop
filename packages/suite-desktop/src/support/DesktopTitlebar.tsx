@@ -205,6 +205,13 @@ const DesktopTitlebar = () => {
             <LogoWrapper>
                 {/* TODO: 替换素材 */}
                 <TrezorLogo
+                    style={{ marginRight: -24 }}
+                    type="app_icon"
+                    variant="white"
+                    height="28px"
+                    data-test="trezor-suite-compact-logo-black"
+                />
+                <TrezorLogo
                     type="suite_compact"
                     variant="white"
                     height="28px"
