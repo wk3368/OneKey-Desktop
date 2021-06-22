@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, ComponentProps } from 'react';
 import DeviceSelector from './components/DeviceSelector';
 import NavigationActions from './components/NavigationActions';
 import styled from 'styled-components';
 import { Icon, TrezorLogo, useTheme } from '@trezor/components';
-import { useLayoutSize } from '@suite-hooks';
+import { useLayoutSize, useSelector } from '@suite-hooks';
 
 const StyledDeviceSelector = styled(DeviceSelector)``;
 
 const StyledTrezorLogo = styled(TrezorLogo)`
     margin-bottom: 30px;
+    margin-left: 8px;
     align-self: flex-start;
 `;
 
@@ -74,7 +75,9 @@ const ExpandedMobileNavigation = styled.div`
 const NavigationBar = () => {
     const [opened, setOpened] = useState(false);
     const { isMobileLayout } = useLayoutSize();
+    const userThemeSettings = useSelector(state => state.suite.settings.theme);
     const theme = useTheme();
+    const isDarkModeEnabled = userThemeSettings.variant !== 'light';
 
     const closeMainNavigation = () => {
         setOpened(false);
@@ -107,7 +110,14 @@ const NavigationBar = () => {
 
     return (
         <VerticalNavigationBar>
-            <StyledTrezorLogo type="horizontal" height={35} />
+            <StyledTrezorLogo
+                type={
+                    `horizontal_${isDarkModeEnabled ? 'dark' : 'light'}` as ComponentProps<
+                        typeof TrezorLogo
+                    >['type']
+                }
+                height={35}
+            />
             <StyledDeviceSelector />
             <NavigationActions />
         </VerticalNavigationBar>
