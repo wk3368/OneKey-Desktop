@@ -73,6 +73,10 @@ const ToggleCustomPriceButton = styled(Button)`
     right: 0;
 `;
 
+const StyledSaveButton = styled(Button)`
+    width: 100%;
+`;
+
 interface GasNowData {
     code: number;
     data: {
@@ -105,7 +109,7 @@ const ChangeGas = (props: Props) => {
     );
 
     const [gasLimit, setGasLimit] = useState<number>();
-    const [selectedType, setSelectedType] = useState<GasNowTypes>();
+    const [selectedType, setSelectedType] = useState<GasNowTypes>('fast');
 
     useEffect(() => {
         fetch('https://www.gasnow.org/api/v3/gas/price?utm_source=onekey')
@@ -289,9 +293,13 @@ const ChangeGas = (props: Props) => {
                 </PreviewRow>
             </PreviewWrapper>
             <ButtonWrapper>
-                <Button variant="primary" onClick={save} isDisabled={isSaveButtonDisabled}>
-                    <Translation id="SAVE" />
-                </Button>
+                <StyledSaveButton
+                    variant="primary"
+                    onClick={save}
+                    isDisabled={isSaveButtonDisabled}
+                >
+                    <Translation id="TR_CONTINUE" />
+                </StyledSaveButton>
             </ButtonWrapper>
         </Modal>
     );
