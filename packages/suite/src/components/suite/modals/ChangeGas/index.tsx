@@ -173,6 +173,13 @@ const ChangeGas = (props: Props) => {
     };
 
     const getFeeETHFromGasPriceInput = () => {
+        if (!isCustomPrice && selectedType && gasNowData) {
+            try {
+                return fromWei(String(gasNowData.data[selectedType] * gasLimitRef.current));
+            } catch {
+                return '0';
+            }
+        }
         try {
             return fromWei(
                 String(parseFloat(toWei(gasPrice, 'Gwei')) * parseFloat(customGasLimit)),
