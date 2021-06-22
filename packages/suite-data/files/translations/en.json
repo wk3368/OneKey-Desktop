@@ -216,6 +216,8 @@
     "TR_ACCOUNT_EXCEPTION_DISCOVERY_EMPTY_DESC_ETH": "You must enable ETH account, otherwise you can't use this tab",
     "TR_SWAP_IN_WEB_GOTO_SWAP_SITE": "Go to OneKey Swap site",
     "TR_SWAP_IN_WEB_BROWSER_DESC": "We recommand you to use Swap at our site https://swap.onekey.so/ with our onekey-swap browser extension.",
+    "TR_DAPP_IN_WEB_BROWSER_DESC": "We recommand you to use DApp Explore in our OneKey Desktop App https://www.onekey.so/download?client=desktop .",
+    "TR_DAPP_IN_WEB_GOTO_SWAP_SITE": "Download OneKey Desktop",
     "TR_SWAP_IN_WEB_BROWSER": "Detect You Are In Browser Environment",
     "TR_ACCOUNT_EXCEPTION_DISCOVERY_ERROR": "Account discovery error",
     "TR_ACCOUNT_EXCEPTION_NOT_ENABLED": "{networkName} not enabled in settings.",
