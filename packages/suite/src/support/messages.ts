@@ -84,8 +84,17 @@ const definedMessages = defineMessages({
     },
     TR_SWAP_IN_WEB_BROWSER_DESC: {
         defaultMessage:
-            'We recommand you to use Swap at our site https://swap.onekey.so/ with our onekey-swap browser extension.',
+            'We recommand you to use DApp Explore in our OneKey Desktop App https://www.onekey.so/download?client=desktop .',
         id: 'TR_SWAP_IN_WEB_BROWSER_DESC',
+    },
+    TR_DAPP_IN_WEB_BROWSER_DESC: {
+        defaultMessage:
+            'We recommand you to use Swap at our site https://swap.onekey.so/ with our onekey-swap browser extension.',
+        id: 'TR_DAPP_IN_WEB_BROWSER_DESC',
+    },
+    TR_DAPP_IN_WEB_GOTO_SWAP_SITE: {
+        defaultMessage: 'Download OneKey Desktop',
+        id: 'TR_DAPP_IN_WEB_GOTO_SWAP_SITE',
     },
     TR_SWAP_IN_WEB_GOTO_SWAP_SITE: {
         defaultMessage: 'Go to OneKey Swap site',
