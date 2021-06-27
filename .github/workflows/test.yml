@@ -36,4 +36,6 @@ jobs:
         with:
           name: onekey-extension-${{ github.sha }}
           path: |
-            ./packages/suite-desktop/
+            ./packages/suite-desktop/build-electron/*.dmg
+            ./packages/suite-desktop/build-electron/*.exe
+            ./packages/suite-desktop/build-electron/*.AppImage
