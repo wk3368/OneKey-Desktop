@@ -22,23 +22,6 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           always-auth: true
           scope: '@onekeyhq'
-      - name: "Cache yarn"
-        uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: "Cache node-modules"
-        uses: actions/cache@v2
-        id: node-modules-cache
-        with:
-          path: "node_modules"
-          key: ${{ runner.os }}-yarn-node-modules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-node-modules-
 
       - name: "Install Dependiences"
         run: "yarn && yarn build:libs"
