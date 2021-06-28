@@ -1,0 +1,89 @@
+name: "test"
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+          registry-url: 'https://npm.pkg.github.com'
+          always-auth: true
+          scope: '@onekeyhq'
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Dependiences
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: "yarn && yarn build:libs"
+
+      - name: Build Static Linux / Macos / Windows Installer
+        run: "cd packages/suite-desktop && yarn copy-files && yarn build:desktop"
+
+      - name: Create Test Tag
+        uses: actions/github-script@v3
+        env:
+          TAG_TYPE: test
+        with:
+          github-token: ${{ github.token }}
+          script: |
+              const { TAG_TYPE = 'test' } = process.env;
+              const resp = await github.git.listMatchingRefs({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `tags/${TAG_TYPE}`,
+              });
+
+              if (resp.status !== 200) throw new Error('get previous tags failed, please retry!');
+
+              const { data } = resp;
+              console.log(`==== auto-tag action ====: get previous tags ${JSON.stringify(data)}`);
+
+              const formattedTags = data
+                .map((payload) => ({tag: +payload.ref.replace(`refs/tags/${TAG_TYPE}-`, ''), hash: payload.object.sha}))
+                .filter(({tag}) => !Number.isNaN(tag))
+                .sort((a, b) => a.tag - b.tag);
+              const latestTag = formattedTags.length ? formattedTags[formattedTags.length - 1] : null;
+              const latestVersion = latestTag ? latestTag.tag : 0;
+
+              const newTagVersion = `${TAG_TYPE}-${latestVersion + 1}`;
+              await github.git.createRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `refs/tags/${newTagVersion}`,
+                sha: context.sha
+              });
+
+              core.exportVariable('CURRENT_TAG_VERSION', newTagVersion);
+              if (latestTag) {
+                core.exportVariable('LASTEST_TAG_COMMIT', latestTag.hash);
+              }
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: onekey-desktop-${{ env.CURRENT_TAG_VERSION }}
+          path: |
+            ./packages/suite-desktop/build-electron/*.dmg
+            ./packages/suite-desktop/build-electron/*.exe
+            ./packages/suite-desktop/build-electron/*.AppImage
