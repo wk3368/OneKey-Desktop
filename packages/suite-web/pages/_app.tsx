@@ -21,6 +21,7 @@ import { Store } from '@suite-types';
 import ImagesPreloader from '../support/ImagesPreloader';
 import { CypressExportStore } from '../support/CypressExportStore';
 import GlobalStyles from '@suite-support/styles/global';
+import 'tailwindcss/tailwind.css';
 
 // const Tor = dynamic(() => import('@suite-support/Tor'), { ssr: false });
 

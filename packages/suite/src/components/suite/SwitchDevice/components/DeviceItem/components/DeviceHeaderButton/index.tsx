@@ -44,7 +44,7 @@ const DeviceHeaderButton = (props: Props) => {
                     useCursorPointer
                     size={24}
                     icon="SETTINGS"
-                    color={theme.TYPE_LIGHT_GREY}
+                    className="text-[#808080]" // TODO Theming
                     onClick={props.onDeviceSettingsClick}
                 />
             )}

@@ -16,6 +16,7 @@ import { SENTRY_CONFIG } from '@suite-config';
 import Resize from '@suite-support/Resize';
 import ThemeProvider from '@suite-support/ThemeProvider';
 import GlobalStyles from '@suite-support/styles/global';
+import 'tailwindcss/tailwind.css';
 import { isDev } from '@suite-utils/build';
 import DesktopTitlebarWrapper from '@desktop/support/DesktopTitlebar';
 

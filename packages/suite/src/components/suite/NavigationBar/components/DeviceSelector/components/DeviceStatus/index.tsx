@@ -31,17 +31,11 @@ const getStatusForDevice = (device: TrezorDevice) => {
 
 const StatusText = styled.div<{ show: boolean; status: Status }>`
     position: absolute;
+    top: 12px;
     text-transform: uppercase;
     font-weight: ${variables.FONT_WEIGHT.DEMI_BOLD};
     font-size: ${variables.FONT_SIZE.TINY};
-    top: 14px;
     color: ${props => getStatusColor(props.status, props.theme)};
-    background: linear-gradient(
-        90deg,
-        ${props => `${props.theme.BG_LIGHT_GREY}00`} 0%,
-        ${props => props.theme.BG_LIGHT_GREY} 20px,
-        ${props => props.theme.BG_LIGHT_GREY} 100%
-    );
 
     padding-left: 24px;
     opacity: ${props => (props.show ? 1 : 0)};
@@ -60,12 +54,9 @@ const OuterCircle = styled.div<{ show: boolean; status: Status }>`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 12px;
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: ${props =>
-        props.status === 'connected' ? props.theme.BG_LIGHT_GREEN : props.theme.BG_LIGHT_RED};
     opacity: ${props => (props.show ? 1 : 0)};
     right: ${props => (props.show ? '12px' : '48px')};
     transition: opacity 0.5s ease, right 0.5s ease;
@@ -117,7 +108,11 @@ const DeviceStatus = ({
             <StatusText status={status} show={showTextStatus}>
                 {status}
             </StatusText>
-            <OuterCircle status={status} show={showIconStatus}>
+            <OuterCircle
+                className="bg-brand/10 top-3 md:translate-x-2 md:-translate-y-3 lg:transform-none"
+                status={status}
+                show={showIconStatus}
+            >
                 <InnerCircle status={status} />
             </OuterCircle>
         </>
