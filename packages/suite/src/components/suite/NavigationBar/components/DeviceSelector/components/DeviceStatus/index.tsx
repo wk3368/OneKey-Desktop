@@ -3,6 +3,7 @@ import { Icon, variables, useTheme, SuiteThemeColors } from '@trezor/components'
 import styled from 'styled-components';
 import * as deviceUtils from '@suite-utils/device';
 import { TrezorDevice } from '@suite-types';
+import classNames from 'classnames';
 
 type Status = 'connected' | 'disconnected' | 'warning';
 
@@ -43,12 +44,6 @@ const StatusText = styled.div<{ show: boolean; status: Status }>`
     transition: opacity 0.5s ease, right 0.5s ease;
 `;
 
-const IconWrapper = styled.div`
-    display: flex;
-    align-self: flex-start;
-    margin-top: 4px;
-`;
-
 const OuterCircle = styled.div<{ show: boolean; status: Status }>`
     display: flex;
     justify-content: center;
@@ -57,8 +52,6 @@ const OuterCircle = styled.div<{ show: boolean; status: Status }>`
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    opacity: ${props => (props.show ? 1 : 0)};
-    right: ${props => (props.show ? '12px' : '48px')};
     transition: opacity 0.5s ease, right 0.5s ease;
 `;
 
@@ -88,7 +81,7 @@ const DeviceStatus = ({
     // if device needs attention and CTA func was passed show refresh button
     if (status === 'warning' && onRefreshClick) {
         return (
-            <IconWrapper>
+            <div className="relative z-10 flex self-start mt-1 md:-translate-y-2 lg:transform-none">
                 <Icon
                     onClick={(e: any) => {
                         e.stopPropagation();
@@ -98,18 +91,21 @@ const DeviceStatus = ({
                     size={16}
                     color={getStatusColor(status, theme)}
                 />
-            </IconWrapper>
+            </div>
         );
     }
 
     // otherwise show dot icon (green/orange/red)
     return (
         <>
-            <StatusText status={status} show={showTextStatus}>
+            <StatusText className="hidden lg:block" status={status} show={showTextStatus}>
                 {status}
             </StatusText>
             <OuterCircle
-                className="bg-brand/10 top-3 md:translate-x-2 md:-translate-y-3 lg:transform-none"
+                className={classNames(
+                    'bg-brand/10 top-3 md:translate-x-2 md:-translate-y-3 lg:transform-none right-3',
+                    !showIconStatus ? 'lg:right-[48px] lg:opacity-0' : '',
+                )}
                 status={status}
                 show={showIconStatus}
             >

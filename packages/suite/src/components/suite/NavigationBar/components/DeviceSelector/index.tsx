@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
-import { variables, DeviceImage } from '@trezor/components';
+import { DeviceImage } from '@trezor/components';
 import { SHAKE } from '@suite-support/styles/animations';
 import { WalletLabeling } from '@suite-components';
 import { TrezorDevice } from '@suite-types';
@@ -111,7 +111,7 @@ const DeviceSelector = (
             }
             triggerAnim={triggerAnim}
             isMobileLayout={props.isMobileLayout}
-            className="relative flex items-center p-2 transition rounded-md cursor-pointer focus:ring-brand md:shadow-sm md:border md:border-gray-200 md:mt-6 hover:bg-gray-50 md:dark:bg-white/5 md:dark:border-white/5"
+            className="relative flex items-center p-2 transition rounded-md cursor-pointer md:shadow-sm md:border md:border-gray-200 md:mt-6 hover:bg-gray-50 dark:hover:bg-white/10 md:dark:bg-white/5 md:dark:border-white/5"
             {...props}
         >
             {selectedDevice && (
