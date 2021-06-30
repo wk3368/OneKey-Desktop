@@ -20,8 +20,13 @@ jobs:
       - name: Setup Environment
         uses: actions/setup-node@v1
         with:
+          registry-url: 'https://npm.pkg.github.com'
+          always-auth: true
+          scope: '@onekeyhq'
           node-version: '14.x'
       - name: Install Dependiences
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           yarn
       - name: Build Target
