@@ -11,6 +11,7 @@ import {
     InitialStep,
     CheckSeedStep,
     FirmwareProgressStep,
+    BLEFirmwareProgressStep,
     PartiallyDoneStep,
     DoneStep,
     ErrorStep,
@@ -160,7 +161,7 @@ const Firmware = ({ closeModalApp, resetReducer, firmware, device, modal }: Prop
                 case 'unplug':
                     return {
                         Heading: <CommonHeading />,
-                        Body: <FirmwareProgressStep.Body />,
+                        Body: <BLEFirmwareProgressStep.Body />,
                         BottomBar: null,
                     };
                 case 'reconnect-in-normal':
@@ -281,6 +282,7 @@ const Firmware = ({ closeModalApp, resetReducer, firmware, device, modal }: Prop
                 'error',
             ].includes(firmware.status)}
             header={
+                !window?.$BLE_MODE &&
                 firmware.status === 'waiting-for-confirmation' && (
                     <ConfirmOnDevice
                         title={<Translation id="TR_CONFIRM_ON_TREZOR" />}

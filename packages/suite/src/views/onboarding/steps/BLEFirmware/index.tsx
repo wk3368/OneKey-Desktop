@@ -4,7 +4,7 @@ import { OnboardingButton, Wrapper } from '@onboarding-components';
 import { Translation } from '@suite-components';
 import {
     CheckSeedStep,
-    FirmwareProgressStep,
+    BLEFirmwareProgressStep,
     PartiallyDoneStep,
     DoneStep,
     ErrorStep,
@@ -65,7 +65,7 @@ const FirmwareStep = ({
             case 'wait-for-reboot':
             case 'unplug':
                 return {
-                    Body: <FirmwareProgressStep.Body />,
+                    Body: <BLEFirmwareProgressStep.Body />,
                     BottomBar: null,
                 };
             case 'reconnect-in-normal':
