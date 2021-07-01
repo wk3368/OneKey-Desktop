@@ -15,6 +15,7 @@ import * as accountUtils from '@wallet-utils/accountUtils';
 import { SUITE, ANALYTICS, METADATA } from '@suite-actions/constants';
 import { AppState, Action as SuiteAction, Dispatch } from '@suite-types';
 import { WalletAction } from '@wallet-types';
+import * as FAVORITE from '@explore-actions/constants/FavoriteConstants';
 
 import { getDiscovery } from '@wallet-actions/discoveryActions';
 import { isDeviceRemembered } from '@suite-utils/device';
@@ -120,6 +121,14 @@ const storageMiddleware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dis
         case SUITE.ONION_LINKS:
         case SUITE.SET_THEME:
             api.dispatch(storageActions.saveSuiteSettings());
+            break;
+
+        case FAVORITE.ADD:
+            api.dispatch(storageActions.saveFavorite(action.payload));
+            break;
+
+        case FAVORITE.REMOVE:
+            api.dispatch(storageActions.removeFavorite(action.payload));
             break;
 
         case FIAT_RATES.RATE_UPDATE:

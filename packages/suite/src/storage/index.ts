@@ -11,7 +11,7 @@ import { GraphData } from '@wallet-types/graph';
 import { BuyTrade, ExchangeTrade } from 'invity-api';
 import { migrate } from './migrations';
 
-const VERSION = 19; // don't forget to add migration and CHANGELOG when changing versions!
+const VERSION = 20; // don't forget to add migration and CHANGELOG when changing versions!
 
 export interface DBWalletAccountTransaction {
     tx: WalletAccountTransaction;
@@ -95,6 +95,10 @@ export interface SuiteDBSchema extends DBSchema {
         key: 'state';
         value: MetadataState;
     };
+    favorites: {
+        key: string;
+        value: string;
+    };
 }
 
 export type SuiteStorageUpdateMessage = StorageUpdateMessage<SuiteDBSchema>;
@@ -149,6 +153,7 @@ const onUpgrade: OnUpgradeFunc<SuiteDBSchema> = async (db, oldVersion, newVersio
 
         db.createObjectStore('fiatRates');
         db.createObjectStore('analytics');
+        db.createObjectStore('favorites');
 
         // graph
         const graphStore = db.createObjectStore('graph', {
