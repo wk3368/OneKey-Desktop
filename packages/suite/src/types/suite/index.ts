@@ -30,7 +30,7 @@ import { DeviceMetadata } from '@suite-types/metadata';
 import { ObjectValues } from '@suite/types/utils';
 import { SUITE } from '@suite-actions/constants';
 import { PROCESS_MODE } from '@suite-middlewares/actionBlockerMiddleware';
-import { ExploreAction } from "@explore-types";
+import { ExploreAction } from '@explore-types';
 
 // reexport
 export type { ExtendedMessageDescriptor } from '@suite-components/Translation/components/BaseTranslation';

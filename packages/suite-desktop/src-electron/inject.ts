@@ -29,7 +29,7 @@ declare global {
         $ONEKEY_WEB3_INJECTED_PLATFORM: 'DESKTOP';
         $ONEKEY_SETTINGS_THEME: 'light' | 'dark';
         $ONEKEY_SETTINGS_LANGUAGE: 'zh' | 'en';
-        callbackMap: Record<string, ((val: string) => void) | undefined>
+        callbackMap: Record<string, ((val: string) => void) | undefined>;
     }
 }
 
@@ -258,7 +258,7 @@ try {
             window.callbackMap?.[params.id]?.(
                 JSON.stringify({
                     result: 'success',
-                    ...params
+                    ...params,
                 }),
             );
         }
