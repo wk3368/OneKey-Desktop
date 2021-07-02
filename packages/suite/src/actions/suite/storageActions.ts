@@ -304,6 +304,16 @@ export const saveMetadata = () => async (_dispatch: Dispatch, getState: GetState
     );
 };
 
+export const removeFavorite = (key: string) => async () => {
+    if (!(await isDBAccessible())) return;
+    return db.removeItemByPK('favorites', key);
+};
+
+export const saveFavorite = (key: string) => async () => {
+    if (!(await isDBAccessible())) return;
+    return db.addItem('favorites', key, key, true);
+};
+
 export const removeDatabase = () => async (dispatch: Dispatch, getState: GetState) => {
     if (!(await isDBAccessible())) return;
 
@@ -346,6 +356,7 @@ export const loadStorage = () => async (dispatch: Dispatch, getState: GetState) 
         const fiatRates = await db.getItemsExtended('fiatRates');
         const coinmarketTrades = await db.getItemsExtended('coinmarketTrades');
         const walletGraphData = await db.getItemsExtended('graph');
+        const favorites = await db.getItemsExtended('favorites');
         const analytics = await db.getItemByPK('analytics', 'suite');
         const metadata = await db.getItemByPK('metadata', 'state');
         const txs = await db.getItemsExtended('txs', 'order');
@@ -420,6 +431,7 @@ export const loadStorage = () => async (dispatch: Dispatch, getState: GetState) 
                     ...initialState.metadata,
                     ...metadata,
                 },
+                favorites,
             },
         });
     }

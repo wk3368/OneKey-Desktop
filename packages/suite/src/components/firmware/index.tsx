@@ -7,6 +7,7 @@ export { InitialStep } from './Initial';
 export { OnboardingInitialStep } from './OnboardingInitial';
 export { CheckSeedStep } from './CheckSeed';
 export { FirmwareProgressStep } from './FirmwareProgress';
+export { BLEFirmwareProgressStep } from './BLEFirmwareProgress';
 export { PartiallyDoneStep } from './PartiallyDone';
 export { DoneStep } from './Done';
 export { ReconnectInBootloaderStep } from './ReconnectInBootloader';

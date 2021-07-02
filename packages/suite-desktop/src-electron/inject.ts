@@ -29,6 +29,7 @@ declare global {
         $ONEKEY_WEB3_INJECTED_PLATFORM: 'DESKTOP';
         $ONEKEY_SETTINGS_THEME: 'light' | 'dark';
         $ONEKEY_SETTINGS_LANGUAGE: 'zh' | 'en';
+        callbackMap: Record<string, ((val: string) => void) | undefined>;
     }
 }
 
@@ -223,24 +224,45 @@ try {
                         id,
                         payload,
                     });
-                } else if (method === 'openURL') {
-                    ipcRenderer.sendToHost('open/link', {
-                        id,
-                        payload: params,
-                    });
-                }
-
-                if (callback) {
-                    callback(
+                    callback?.(
                         JSON.stringify({
                             result: 'success',
                             id,
                         }),
                     );
+                } else if (method === 'openURL') {
+                    ipcRenderer.sendToHost('open/link', {
+                        id,
+                        payload: params,
+                    });
+                    callback?.(
+                        JSON.stringify({
+                            result: 'success',
+                            id,
+                        }),
+                    );
+                } else {
+                    ipcRenderer.sendToHost('common', {
+                        id,
+                        type: method,
+                        payload: params,
+                    });
+                    if (!window.callbackMap) window.callbackMap = {};
+                    window.callbackMap[id] = callback;
                 }
             }
         },
     };
+    ipcRenderer.on('common', (_event, params) => {
+        if (params.id) {
+            window.callbackMap?.[params.id]?.(
+                JSON.stringify({
+                    result: 'success',
+                    ...params,
+                }),
+            );
+        }
+    });
 
     window.$ONEKEY_WEB3_INJECTED = true;
     window.$ONEKEY_WEB3_INJECTED_PLATFORM = 'DESKTOP';

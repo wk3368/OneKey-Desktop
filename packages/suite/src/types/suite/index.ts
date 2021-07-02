@@ -30,6 +30,7 @@ import { DeviceMetadata } from '@suite-types/metadata';
 import { ObjectValues } from '@suite/types/utils';
 import { SUITE } from '@suite-actions/constants';
 import { PROCESS_MODE } from '@suite-middlewares/actionBlockerMiddleware';
+import { ExploreAction } from '@explore-types';
 
 // reexport
 export type { ExtendedMessageDescriptor } from '@suite-components/Translation/components/BaseTranslation';
@@ -57,7 +58,8 @@ export type Action =
     | BackupAction
     | RecoveryAction
     | WalletSettingsAction
-    | DesktopUpdateAction;
+    | DesktopUpdateAction
+    | ExploreAction;
 
 // export type Dispatch = ReduxDispatch<Action>;
 // export type Dispatch = ThunkDispatch<AppState, any, Action>;

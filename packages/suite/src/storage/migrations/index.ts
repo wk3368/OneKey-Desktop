@@ -131,4 +131,8 @@ export const migrate = (
         db.deleteObjectStore('fiatRates');
         db.createObjectStore('fiatRates');
     }
+
+    if (oldVersion < 20) {
+        db.createObjectStore('favorites');
+    }
 };

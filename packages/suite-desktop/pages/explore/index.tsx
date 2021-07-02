@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-syntax */
-import React, { FC, useEffect, useCallback, useState, useMemo } from 'react';
+import React, { FC, useEffect, useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,6 +17,7 @@ import { MAX_WIDTH_WALLET_CONTENT } from '@suite-constants/layout';
 import type Electron from 'electron';
 import Explore from '@explore-views';
 import { openDeferredModal, Transaction } from '@suite-actions/modalActions';
+import { addFavorite, getFavorite, removeFavorite } from '@explore-actions/FavoriteActions';
 
 const ActionSelect = styled(Select)`
     width: 260px;
@@ -146,6 +147,7 @@ const mapStateToProps = (state: AppState) => ({
     selectedAccount: state.wallet.selectedAccount,
     language: state.suite.settings.language,
     theme: state.suite.settings.theme.variant,
+    favorites: state.explore.favorite,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -153,13 +155,23 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
         {
             signWithPush: sendFormEthereumActions.signAndPublishTransactionInSwap,
             openDeferredModal,
+            addFavorite,
+            getFavorite,
+            removeFavorite,
         },
         dispatch,
     );
 
 export type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-const Container: FC<Props> = ({ selectedAccount, signWithPush, openDeferredModal }) => {
+const Container: FC<Props> = ({
+    selectedAccount,
+    signWithPush,
+    openDeferredModal,
+    addFavorite,
+    getFavorite,
+    removeFavorite,
+}) => {
     const [ref, setRef] = useState<HTMLElement>();
     const [isLoading, setLoadingStatus] = useState(false);
     const [webviewRef, setWebviewRef] = useState<Electron.WebviewTag>();
@@ -234,7 +246,8 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, openDeferredModal
         setActiveDAppInfo(null);
         setActiveChainId(null);
         try {
-            webviewRef?.loadURL(`https://discover.onekey.so/`);
+            // TODO change back before merge
+            webviewRef?.loadURL(`https://discover.test.onekey.so/`);
         } catch (e) {
             // ignore
         }
@@ -266,8 +279,8 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, openDeferredModal
 
     useEffect(() => {
         if (!ref) return;
-        // React 会删除 allowpopups 属性
-        const currentUrl = `https://discover.onekey.so/`;
+        // TODO change back before merge
+        const currentUrl = `https://discover.test.onekey.so/`;
 
         ref.innerHTML = `
             <webview
@@ -368,6 +381,20 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, openDeferredModal
                     id,
                     address: freshAddress.address,
                 });
+            } else if (event.channel === 'common') {
+                const { id, type, payload } = arg;
+                if (type === 'favorite/get') {
+                    webviewRef.send('common', {
+                        id,
+                        payload: getFavorite(),
+                    });
+                }
+                if (type === 'favorite/remove') {
+                    webviewRef.send('common', {
+                        id,
+                        success: removeFavorite(payload),
+                    });
+                }
             }
         }
 
@@ -433,6 +460,13 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, openDeferredModal
                             width={24}
                             height={24}
                             image="RELOAD"
+                        />
+                        <Image
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => addFavorite(dapp.code)}
+                            width={24}
+                            height={24}
+                            image="FAVORITE"
                         />
                     </div>
                     <TextInfo>
