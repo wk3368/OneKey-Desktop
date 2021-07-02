@@ -246,7 +246,8 @@ const Container: FC<Props> = ({
         setActiveDAppInfo(null);
         setActiveChainId(null);
         try {
-            webviewRef?.loadURL(`https://discover.onekey.so/`);
+            // TODO change back before merge
+            webviewRef?.loadURL(`https://discover.test.onekey.so/`);
         } catch (e) {
             // ignore
         }
@@ -278,8 +279,8 @@ const Container: FC<Props> = ({
 
     useEffect(() => {
         if (!ref) return;
-        // React 会删除 allowpopups 属性
-        const currentUrl = `http://localhost:3000/`;
+        // TODO change back before merge
+        const currentUrl = `https://discover.test.onekey.so/`;
 
         ref.innerHTML = `
             <webview
