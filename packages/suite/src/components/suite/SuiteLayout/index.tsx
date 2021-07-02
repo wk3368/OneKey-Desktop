@@ -13,11 +13,7 @@ import { useLayoutSize } from '@suite-hooks';
 import { isDesktop } from '@suite-utils/env';
 
 const PageWrapper = styled.div<{ isMobileLayout: boolean }>`
-    display: flex;
-    flex: 1;
-    flex-direction: ${props => (props.isMobileLayout ? 'column' : 'row')};
     height: ${isDesktop() ? `calc(100vh - ${DESKTOP_TITLEBAR_HEIGHT})` : '100vh'};
-    overflow-x: hidden;
 `;
 
 const Body = styled.div`
@@ -164,7 +160,10 @@ const SuiteLayout = (props: SuiteLayoutProps) => {
     );
 
     return (
-        <PageWrapper isMobileLayout={isMobileLayout}>
+        <PageWrapper
+            isMobileLayout={isMobileLayout}
+            className="flex flex-col flex-1 overflow-x-hidden md:flex-row"
+        >
             <Metadata title={title} />
             <SuiteBanners />
             <DiscoveryProgress />

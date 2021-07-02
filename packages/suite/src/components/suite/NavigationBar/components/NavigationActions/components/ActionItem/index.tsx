@@ -1,36 +1,11 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useTheme, Icon, IconProps, variables } from '@trezor/components';
+import classNames from 'classnames';
 
-const Wrapper = styled.div<Pick<Props, 'isActive'>>`
-    display: flex;
-    position: relative;
-    cursor: pointer;
-    align-items: center;
-    padding-left: 8px;
-    border-radius: 8px;
-    ${props =>
-        props.isActive &&
-        css`
-            font-weight: ${variables.FONT_WEIGHT.DEMI_BOLD};
-            background-color: ${props => props.theme.BG_GREY_ALT};
-        `}
-`;
+const Wrapper = styled.div<Pick<Props, 'isActive'>>``;
 
-const IconWrapper = styled.div<Pick<Props, 'isActive'>>`
-    display: flex;
-    position: relative;
-    cursor: pointer;
-    align-items: center;
-    margin-right: 16px;
-`;
-
-const Label = styled.span`
-    padding: 16px 8px;
-    color: ${props => props.theme.TYPE_LIGHT_GREY};
-    font-weight: ${variables.FONT_WEIGHT.MEDIUM};
-    font-size: ${variables.FONT_SIZE.NORMAL};
-`;
+const IconWrapper = styled.div<Pick<Props, 'isActive'>>``;
 
 const AlertDotWrapper = styled.div`
     position: absolute;
@@ -74,17 +49,29 @@ const ActionItem = React.forwardRef((props: Props) => {
     const theme = useTheme();
     const iconComponent = props.icon ? (
         <Icon
-            color={props.isActive ? theme.TYPE_GREEN : theme.TYPE_LIGHT_GREY}
             size={24}
             icon={props.icon}
+            className={classNames(
+                props.isActive
+                    ? 'text-gray-500 dark:text-white/80'
+                    : 'text-gray-400 dark:text-white/40',
+            )}
         />
     ) : (
         props.iconComponent
     );
 
     return (
-        <Wrapper {...props}>
-            <IconWrapper isActive={props.isActive}>
+        <Wrapper
+            className={classNames(
+                'relative flex items-center p-2 transition rounded-md cursor-pointer',
+                props.isActive
+                    ? 'text-gray-900 bg-gray-100 dark:text-white/90 dark:bg-white/10'
+                    : 'hover:bg-gray-50 text-gray-600 hover:text-gray-900 dark:hover:bg-white/5 dark:hover:text-white/90 dark:text-white/50',
+            )}
+            {...props}
+        >
+            <IconWrapper className="relative md:p-2 lg:p-0" isActive={props.isActive}>
                 {iconComponent}
                 {props.withAlertDot && (
                     <AlertDotWrapper>
@@ -92,7 +79,9 @@ const ActionItem = React.forwardRef((props: Props) => {
                     </AlertDotWrapper>
                 )}
             </IconWrapper>
-            <Label>{props.label}</Label>
+            <div className="flex items-center flex-1 ml-3 font-medium translate-y-px md:hidden lg:flex lg:text-sm">
+                {props.label}
+            </div>
         </Wrapper>
     );
 });

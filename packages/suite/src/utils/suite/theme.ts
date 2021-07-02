@@ -4,8 +4,14 @@ import { AppState } from '@suite-types';
 export const getThemeColors = (theme: AppState['suite']['settings']['theme']) => {
     switch (theme?.variant) {
         case 'light':
+            if (typeof window === 'object') {
+                document.body.classList.remove('dark');
+            }
             return THEME.light;
         case 'dark':
+            if (typeof window === 'object') {
+                document.body.classList.add('dark');
+            }
             return THEME.dark;
         case 'custom':
             // custom theme is a secret feature accessible in debug settings

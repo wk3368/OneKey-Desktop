@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
-import { variables, DeviceImage } from '@trezor/components';
+import { DeviceImage } from '@trezor/components';
 import { SHAKE } from '@suite-support/styles/animations';
 import { WalletLabeling } from '@suite-components';
 import { TrezorDevice } from '@suite-types';
@@ -11,20 +11,6 @@ import * as deviceUtils from '@suite-utils/device';
 import DeviceStatus from './components/DeviceStatus';
 
 const Wrapper = styled.div<{ triggerAnim?: boolean; isMobileLayout?: boolean }>`
-    display: flex;
-    position: relative;
-    width: ${props => (props.isMobileLayout ? '288px' : '100%')};
-    padding: 12px;
-    align-items: center;
-    background-color: ${props => props.theme.BG_LIGHT_GREY};
-    cursor: pointer;
-    margin-right: ${props => (props.isMobileLayout ? '24px' : '0')};
-
-    &:hover {
-        border-radius: 4px;
-        box-shadow: 0 1px 2px 0 ${props => props.theme.BOX_SHADOW_BLACK_20};
-    }
-
     ${props =>
         props.triggerAnim &&
         css`
@@ -35,41 +21,12 @@ const Wrapper = styled.div<{ triggerAnim?: boolean; isMobileLayout?: boolean }>`
         `}
 `;
 
-const DeviceLabel = styled.div`
-    font-size: ${variables.FONT_SIZE.NORMAL};
-    font-weight: ${variables.FONT_WEIGHT.MEDIUM};
-    color: ${props => props.theme.TYPE_DARK_GREY};
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 0;
-`;
-
 const DeviceImageWrapper = styled.div<{ lowerOpacity: boolean }>`
-    margin-right: 12px;
-    flex: 0;
     ${props =>
         props.lowerOpacity &&
         css`
             opacity: 0.4;
         `}
-`;
-
-const WalletNameWrapper = styled.div`
-    font-size: ${variables.FONT_SIZE.SMALL};
-    font-weight: ${variables.FONT_WEIGHT.MEDIUM};
-    color: ${props => props.theme.TYPE_LIGHT_GREY};
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 0;
-`;
-
-const DeviceDetail = styled.div`
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    overflow: hidden;
-    align-self: baseline;
 `;
 
 const needsRefresh = (device?: TrezorDevice) => {
@@ -154,27 +111,36 @@ const DeviceSelector = (
             }
             triggerAnim={triggerAnim}
             isMobileLayout={props.isMobileLayout}
+            className="relative flex items-center p-2 transition rounded-md cursor-pointer md:shadow-sm md:border md:border-gray-200 md:mt-6 hover:bg-gray-50 dark:hover:bg-white/10 md:dark:bg-white/5 md:dark:border-white/5"
             {...props}
         >
             {selectedDevice && (
                 <>
-                    <DeviceImageWrapper lowerOpacity={deviceNeedsRefresh}>
+                    <DeviceImageWrapper
+                        className="w-[22px] bg-my px-px md:translate-x-2 lg:transform-none"
+                        lowerOpacity={deviceNeedsRefresh}
+                    >
                         <DeviceImage
                             height={36}
                             trezorModel={selectedDevice.features?.major_version === 1 ? 1 : 2}
                         />
                     </DeviceImageWrapper>
-                    <DeviceDetail>
-                        <DeviceLabel>{selectedDevice.label}</DeviceLabel>
-                        <WalletNameWrapper>
+                    {/* Details */}
+                    <div className="flex flex-col flex-1 pl-3 overflow-hidden md:hidden lg:flex self-baseline">
+                        {/* Wallet Brand */}
+                        <div className="min-w-0 font-medium text-gray-900 truncate dark:text-white/90">
+                            {selectedDevice.label}
+                        </div>
+                        {/* Wallet Name */}
+                        <div className="min-w-0 text-xs font-medium text-gray-500 truncate mt-0.5 dark:text-white/50">
                             {selectedDevice.metadata.status === 'enabled' &&
                             selectedDevice.metadata.walletLabel ? (
                                 selectedDevice.metadata.walletLabel
                             ) : (
                                 <WalletLabeling device={selectedDevice} />
                             )}
-                        </WalletNameWrapper>
-                    </DeviceDetail>
+                        </div>
+                    </div>
                     <DeviceStatus
                         showTextStatus={showTextStatus}
                         showIconStatus={!showTextStatus}

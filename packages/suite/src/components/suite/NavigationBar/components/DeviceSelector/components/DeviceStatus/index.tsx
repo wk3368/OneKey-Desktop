@@ -3,6 +3,7 @@ import { Icon, variables, useTheme, SuiteThemeColors } from '@trezor/components'
 import styled from 'styled-components';
 import * as deviceUtils from '@suite-utils/device';
 import { TrezorDevice } from '@suite-types';
+import classNames from 'classnames';
 
 type Status = 'connected' | 'disconnected' | 'warning';
 
@@ -31,17 +32,11 @@ const getStatusForDevice = (device: TrezorDevice) => {
 
 const StatusText = styled.div<{ show: boolean; status: Status }>`
     position: absolute;
+    top: 12px;
     text-transform: uppercase;
     font-weight: ${variables.FONT_WEIGHT.DEMI_BOLD};
     font-size: ${variables.FONT_SIZE.TINY};
-    top: 14px;
     color: ${props => getStatusColor(props.status, props.theme)};
-    background: linear-gradient(
-        90deg,
-        ${props => `${props.theme.BG_LIGHT_GREY}00`} 0%,
-        ${props => props.theme.BG_LIGHT_GREY} 20px,
-        ${props => props.theme.BG_LIGHT_GREY} 100%
-    );
 
     padding-left: 24px;
     opacity: ${props => (props.show ? 1 : 0)};
@@ -49,25 +44,14 @@ const StatusText = styled.div<{ show: boolean; status: Status }>`
     transition: opacity 0.5s ease, right 0.5s ease;
 `;
 
-const IconWrapper = styled.div`
-    display: flex;
-    align-self: flex-start;
-    margin-top: 4px;
-`;
-
 const OuterCircle = styled.div<{ show: boolean; status: Status }>`
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 12px;
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: ${props =>
-        props.status === 'connected' ? props.theme.BG_LIGHT_GREEN : props.theme.BG_LIGHT_RED};
-    opacity: ${props => (props.show ? 1 : 0)};
-    right: ${props => (props.show ? '12px' : '48px')};
     transition: opacity 0.5s ease, right 0.5s ease;
 `;
 
@@ -97,7 +81,7 @@ const DeviceStatus = ({
     // if device needs attention and CTA func was passed show refresh button
     if (status === 'warning' && onRefreshClick) {
         return (
-            <IconWrapper>
+            <div className="relative z-10 flex self-start mt-1 md:-translate-y-2 lg:transform-none">
                 <Icon
                     onClick={(e: any) => {
                         e.stopPropagation();
@@ -107,17 +91,24 @@ const DeviceStatus = ({
                     size={16}
                     color={getStatusColor(status, theme)}
                 />
-            </IconWrapper>
+            </div>
         );
     }
 
     // otherwise show dot icon (green/orange/red)
     return (
         <>
-            <StatusText status={status} show={showTextStatus}>
+            <StatusText className="hidden lg:block" status={status} show={showTextStatus}>
                 {status}
             </StatusText>
-            <OuterCircle status={status} show={showIconStatus}>
+            <OuterCircle
+                className={classNames(
+                    'bg-brand/10 top-3 md:translate-x-2 md:-translate-y-3 lg:transform-none right-3',
+                    !showIconStatus ? 'lg:right-[48px] lg:opacity-0' : '',
+                )}
+                status={status}
+                show={showIconStatus}
+            >
                 <InnerCircle status={status} />
             </OuterCircle>
         </>

@@ -15,27 +15,7 @@ interface ComponentProps {
     isDisabled?: boolean;
 }
 
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 31px;
-`;
-
-const ItemTitleWrapper = styled.span`
-    position: relative;
-`;
-
 const ItemTitle = styled.span<ComponentProps>`
-    color: ${props => props.theme.TYPE_LIGHT_GREY};
-    font-weight: ${variables.FONT_WEIGHT.MEDIUM};
-
-    ${props =>
-        props.isActive &&
-        css`
-            color: ${props => props.theme.TYPE_GREEN};
-        `}
-
     ${props =>
         props.isDisabled &&
         css`
@@ -44,17 +24,13 @@ const ItemTitle = styled.span<ComponentProps>`
 `;
 
 const NewBadge = styled.span`
-    position: absolute;
-    top: -14px;
-    right: -30px;
-    padding: 3px 3px 2px 3px;
+    padding: 1px 4px 0px 4px;
     background: ${props => props.theme.BG_LIGHT_GREEN};
     color: ${props => props.theme.TYPE_GREEN};
     letter-spacing: 0.2px;
     text-transform: UPPERCASE;
     font-size: 12px;
     display: flex;
-    cursor: default;
     align-items: center;
     font-weight: ${variables.FONT_WEIGHT.DEMI_BOLD};
     border-radius: 4px;
@@ -116,63 +92,71 @@ const NavigationActions = (props: Props) => {
     const unseenNotifications = useMemo(() => notifications.some(n => !n.seen), [notifications]);
 
     return (
-        <Wrapper>
-            {MAIN_MENU_ITEMS.map(item => {
-                const { route, translationId, isDisabled, isBeta, icon } = item;
-                const routeObj = findRouteByName(route);
-                const isActive = routeObj ? routeObj.app === activeApp : false;
-                return (
-                    <ActionItem
-                        label={
-                            <ItemTitleWrapper>
-                                <ItemTitle isActive={isActive} isDisabled={isDisabled}>
-                                    <Translation id={translationId} />
-                                </ItemTitle>
-                                {/* if the button is disabled, display "SOON" badge */}
-                                {isDisabled && <NewBadge>soon</NewBadge>}
-                                {isBeta && <NewBadge>BETA</NewBadge>}
-                            </ItemTitleWrapper>
-                        }
-                        key={route}
-                        data-test={`@suite/menu/${route}`}
-                        onClick={() => action(route)}
-                        isActive={isActive}
-                        icon={icon as any}
-                    />
-                );
-            })}
-            <ActionItem
-                label={<Translation id="TR_NOTIFICATIONS" />}
-                data-test="@suite/menu/notifications-index"
-                onClick={() => action('notifications-index')}
-                isActive={getIfRouteIsActive('notifications-index')}
-                icon="NOTIFICATION"
-                withAlertDot={unseenNotifications}
-            />
+        <nav className="flex flex-col flex-1 mt-6" aira-label="Sidebar">
+            <div className="space-y-1">
+                {MAIN_MENU_ITEMS.map(item => {
+                    const { route, translationId, isDisabled, isBeta, icon } = item;
+                    const routeObj = findRouteByName(route);
+                    const isActive = routeObj ? routeObj.app === activeApp : false;
+                    return (
+                        <ActionItem
+                            label={
+                                <span className="relative flex justify-between w-full">
+                                    <ItemTitle
+                                        isActive={isActive}
+                                        isDisabled={isDisabled}
+                                        className="inline-flex"
+                                    >
+                                        <Translation id={translationId} />
+                                    </ItemTitle>
+                                    {/* if the button is disabled, display "SOON" badge */}
+                                    {isDisabled && <NewBadge>soon</NewBadge>}
+                                    {isBeta && <NewBadge>BETA</NewBadge>}
+                                </span>
+                            }
+                            key={route}
+                            data-test={`@suite/menu/${route}`}
+                            onClick={() => action(route)}
+                            isActive={isActive}
+                            icon={icon as any}
+                        />
+                    );
+                })}
+            </div>
+            <div className="mt-auto space-y-1">
+                <ActionItem
+                    label={<Translation id="TR_NOTIFICATIONS" />}
+                    data-test="@suite/menu/notifications-index"
+                    onClick={() => action('notifications-index')}
+                    isActive={getIfRouteIsActive('notifications-index')}
+                    icon="NOTIFICATION"
+                    withAlertDot={unseenNotifications}
+                />
 
-            <ActionItem
-                label={<Translation id="TR_SETTINGS" />}
-                data-test="@suite/menu/settings-index"
-                onClick={() => action('settings-index')}
-                isActive={getIfRouteIsActive('settings-index')}
-                icon="SETTINGS"
-            />
+                <ActionItem
+                    label={<Translation id="TR_SETTINGS" />}
+                    data-test="@suite/menu/settings-index"
+                    onClick={() => action('settings-index')}
+                    isActive={getIfRouteIsActive('settings-index')}
+                    icon="SETTINGS"
+                />
 
-            <ActionItem
-                onClick={() => {
-                    analytics.report({
-                        type: 'menu/toggle-discreet',
-                        payload: {
-                            value: !discreetMode,
-                        },
-                    });
-                    setDiscreetMode(!discreetMode);
-                }}
-                isActive={false}
-                label={<Translation id="TR_DISCREET" />}
-                icon={discreetMode ? 'HIDE' : 'SHOW'}
-            />
-        </Wrapper>
+                <ActionItem
+                    onClick={() => {
+                        analytics.report({
+                            type: 'menu/toggle-discreet',
+                            payload: {
+                                value: !discreetMode,
+                            },
+                        });
+                        setDiscreetMode(!discreetMode);
+                    }}
+                    isActive={false}
+                    label={<Translation id="TR_DISCREET" />}
+                    icon={discreetMode ? 'HIDE' : 'SHOW'}
+                />
+            </div>
+        </nav>
     );
 };
 
