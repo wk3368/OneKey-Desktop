@@ -12,8 +12,10 @@ import NavigationBar from '../NavigationBar';
 import { useLayoutSize } from '@suite-hooks';
 import { isDesktop } from '@suite-utils/env';
 
-const PageWrapper = styled.div<{ isMobileLayout: boolean }>`
+const PageWrapper = styled.div`
     height: ${isDesktop() ? `calc(100vh - ${DESKTOP_TITLEBAR_HEIGHT})` : '100vh'};
+    display: flex;
+    flex-direction: column;
 `;
 
 const Body = styled.div`
@@ -160,39 +162,38 @@ const SuiteLayout = (props: SuiteLayoutProps) => {
     );
 
     return (
-        <PageWrapper
-            isMobileLayout={isMobileLayout}
-            className="flex flex-col flex-1 overflow-x-hidden md:flex-row"
-        >
-            <Metadata title={title} />
+        <PageWrapper>
             <SuiteBanners />
-            <DiscoveryProgress />
-            <NavigationBar />
-            <LayoutContext.Provider value={{ title, menu, setLayout }}>
-                {!isMobileLayout && (
-                    <BodyWide
-                        key={title}
-                        menu={menu}
-                        appMenu={appMenu}
-                        url={props.router.url}
-                        ignoreChildren={!!ignoreChildren}
-                    >
-                        {props.children}
-                    </BodyWide>
-                )}
-                {isMobileLayout && (
-                    <BodyNarrow
-                        key={title}
-                        menu={menu}
-                        appMenu={appMenu}
-                        url={props.router.url}
-                        ignoreChildren={!!ignoreChildren}
-                    >
-                        {props.children}
-                    </BodyNarrow>
-                )}
-            </LayoutContext.Provider>
-            {/* <BetaBadge /> */}
+            <div className="flex flex-col flex-1 overflow-x-hidden md:flex-row">
+                <Metadata title={title} />
+                <DiscoveryProgress />
+                <NavigationBar />
+                <LayoutContext.Provider value={{ title, menu, setLayout }}>
+                    {!isMobileLayout && (
+                        <BodyWide
+                            key={title}
+                            menu={menu}
+                            appMenu={appMenu}
+                            url={props.router.url}
+                            ignoreChildren={!!ignoreChildren}
+                        >
+                            {props.children}
+                        </BodyWide>
+                    )}
+                    {isMobileLayout && (
+                        <BodyNarrow
+                            key={title}
+                            menu={menu}
+                            appMenu={appMenu}
+                            url={props.router.url}
+                            ignoreChildren={!!ignoreChildren}
+                        >
+                            {props.children}
+                        </BodyNarrow>
+                    )}
+                </LayoutContext.Provider>
+                {/* <BetaBadge /> */}
+            </div>
         </PageWrapper>
     );
 };

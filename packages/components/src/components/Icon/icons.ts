@@ -104,4 +104,6 @@ export const ICONS = {
     ACCOUNT: require('../../images/icons/account.svg'),
     SWAP: require('../../images/icons/swap.svg'),
     EXPLORE: require('../../images/icons/dapps.svg'),
+    FAVORITE: require('../../images/icons/favorite.svg'),
+    UNFAVORITE: require('../../images/icons/unfavorite.svg'),
 };
