@@ -3,10 +3,11 @@ import { ArrayElement } from '@suite/types/utils';
 const networks = [
     // Bitcoin
     {
-        name: 'Bitcoin',
+        name: 'Bitcoin (segwit)',
         networkType: 'bitcoin',
+        accountType: 'segwit',
         symbol: 'btc',
-        bip44: "m/84'/0'/i'",
+        bip44: "m/49'/0'/i'",
         hasSignVerify: true,
         decimals: 8,
         explorer: {
@@ -16,11 +17,10 @@ const networks = [
         features: ['rbf', 'sign-verify'],
     },
     {
-        name: 'Bitcoin (segwit)',
+        name: 'Bitcoin',
         networkType: 'bitcoin',
-        accountType: 'segwit',
         symbol: 'btc',
-        bip44: "m/49'/0'/i'",
+        bip44: "m/84'/0'/i'",
         hasSignVerify: true,
         decimals: 8,
         explorer: {
