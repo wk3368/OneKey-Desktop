@@ -3418,14 +3418,14 @@
     "@octokit/openapi-types" "^2.2.0"
     "@types/node" ">= 8"
 
-"@onekeyhq/connect@8.2.2-extended":
-  version "8.2.2-extended"
-  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.2.2-extended/0770b6c7d2218fdfe929335676e3be60cd974bd327a4db8d79bec3f6d2da8fd8#2aef4ca3d76677e61128daa37d7eada157418edd"
-  integrity sha512-HeFED7a5VdLxR/n25QoKfCSPeEIZXw7kXp4uMCQEQjIpAHEGOaDr/1yyoaWiz5agnHiPpWfjsk9JipRzf97o0w==
+"@onekeyhq/connect@8.2.3-extended":
+  version "8.2.3-extended"
+  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.2.3-extended/0ab6381c709c41e1d0ef595847a8732ae697d3169db6e2a09eb86e18d35e80d4#091e96cb3da4ff3a67e7bad93a72c032498ea411"
+  integrity sha512-7nZI7CU+CzjevPA6UNupNK/5xgb2ciJzWeAO4l7jSLQVY3nwSmXyMM73saii3wlI4n1V9hvvGiUnaxaMJ63+mw==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@onekeyhq/blockchain-link" "1.0.18"
-    "@onekeyhq/link" "1.7.4"
+    "@onekeyhq/link" "1.7.5"
     "@onekeyhq/rollout" "1.0.6"
     "@sentry/browser" "^6.4.0"
     "@sentry/integrations" "^6.4.0"
@@ -3444,10 +3444,10 @@
     tiny-worker "^2.3.0"
     whatwg-fetch "^3.5.0"
 
-"@onekeyhq/link@1.7.4":
-  version "1.7.4"
-  resolved "https://npm.pkg.github.com/download/@onekeyhq/link/1.7.4/402d6273fb1b91b8ada6522d462cbfe8fa862ec206f9f3215f0bed77d1b53d48#1c39db71f059e608941ee7219ae6f5f522c80289"
-  integrity sha512-tcfjMu8rD+Mg3imkEbULd4Tf+bLBKCzbo9LPWYjrFdRrNUXHTCiqX8gAmLffelGRJ+NpZPzbmXeHGKLvIWlF6g==
+"@onekeyhq/link@1.7.5":
+  version "1.7.5"
+  resolved "https://npm.pkg.github.com/download/@onekeyhq/link/1.7.5/1bdce865ec2d3341867e4a06a0e428b55865de7e2cca5191ae838b347a394fba#549f2a8fb54699f976e0ac260598c6cbc81c0f50"
+  integrity sha512-biDf4fVamQXroX/OVPG4KvTUvvh+MXNe0xwMJBm0Si7SuxWj3rYHh/+x/ROnjDwJJK/qNbpKrASMFhBOIAkk1A==
   dependencies:
     bigi "^1.4.1"
     ecurve "^1.0.3"
