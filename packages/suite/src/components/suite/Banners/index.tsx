@@ -8,18 +8,11 @@ import UpdateBridge from './UpdateBridge';
 import UpdateFirmware from './UpdateFirmware';
 import NoBackup from './NoBackup';
 import FailedBackup from './FailedBackup';
-import { DESKTOP_TITLEBAR_HEIGHT } from '@suite-constants/layout';
-
-const TOP_OFFSET = isDesktop() ? DESKTOP_TITLEBAR_HEIGHT : '0px';
 
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     z-index: 5;
-    position: absolute;
-    top: ${TOP_OFFSET};
-    right: 0;
-    left: 0;
 `;
 
 const Banners = () => {

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as sendFormEthereumActions from '@wallet-actions/send/sendFormEthereumActions';
-import { Button } from '@trezor/components';
+import { Button, Icon } from '@trezor/components';
 import { Translation, Image } from '@suite-components';
 import { ActionSelect as Select } from '@suite-components/Settings';
 import { AppState, Dispatch } from '@suite-types';
@@ -63,6 +63,10 @@ const Footer = styled.div`
     background: ${props => props.theme.BG_WHITE};
     border-top: 1px solid ${props => props.theme.STROKE_GREY};
     padding: 0 24px;
+`;
+
+const ButtonsContainer = styled.div`
+    display: flex;
 `;
 
 const TextInfo = styled.p`
@@ -445,9 +449,9 @@ const Container: FC<Props> = ({
             />
             {!!dapp?.url && (
                 <Footer>
-                    <div>
+                    <ButtonsContainer>
                         <Image
-                            style={{ cursor: 'pointer', marginRight: 24 }}
+                            style={{ cursor: 'pointer', marginRight: 12 }}
                             onClick={handleBack}
                             width={24}
                             height={24}
@@ -455,20 +459,23 @@ const Container: FC<Props> = ({
                         />
 
                         <Image
-                            style={{ cursor: 'pointer' }}
+                            style={{ cursor: 'pointer', marginRight: 12 }}
                             onClick={handleReload}
                             width={24}
                             height={24}
                             image="RELOAD"
                         />
-                        <Image
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => addFavorite(dapp.code)}
-                            width={24}
-                            height={24}
-                            image="FAVORITE"
+                        <Icon
+                            size={24}
+                            onClick={() =>
+                                getFavorite().includes(dapp.code)
+                                    ? removeFavorite(dapp.code)
+                                    : addFavorite(dapp.code)
+                            }
+                            icon={getFavorite().includes(dapp.code) ? 'FAVORITE' : 'UNFAVORITE'}
+                            color="#515151"
                         />
-                    </div>
+                    </ButtonsContainer>
                     <TextInfo>
                         您在第三方 DApp 上的使用行为将适用于第三方 DApp
                         的《隐私政策》和《用户协议》，由 {dapp.name || dapp.url}
