@@ -34,6 +34,7 @@ jobs:
       - name: Build Target
         env:
           PUBLIC_URL: ${{ env.PUBLIC_URL }}
+          assetPrefix: ${{ env.PUBLIC_URL }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CI: false
         run: |
