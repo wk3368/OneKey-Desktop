@@ -1,9 +1,9 @@
-name: pre-release
+name: pre-release-web
 
 on: workflow_dispatch
 
 jobs:
-  pre-release:
+  pre-release-web:
     environment: pre-release
     runs-on: ubuntu-latest
     env:
