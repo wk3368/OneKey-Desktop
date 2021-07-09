@@ -10,6 +10,7 @@ import { NETWORKS } from '@wallet-config';
 import { Account } from '@wallet-types';
 import { Dispatch, GetState } from '@suite-types';
 import { SETTINGS } from '@suite-config';
+import { DEFAULT_BTC_ACCOUNT_TYPE } from '@wallet-constants/account';
 
 export type AccountAction =
     | { type: typeof ACCOUNT.CREATE; payload: Account }
@@ -35,7 +36,8 @@ export const create = (
             empty: accountInfo.empty,
             visible:
                 !accountInfo.empty ||
-                (discoveryItem.accountType === 'normal' && discoveryItem.index === 0),
+                (discoveryItem.accountType === DEFAULT_BTC_ACCOUNT_TYPE &&
+                    discoveryItem.index === 0),
             balance: accountInfo.balance,
             availableBalance: accountInfo.availableBalance,
             formattedBalance: accountUtils.formatNetworkAmount(
