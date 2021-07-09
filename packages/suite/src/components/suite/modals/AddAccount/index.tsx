@@ -8,6 +8,7 @@ import NetworkInternal from './components/NetworkInternal';
 import AddAccountButton from './components/AddAccountButton';
 import Wrapper from './components/Wrapper';
 import { Props } from './Container';
+import { DEFAULT_BTC_ACCOUNT_TYPE } from '@wallet-constants/account';
 
 const AddAccount = (props: Props) => {
     // Collect all Networks without "accountType" (normal)
@@ -15,7 +16,9 @@ const AddAccount = (props: Props) => {
         n => n.networkType === 'bitcoin',
     );
     internalNetworks.unshift(
-        NETWORKS.find(n => n.networkType === 'bitcoin' && n.accountType === 'segwit')!,
+        NETWORKS.find(
+            n => n.networkType === 'bitcoin' && n.accountType === DEFAULT_BTC_ACCOUNT_TYPE,
+        )!,
     );
 
     // Collect device unavailable capabilities
@@ -92,7 +95,7 @@ const AddAccount = (props: Props) => {
         if (accountType) {
             return accountType.accountType ?? 'normal';
         }
-        return network.networkType === 'bitcoin' ? 'segwit' : 'normal';
+        return network.networkType === 'bitcoin' ? DEFAULT_BTC_ACCOUNT_TYPE : 'normal';
     };
     const emptyAccounts = props.accounts.filter(
         a =>
