@@ -434,6 +434,8 @@
 	"TR_CONFIRM_PASSPHRASE": "确认密码",
 	"TR_CONFIRM_PASSPHRASE_SOURCE": "请在\"{deviceLabel}\"设备确认空的隐藏钱包密码来源。",
 	"TR_CONFIRM_PIN": "确认 PIN 码",
+	"TR_NEW_PIN_FIRST": "设置新 PIN 码",
+	"TR_NEW_PIN_SECOND": "再次输入新 PIN 码",
 	"TR_CONNECT": "连接",
 	"TR_CONNECTED": "已连接",
 	"TR_CONNECTED_BOOTLOADER": "已连接 (bootloader 模式)",
