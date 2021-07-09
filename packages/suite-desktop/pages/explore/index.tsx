@@ -34,14 +34,17 @@ export type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDi
 
 const StyledTabs = styled(Tabs)`
     width: 100%;
+    display: flex;
+    flex-direction: column;
     flex: 1;
 
     .rc-tabs-content-holder {
-        height: 100%;
+        display: flex;
+        flex: 1;
     }
 
     .rc-tabs-content {
-        height: 100%;
+        flex: 1;
     }
 `;
 
@@ -49,17 +52,41 @@ const StyledTabPane = styled(TabPane)`
     height: 100%;
 `;
 
-const StyledTabBar = styled.div`
+const StyledTabBar = styled.div<{ show: boolean }>`
+    display: ${props => (props.show ? 'unset' : 'none')};
     .rc-tabs-nav-list {
         display: flex;
+        padding-top: 10px;
+    }
+
+    .rc-tabs-nav-operations {
+        display: none;
     }
 `;
 
 const StyledTabNode = styled.div`
+    position: relative;
+    display: flex;
     background-color: ${props => props.theme.BG_WHITE};
     border: 2px solid ${props => props.theme.STROKE_GREY};
     border-radius: 6px;
     cursor: pointer;
+`;
+
+const CloseButton = styled.div`
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    transform: translate(50%, -50%);
 `;
 
 const ExploreContainer: FC<Props> = props => {
@@ -86,17 +113,20 @@ const ExploreContainer: FC<Props> = props => {
         }
     }, [activeTab, tabs]);
     const renderTabBar: RenderTabBar = (props, DefaultTabBar) => {
-        if (tabs.length < 1) return <></>;
         const TabBar = StyledTabBar.withComponent(DefaultTabBar);
         return (
-            <TabBar {...props}>
+            <TabBar {...props} show={tabs.length > 0}>
                 {(node: ReactElement) => {
                     const parts = (node.key as string).split('-');
                     const index = parts[parts.length - 1];
                     return (
                         <StyledTabNode key={node.key}>
                             <div>{node}</div>
-                            {node.key !== 'home' && <div onClick={() => closeTab(parseInt(index, 10))}>X</div>}
+                            {node.key !== 'home' && (
+                                <CloseButton onClick={() => closeTab(parseInt(index, 10))}>
+                                    ✖
+                                </CloseButton>
+                            )}
                         </StyledTabNode>
                     );
                 }}
