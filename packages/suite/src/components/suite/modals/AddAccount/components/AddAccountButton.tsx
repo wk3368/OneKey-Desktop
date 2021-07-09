@@ -21,7 +21,20 @@ const AddAccountButton = (props: Props) => {
         // prev account is empty, do not add another
         tooltip = <Translation id="MODAL_ADD_ACCOUNT_PREVIOUS_EMPTY" />;
     }
-    if (account.index === 0 && account.empty && account.accountType === 'normal') {
+    if (
+        account.networkType === 'bitcoin' &&
+        account.index === 0 &&
+        account.empty &&
+        account.accountType === 'segwit'
+    ) {
+        tooltip = <Translation id="MODAL_ADD_ACCOUNT_PREVIOUS_EMPTY" />;
+    }
+    if (
+        account.networkType !== 'bitcoin' &&
+        account.index === 0 &&
+        account.empty &&
+        account.accountType === 'normal'
+    ) {
         // current (first normal) account is empty, do not add another
         tooltip = <Translation id="MODAL_ADD_ACCOUNT_PREVIOUS_EMPTY" />;
     }

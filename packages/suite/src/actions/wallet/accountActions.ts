@@ -35,7 +35,7 @@ export const create = (
             empty: accountInfo.empty,
             visible:
                 !accountInfo.empty ||
-                (discoveryItem.accountType === 'normal' && discoveryItem.index === 0),
+                (discoveryItem.accountType === 'segwit' && discoveryItem.index === 0),
             balance: accountInfo.balance,
             availableBalance: accountInfo.availableBalance,
             formattedBalance: accountUtils.formatNetworkAmount(

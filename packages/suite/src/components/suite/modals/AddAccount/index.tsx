@@ -11,7 +11,12 @@ import { Props } from './Container';
 
 const AddAccount = (props: Props) => {
     // Collect all Networks without "accountType" (normal)
-    const internalNetworks = NETWORKS.filter(n => !n.accountType && !n.isHidden);
+    const internalNetworks = NETWORKS.filter(n => !n.accountType && !n.isHidden).filter(
+        n => n.networkType === 'bitcoin',
+    );
+    internalNetworks.unshift(
+        NETWORKS.find(n => n.networkType === 'bitcoin' && n.accountType === 'segwit')!,
+    );
 
     // Collect device unavailable capabilities
     const unavailableCapabilities = props.device.features
@@ -83,12 +88,17 @@ const AddAccount = (props: Props) => {
     }
 
     // Collect all empty accounts related to selected device and selected accountType
-    const currentType = (accountType ? accountType.accountType : undefined) || 'normal';
+    const currentType = () => {
+        if (accountType) {
+            return accountType.accountType ?? 'normal';
+        }
+        return network.networkType === 'bitcoin' ? 'segwit' : 'normal';
+    };
     const emptyAccounts = props.accounts.filter(
         a =>
             a.deviceState === props.device.state &&
             a.symbol === network.symbol &&
-            a.accountType === currentType &&
+            a.accountType === currentType() &&
             a.empty,
     );
 
