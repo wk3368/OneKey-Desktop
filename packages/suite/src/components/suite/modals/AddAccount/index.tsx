@@ -12,14 +12,7 @@ import { DEFAULT_BTC_ACCOUNT_TYPE } from '@wallet-constants/account';
 
 const AddAccount = (props: Props) => {
     // Collect all Networks without "accountType" (normal)
-    const internalNetworks = NETWORKS.filter(n => !n.accountType && !n.isHidden).filter(
-        n => n.networkType === 'bitcoin',
-    );
-    internalNetworks.unshift(
-        NETWORKS.find(
-            n => n.networkType === 'bitcoin' && n.accountType === DEFAULT_BTC_ACCOUNT_TYPE,
-        )!,
-    );
+    const internalNetworks = NETWORKS.filter(n => !n.accountType && !n.isHidden);
 
     // Collect device unavailable capabilities
     const unavailableCapabilities = props.device.features
