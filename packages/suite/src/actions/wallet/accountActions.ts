@@ -23,6 +23,8 @@ export const create = (
     discoveryItem: DiscoveryItem,
     accountInfo: AccountInfo,
 ): AccountAction => {
+    const defaultAccountType =
+        discoveryItem.networkType === 'bitcoin' ? DEFAULT_BTC_ACCOUNT_TYPE : 'normal';
     const account = {
         type: ACCOUNT.CREATE,
         payload: {
@@ -36,8 +38,7 @@ export const create = (
             empty: accountInfo.empty,
             visible:
                 !accountInfo.empty ||
-                (discoveryItem.accountType === DEFAULT_BTC_ACCOUNT_TYPE &&
-                    discoveryItem.index === 0),
+                (discoveryItem.accountType === defaultAccountType && discoveryItem.index === 0),
             balance: accountInfo.balance,
             availableBalance: accountInfo.availableBalance,
             formattedBalance: accountUtils.formatNetworkAmount(
