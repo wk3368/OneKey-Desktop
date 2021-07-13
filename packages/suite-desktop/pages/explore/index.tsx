@@ -53,6 +53,7 @@ const StyledTabPane = styled(TabPane)`
 `;
 
 const StyledTabBar = styled.div<{ show: boolean }>`
+    padding-top: 0.5vw;
     display: ${props => (props.show ? 'flex' : 'none')};
 `;
 
