@@ -47,24 +47,30 @@ const ToastInfo = styled.div`
     box-shadow: 0 10px 80px 0 ${props => props.theme.BOX_SHADOW_MODAL};
 `;
 
-const Footer = styled.div`
-    height: 60px;
+const ToolBar = styled.div`
+    height: 4vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     background: ${props => props.theme.BG_WHITE};
-    border-top: 1px solid ${props => props.theme.STROKE_GREY};
-    padding: 0 24px;
+    padding: 0.5vw 1vw;
 `;
 
-const ButtonsContainer = styled.div`
+const AdressBarContainer = styled.div`
     display: flex;
+    height: 100%;
+    align-items: center;
+    flex: 1;
+    background: ${props => props.theme.BG_GREY};
+    border-radius: 0.5vw;
+    padding: 0 0.7vw;
+    margin-right: 1vw;
 `;
 
-const TextInfo = styled.p`
-    color: rgba(60, 60, 67, 0.6);
-    font-size: 12px;
+const AdressBar = styled.input`
+    flex: 1;
+    background: ${props => props.theme.BG_GREY};
 `;
 
 const WebviewContainer = styled.div`
@@ -166,6 +172,7 @@ export const Container: FC<Props & TabProps> = ({
     );
 
     const chainRPCUrl = activeChainId ? CHAIN_SYMBOL_RPC[activeChainId] : null;
+    const [input, setInput] = useState(dapp?.url ?? 'home');
 
     const { account } = selectedAccount;
     const unused = account?.addresses
@@ -378,6 +385,16 @@ export const Container: FC<Props & TabProps> = ({
         };
     }, [webviewRef, chainRPCUrl, activeChainId, signWithPush, freshAddress.address, setIsLoading]);
 
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'Enter') {
+            openTab({
+                code: input,
+                url: input.startsWith('http') ? input : `https://${input}`,
+                name: input,
+            });
+        }
+    };
+
     if (selectedAccount.status === 'loading') {
         return (
             <ToastInfo>
@@ -398,33 +415,17 @@ export const Container: FC<Props & TabProps> = ({
 
     return (
         <OuterContainer>
-            {loadFailed && (
-                <ToastInfo>
-                    <Translation id="TR_LOAD_FAILED" />
-                    <Button onClick={handleReload} style={{ marginTop: 12 }}>
-                        <Translation id="TR_TRY_AGAIN" />
-                    </Button>
-                </ToastInfo>
-            )}
-            {dapp?.url && isLoading && (
-                <ToastInfo>
-                    <Image width={160} height={160} image="SPINNER" />
-                </ToastInfo>
-            )}
-            <WebviewContainer
-                style={{ width: '100%', height: dapp?.url ? 'calc(100% - 60px)' : '100%' }}
-                ref={handleRef}
-            />
             {!!dapp?.url && (
-                <Footer>
-                    <ButtonsContainer>
-                        <Image
-                            style={{ cursor: 'pointer', marginRight: 24 }}
-                            onClick={handleReload}
-                            width={24}
-                            height={24}
-                            image="RELOAD"
-                        />
+                <ToolBar>
+                    <Image
+                        style={{ cursor: 'pointer', marginRight: 24 }}
+                        onClick={handleReload}
+                        width={24}
+                        height={24}
+                        image="RELOAD"
+                    />
+                    <AdressBarContainer>
+                        <AdressBar value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyDown}/>
                         <Icon
                             size={24}
                             onClick={() =>
@@ -435,12 +436,7 @@ export const Container: FC<Props & TabProps> = ({
                             icon={getFavorite().includes(dapp.code) ? 'FAVORITE' : 'UNFAVORITE'}
                             color="#515151"
                         />
-                    </ButtonsContainer>
-                    <TextInfo>
-                        您在第三方 DApp 上的使用行为将适用于第三方 DApp
-                        的《隐私政策》和《用户协议》，由 {dapp.name || dapp.url}
-                        直接并单独向您承担责任
-                    </TextInfo>
+                    </AdressBarContainer>
                     <ActionSelect
                         isShowTop
                         hideTextCursor
@@ -464,8 +460,25 @@ export const Container: FC<Props & TabProps> = ({
                         }}
                         data-test="@explore/select"
                     />
-                </Footer>
+                </ToolBar>
             )}
+            {loadFailed && (
+                <ToastInfo>
+                    <Translation id="TR_LOAD_FAILED" />
+                    <Button onClick={handleReload} style={{ marginTop: 12 }}>
+                        <Translation id="TR_TRY_AGAIN" />
+                    </Button>
+                </ToastInfo>
+            )}
+            {dapp?.url && isLoading && (
+                <ToastInfo>
+                    <Image width={160} height={160} image="SPINNER" />
+                </ToastInfo>
+            )}
+            <WebviewContainer
+                style={{ width: '100%', height: dapp?.url ? 'calc(100% - 60px)' : '100%' }}
+                ref={handleRef}
+            />
         </OuterContainer>
     );
 };

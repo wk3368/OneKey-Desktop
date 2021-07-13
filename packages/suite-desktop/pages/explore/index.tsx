@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as sendFormEthereumActions from '@wallet-actions/send/sendFormEthereumActions';
@@ -53,40 +53,42 @@ const StyledTabPane = styled(TabPane)`
 `;
 
 const StyledTabBar = styled.div<{ show: boolean }>`
-    display: ${props => (props.show ? 'unset' : 'none')};
-    .rc-tabs-nav-list {
-        display: flex;
-        padding-top: 10px;
-    }
-
-    .rc-tabs-nav-operations {
-        display: none;
-    }
+    display: ${props => (props.show ? 'flex' : 'none')};
 `;
 
-const StyledTabNode = styled.div`
+const StyledTabNode = styled.div<{ active: boolean }>`
     position: relative;
+    min-width: 14vw;
+    height: 3vw;
+    font-size: 1vw;
+    padding: 0 0.7vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
     display: flex;
-    background-color: ${props => props.theme.BG_WHITE};
-    border: 2px solid ${props => props.theme.STROKE_GREY};
-    border-radius: 6px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: ${props => (props.active ? props.theme.BG_WHITE : props.theme.BG_GREY)};
+    border-radius: 0.5vw 0.5vw 0 0;
     cursor: pointer;
+    ${props =>
+        !props.active &&
+        css`
+            &:after {
+                content: '';
+                background: ${props => props.theme.TYPE_DARK_GREY};
+                position: absolute;
+                bottom: 25%;
+                right: 0;
+                height: 50%;
+                width: 1px;
+            }
+        `}
 `;
 
 const CloseButton = styled.div`
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: red;
-    color: white;
-    transform: translate(50%, -50%);
+    &:after {
+        content: '✖';
+    }
 `;
 
 const ExploreContainer: FC<Props> = props => {
@@ -112,25 +114,26 @@ const ExploreContainer: FC<Props> = props => {
             setActiveTab('home');
         }
     }, [activeTab, tabs]);
-    const renderTabBar: RenderTabBar = (props, DefaultTabBar) => {
-        const TabBar = StyledTabBar.withComponent(DefaultTabBar);
+    const renderTabBar: RenderTabBar = props => {
         return (
-            <TabBar {...props} show={tabs.length > 0}>
-                {(node: ReactElement) => {
+            <StyledTabBar show={tabs.length > 0}>
+                {props.panes.flat(1).map((node: ReactElement) => {
                     const parts = (node.key as string).split('-');
                     const index = parts[parts.length - 1];
                     return (
-                        <StyledTabNode key={node.key}>
-                            <div>{node}</div>
+                        <StyledTabNode
+                            key={node.key}
+                            active={activeTab === node.key}
+                            onClick={() => props.onTabClick(node.key)}
+                        >
+                            {node.props.tab}
                             {node.key !== 'home' && (
-                                <CloseButton onClick={() => closeTab(parseInt(index, 10))}>
-                                    ✖
-                                </CloseButton>
+                                <CloseButton onClick={() => closeTab(parseInt(index, 10))} />
                             )}
                         </StyledTabNode>
                     );
-                }}
-            </TabBar>
+                })}
+            </StyledTabBar>
         );
     };
     const body = (
