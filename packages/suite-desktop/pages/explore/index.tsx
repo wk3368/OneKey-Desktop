@@ -349,11 +349,12 @@ const Container: FC<Props> = ({
                 const chainId = symbolToChainId[payload.chain as 'ETH'];
                 setActiveChainId(chainId);
             } else if (event.channel === 'open/link') {
-                const { id, payload } = arg;
+                const { payload } = arg;
                 const link = payload.trim();
+                const url = link.startsWith('http') ? link : `https://${link}`;
                 setActiveDAppInfo({
-                    code: id,
-                    url: link.startsWith('http') ? link : `https://${link}`,
+                    code: url,
+                    url,
                 });
             } else if (event.channel === 'get/config') {
                 const { id } = arg;
