@@ -400,13 +400,25 @@ export const Container: FC<Props & TabProps> = ({
             setInput(url);
         }
 
+        function handleNewPage(e: Event & { url: string }) {
+            e.preventDefault();
+            const { url } = e;
+            openTab({
+                code: url,
+                url,
+                name: url,
+            });
+        }
+
         webviewRef.addEventListener('did-fail-load', didFailLoading);
         webviewRef.addEventListener('ipc-message', registerEvent);
         webviewRef.addEventListener('did-navigate-in-page', handleNavigateInPage);
+        webviewRef.addEventListener('new-window', handleNewPage);
         return () => {
             webviewRef.removeEventListener('did-fail-load', didFailLoading);
             webviewRef.removeEventListener('ipc-message', registerEvent);
             webviewRef.removeEventListener('did-navigate-in-page', handleNavigateInPage);
+            webviewRef.removeEventListener('new-window', handleNewPage);
         };
     }, [webviewRef, chainRPCUrl, activeChainId, signWithPush, freshAddress.address, setIsLoading]);
 
