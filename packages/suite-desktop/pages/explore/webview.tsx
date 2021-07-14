@@ -132,7 +132,7 @@ const CHAIN_OPTIONS = [
     },
 ];
 
-const DISCOVERY_HOME_URL = `https://discover.test.onekey.so/`;
+const DISCOVERY_HOME_URL = `https://discover.onekey.so/`;
 
 function updateUrlParameter(uri: string, key: string, value: string) {
     const i = uri.indexOf('#');
@@ -546,12 +546,11 @@ export const Container: FC<Props & TabProps> = ({
                         />
                     </AdressBarContainer>
                     <ActionSelect
-                        isShowTop
                         hideTextCursor
                         useKeyPressScroll
                         noTopLabel
                         placeholder="请手动选择适合 DApp 的网络"
-                        isDisabled={!!dapp?.name}
+                        isDisabled={!!dapp?.chain}
                         value={
                             activeChainId
                                 ? {
