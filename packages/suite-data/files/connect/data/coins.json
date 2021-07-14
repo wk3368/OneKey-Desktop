@@ -5,7 +5,7 @@
             "address_type_p2sh": 5,
             "bech32_prefix": "bc",
             "blockbook": [
-                "https://btc1.blkdb.cn/"
+                "https://btc1.blkdb.cn"
             ],
             "blocktime_seconds": 600,
             "cashaddr_prefix": null,
