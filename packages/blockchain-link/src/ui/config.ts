@@ -142,6 +142,7 @@ export default [
             name: 'Bitcoin',
             worker: 'js/blockbook-worker.js',
             server: [
+                'https://btc1.blkdb.cn/',
                 'https://btc1.trezor.io',
                 'https://btc2.trezor.io',
                 'https://btc3.trezor.io',
