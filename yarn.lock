@@ -3418,13 +3418,13 @@
     "@octokit/openapi-types" "^2.2.0"
     "@types/node" ">= 8"
 
-"@onekeyhq/connect@8.2.3-extended":
-  version "8.2.3-extended"
-  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.2.3-extended/0ab6381c709c41e1d0ef595847a8732ae697d3169db6e2a09eb86e18d35e80d4#091e96cb3da4ff3a67e7bad93a72c032498ea411"
-  integrity sha512-7nZI7CU+CzjevPA6UNupNK/5xgb2ciJzWeAO4l7jSLQVY3nwSmXyMM73saii3wlI4n1V9hvvGiUnaxaMJ63+mw==
+"@onekeyhq/connect@8.2.4-extended":
+  version "8.2.4-extended"
+  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.2.4-extended/7da9c37bb4f09560af6be4e3680c9363f552f5f3be36f9a6c84ea140738859e6#3bb110618a18313b5a6a1998cbda0e7e0416e71c"
+  integrity sha512-phhg8H/ooJHGcFVmhWVIDW7fbR+VMtWckZ+UKD8Cucc7lD/BMnwYrI6pNf+4T0m7kT0FZ9hO88tI56R4Wu4++Q==
   dependencies:
     "@babel/runtime" "^7.12.5"
-    "@onekeyhq/blockchain-link" "1.0.18"
+    "@onekeyhq/blockchain-link" "1.0.19"
     "@onekeyhq/link" "1.7.5"
     "@onekeyhq/rollout" "1.0.6"
     "@sentry/browser" "^6.4.0"
@@ -3442,6 +3442,7 @@
     patch-package "^6.2.2"
     postinstall-postinstall "^2.1.0"
     tiny-worker "^2.3.0"
+    url-join "^4.0.1"
     whatwg-fetch "^3.5.0"
 
 "@onekeyhq/link@1.7.5":
@@ -23312,6 +23313,11 @@ urix@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
+
+url-join@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/url-join/-/url-join-4.0.1.tgz#b642e21a2646808ffa178c4c5fda39844e12cde7"
+  integrity sha512-jk1+QP6ZJqyOiuEI9AEWQfju/nB2Pw466kbA0LEZljHwKeMgd9WrAEgEGxjPDD2+TNbbb37rTyhEfrCXfuKXnA==
 
 url-loader@^1.1.2:
   version "1.1.2"
