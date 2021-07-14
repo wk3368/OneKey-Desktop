@@ -1,12 +1,12 @@
 /* eslint-disable no-restricted-syntax */
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Electron from 'electron';
 import { Transaction } from '@suite-actions/modalActions';
 import { Image, Translation } from '@suite-components';
 import AccountMode from '@wallet-components/AccountMode';
 import AccountAnnouncement from '@wallet-components/AccountAnnouncement';
 import Exception from '@wallet-components/AccountException';
-import { Button, Icon } from '@trezor/components';
+import { Button, Icon, useTheme } from '@trezor/components';
 import { Props } from './index';
 import styled from 'styled-components';
 import { ActionSelect as Select } from '@suite-components/Settings';
@@ -132,6 +132,8 @@ const CHAIN_OPTIONS = [
     },
 ];
 
+const DISCOVERY_HOME_URL = `https://discover.test.onekey.so/`;
+
 function updateUrlParameter(uri: string, key: string, value: string) {
     const i = uri.indexOf('#');
     const hash = i === -1 ? '' : uri.substr(i);
@@ -159,12 +161,14 @@ export const Container: FC<Props & TabProps> = ({
     addFavorite,
     getFavorite,
     removeFavorite,
-    dapp,
+    dapp: originalDapp,
     openTab,
 }) => {
+    const theme = useTheme();
     const [ref, setRef] = useState<HTMLElement>();
     const [isLoading, setLoadingStatus] = useState(false);
     const [webviewRef, setWebviewRef] = useState<Electron.WebviewTag>();
+    const [dapp, setDapp] = useState(originalDapp);
     const webviewId = `${dapp?.url ?? 'home'}-onekey-explore`;
     const [loadFailed, setLoadFailed] = useState(false);
     const [activeChainId, setActiveChainId] = useState<CHAIN_SYMBOL_ID | null>(
@@ -173,6 +177,10 @@ export const Container: FC<Props & TabProps> = ({
 
     const chainRPCUrl = activeChainId ? CHAIN_SYMBOL_RPC[activeChainId] : null;
     const [input, setInput] = useState(dapp?.url ?? 'home');
+
+    // 前进后退
+    const history = useRef([originalDapp?.url ?? DISCOVERY_HOME_URL]);
+    const cursor = useRef(0);
 
     const { account } = selectedAccount;
     const unused = account?.addresses
@@ -226,11 +234,11 @@ export const Container: FC<Props & TabProps> = ({
     );
 
     const handleReload = useCallback(() => {
-        if (!webviewRef) return;
+        if (!webviewRef || isLoading) return;
         setLoadFailed(false);
         setIsLoading(true);
         webviewRef?.reloadIgnoringCache?.();
-    }, [webviewRef, setIsLoading]);
+    }, [webviewRef, isLoading, setIsLoading]);
 
     useEffect(() => {
         async function main() {
@@ -266,7 +274,7 @@ export const Container: FC<Props & TabProps> = ({
                 sandbox
                 enableremotemodule
                 id="${webviewId}"
-                src="${dapp?.url ?? `https://discover.test.onekey.so/`}"
+                src="${dapp?.url ?? DISCOVERY_HOME_URL}"
                 useragent="Mozilla/5.0 (Linux; U; Android 2.2.1; en-us; Nexus One Build/FRG83) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"
                 preload="file://${window.INJECT_PATH}?timestamp=${new Date().getTime()}"
                 style="width: 100%; height: 100%;"
@@ -377,23 +385,91 @@ export const Container: FC<Props & TabProps> = ({
             }
         }
 
+        function handleNavigateInPage({ url }: { url: string }) {
+            history.current.splice(
+                cursor.current + 1,
+                history.current.length - cursor.current + 1,
+                url,
+            );
+            cursor.current = history.current.length - 1;
+            setDapp({
+                code: url,
+                url,
+                name: url,
+            });
+            setInput(url);
+        }
+
         webviewRef.addEventListener('did-fail-load', didFailLoading);
         webviewRef.addEventListener('ipc-message', registerEvent);
+        webviewRef.addEventListener('did-navigate-in-page', handleNavigateInPage);
         return () => {
             webviewRef.removeEventListener('did-fail-load', didFailLoading);
             webviewRef.removeEventListener('ipc-message', registerEvent);
+            webviewRef.removeEventListener('did-navigate-in-page', handleNavigateInPage);
         };
     }, [webviewRef, chainRPCUrl, activeChainId, signWithPush, freshAddress.address, setIsLoading]);
 
-    const handleKeyDown = (event: React.KeyboardEvent) => {
-        if (event.key === 'Enter') {
-            openTab({
-                code: input,
-                url: input.startsWith('http') ? input : `https://${input}`,
-                name: input,
+    const handleHistoryButtons = useCallback(
+        (isBackward: boolean) => {
+            if (!webviewRef || isLoading) return;
+            if (isBackward) {
+                if (cursor.current <= 0) return;
+                cursor.current--;
+            } else {
+                if (cursor.current >= history.current.length - 1) return;
+                cursor.current++;
+            }
+            const url = history.current[cursor.current];
+            setLoadFailed(false);
+            setIsLoading(true);
+            setDapp({
+                code: url,
+                url,
+                name: url,
             });
-        }
-    };
+            setInput(url);
+            setActiveChainId(null);
+            try {
+                // TODO change back before merge
+                webviewRef?.loadURL(url);
+            } catch (e) {
+                // ignore
+            }
+            console.log(history.current, cursor);
+        },
+        [webviewRef, isLoading, setIsLoading, input],
+    );
+
+    const handleKeyDown = useCallback(
+        (event: React.KeyboardEvent) => {
+            if (event.key === 'Enter') {
+                const url = input.startsWith('http') ? input : `https://${input}`;
+                history.current.splice(
+                    cursor.current + 1,
+                    history.current.length - cursor.current + 1,
+                    url,
+                );
+                cursor.current = history.current.length - 1;
+                setLoadFailed(false);
+                setIsLoading(true);
+                setDapp({
+                    code: url,
+                    url,
+                    name: url,
+                });
+                setActiveChainId(null);
+                try {
+                    // TODO change back before merge
+                    webviewRef?.loadURL(url);
+                } catch (e) {
+                    // ignore
+                }
+                console.log(history.current, cursor);
+            }
+        },
+        [input, setIsLoading, webviewRef],
+    );
 
     if (selectedAccount.status === 'loading') {
         return (
@@ -417,6 +493,22 @@ export const Container: FC<Props & TabProps> = ({
         <OuterContainer>
             {!!dapp?.url && (
                 <ToolBar>
+                    <Icon
+                        size={24}
+                        onClick={() => handleHistoryButtons(true)}
+                        icon="ARROW_LEFT"
+                        color={cursor.current <= 0 ? theme.TYPE_LIGHTER_GREY : theme.TYPE_DARK_GREY}
+                    />
+                    <Icon
+                        size={24}
+                        onClick={() => handleHistoryButtons(false)}
+                        icon="ARROW_RIGHT"
+                        color={
+                            cursor.current >= history.current.length - 1
+                                ? theme.TYPE_LIGHTER_GREY
+                                : theme.TYPE_DARK_GREY
+                        }
+                    />
                     <Image
                         style={{ cursor: 'pointer', marginRight: 24 }}
                         onClick={handleReload}
@@ -425,7 +517,11 @@ export const Container: FC<Props & TabProps> = ({
                         image="RELOAD"
                     />
                     <AdressBarContainer>
-                        <AdressBar value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyDown}/>
+                        <AdressBar
+                            value={input}
+                            onChange={e => setInput(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                        />
                         <Icon
                             size={24}
                             onClick={() =>
