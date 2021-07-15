@@ -1,6 +1,11 @@
 module.exports = {
     mode: 'jit',
-    purge: ['../../packages/**/*.{js,ts,jsx,tsx}'],
+    // purge: ['../../packages/**/*.{js,ts,jsx,tsx}'],
+    purge: [
+        '../../packages/suite/src/components/**/*.{js,ts,jsx,tsx}',
+        '../../packages/suite/src/views/**/*.{js,ts,jsx,tsx}',
+        '../../packages/components/src/components/**/*.{js,ts,jsx,tsx}',
+    ],
     darkMode: 'class', // or 'media' or 'class'
     theme: {
         extend: {
