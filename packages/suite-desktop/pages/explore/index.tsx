@@ -9,7 +9,7 @@ import { openDeferredModal } from '@suite-actions/modalActions';
 import { addFavorite, getFavorite, removeFavorite } from '@explore-actions/FavoriteActions';
 import Tabs, { TabPane } from 'rc-tabs';
 import { RenderTabBar } from 'rc-tabs/lib/interface';
-import { Container } from './webview';
+import Container from './webview';
 
 const mapStateToProps = (state: AppState) => ({
     selectedAccount: state.wallet.selectedAccount,

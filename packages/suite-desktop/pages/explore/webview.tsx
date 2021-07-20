@@ -154,7 +154,7 @@ interface TabProps {
     openTab: (dapp: any) => void;
 }
 
-export const Container: FC<Props & TabProps> = ({
+const Container: FC<Props & TabProps> = ({
     selectedAccount,
     signWithPush,
     openDeferredModal,
@@ -589,3 +589,5 @@ export const Container: FC<Props & TabProps> = ({
         </OuterContainer>
     );
 };
+
+export default Container;
