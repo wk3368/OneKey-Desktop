@@ -1,3 +1,6 @@
+/* eslint-disable */
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
     mode: 'jit',
     // purge: ['../../packages/**/*.{js,ts,jsx,tsx}'],
@@ -94,10 +97,25 @@ module.exports = {
                     'default-evm': '#818595',
                 },
             },
+            fontFamily: {
+                sans: [
+                    ...defaultTheme.fontFamily.sans,
+                    'PingFang SC',
+                    '"Microsoft YaHei"',
+                    '"Source Han Sans SC"',
+                    '"Noto Sans CJK SC"',
+                    'WenQuanYi Micro Hei',
+                ],
+            },
         },
     },
     variants: {
         extend: {},
     },
-    plugins: [],
+    plugins: [
+        /* eslint-disable */
+        require('@tailwindcss/forms')({
+            strategy: 'class',
+        }),
+    ],
 };
