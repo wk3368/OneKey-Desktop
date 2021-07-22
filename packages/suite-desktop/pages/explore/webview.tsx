@@ -219,31 +219,6 @@ const Container: FC<Props & TabProps> = ({
     }, [webviewRef, isLoading, setIsLoading]);
 
     useEffect(() => {
-        async function main() {
-            if (!dapp?.url || !webviewRef) return;
-
-            const currentUrl = updateUrlParameter(
-                dapp?.url,
-                'config',
-                JSON.stringify({
-                    address: `${freshAddress.address}`,
-                    rpcUrl: encodeURIComponent(chainRPCUrl!),
-                    chainId: activeChainId,
-                    debug: true,
-                }),
-            );
-            try {
-                setIsLoading(true);
-                await webviewRef?.loadURL(currentUrl);
-            } catch (e) {
-                // ignore
-            }
-        }
-
-        main();
-    }, [dapp?.url, activeChainId, chainRPCUrl, webviewRef, freshAddress.address, setIsLoading]);
-
-    useEffect(() => {
         if (!webviewRef) return;
 
         function didFailLoading() {
