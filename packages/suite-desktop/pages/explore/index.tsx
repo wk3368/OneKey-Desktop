@@ -86,6 +86,13 @@ const StyledTabNode = styled.div<{ active: boolean }>`
         `}
 `;
 
+const Favicon = styled.img`
+    width: 2vw;
+    height: 2vw;
+    padding-right: 0.7vw;
+    object-fit: contain;
+`;
+
 const TabTitle = styled.div`
     overflow: hidden;
     white-space: nowrap;
@@ -142,6 +149,9 @@ const ExploreContainer: FC<Props> = props => {
                             active={activeTab === node.key}
                             onClick={() => props.onTabClick(node.key)}
                         >
+                            {dapp?.favicon && dapp?.favicon.startsWith('http') && (
+                                <Favicon src={dapp?.favicon} />
+                            )}
                             <TabTitle>{dapp?.title ?? dapp?.name ?? node.props.tab}</TabTitle>
                             {node.key !== 'home' && <CloseButton onClick={() => closeTab(index)} />}
                         </StyledTabNode>

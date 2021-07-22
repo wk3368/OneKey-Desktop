@@ -1,5 +1,5 @@
-import React, { ChangeEvent, FC, useCallback, useEffect, useRef, useState } from 'react';
-import Electron from 'electron';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { IpcMessageEvent, WebviewTag } from 'electron';
 import { Transaction } from '@suite-actions/modalActions';
 import { Image, Translation } from '@suite-components';
 import AccountMode from '@wallet-components/AccountMode';
@@ -167,7 +167,7 @@ const Container: FC<Props & TabProps> = ({
 }) => {
     const theme = useTheme();
     const [isLoading, setLoadingStatus] = useState(false);
-    const [webviewRef, setWebviewRef] = useState<Electron.WebviewTag>();
+    const [webviewRef, setWebviewRef] = useState<WebviewTag>();
     const [loadFailed, setLoadFailed] = useState(false);
     const [activeChainId, setActiveChainId] = useState<CHAIN_SYMBOL_ID | null>(
         dapp?.chain ? symbolToChainId[dapp.chain as 'ETH'] : null,
@@ -175,10 +175,6 @@ const Container: FC<Props & TabProps> = ({
 
     const chainRPCUrl = activeChainId ? CHAIN_SYMBOL_RPC[activeChainId] : null;
     const [input, setInput] = useState(dapp?.url ?? 'home');
-
-    // 前进后退
-    const history = useRef([dapp?.url ?? DISCOVERY_HOME_URL]);
-    const cursor = useRef(0);
 
     const { account } = selectedAccount;
     const unused = account?.addresses
@@ -219,6 +215,18 @@ const Container: FC<Props & TabProps> = ({
     }, [webviewRef, isLoading, setIsLoading]);
 
     useEffect(() => {
+        webviewRef?.send('response/config', {
+            id: -1,
+            payload: {
+                address: `${freshAddress.address}`,
+                rpcUrl: chainRPCUrl,
+                chainId: activeChainId,
+                debug: true,
+            },
+        });
+    }, [activeChainId, chainRPCUrl, freshAddress.address, webviewRef]);
+
+    useEffect(() => {
         if (!webviewRef) return;
 
         function didFailLoading() {
@@ -226,7 +234,7 @@ const Container: FC<Props & TabProps> = ({
             setIsLoading(false);
         }
 
-        async function registerEvent(event: Electron.IpcMessageEvent) {
+        async function registerEvent(event: IpcMessageEvent) {
             if (!webviewRef) return;
             const arg = event.args[0];
             if (event.channel === 'sign/transaction') {
@@ -316,16 +324,6 @@ const Container: FC<Props & TabProps> = ({
         }
 
         function handleNavigateInPage({ url }: { url: string }) {
-            history.current.splice(
-                cursor.current + 1,
-                history.current.length - cursor.current + 1,
-                url,
-            );
-            cursor.current = history.current.length - 1;
-            setDapp((p: any) => ({
-                ...p,
-                url,
-            }));
             setInput(url);
         }
 
@@ -346,16 +344,20 @@ const Container: FC<Props & TabProps> = ({
             }));
         }
 
-        // function handleFaviconChange({ favicons }: { favicons: string[] }) {
-        // setFavicon(favicons[0]);
-        // }
+        function handleFaviconChange({ favicons }: { favicons: string[] }) {
+            console.log(favicons);
+            setDapp((p: any) => ({
+                ...p,
+                favicon: favicons[0],
+            }));
+        }
 
         webviewRef.addEventListener('did-fail-load', didFailLoading);
         webviewRef.addEventListener('ipc-message', registerEvent);
         webviewRef.addEventListener('did-navigate-in-page', handleNavigateInPage);
         webviewRef.addEventListener('new-window', handleNewPage);
         webviewRef.addEventListener('page-title-updated', handleTitleChange);
-        // webviewRef.addEventListener('page-favicon-updated', handleFaviconChange);
+        webviewRef.addEventListener('page-favicon-updated', handleFaviconChange);
         webviewRef.addEventListener('dom-ready', domReadyEvent);
         return () => {
             webviewRef.removeEventListener('did-fail-load', didFailLoading);
@@ -363,50 +365,15 @@ const Container: FC<Props & TabProps> = ({
             webviewRef.removeEventListener('did-navigate-in-page', handleNavigateInPage);
             webviewRef.removeEventListener('new-window', handleNewPage);
             webviewRef.removeEventListener('page-title-updated', handleTitleChange);
-            // webviewRef.removeEventListener('page-favicon-updated', handleFaviconChange);
+            webviewRef.removeEventListener('page-favicon-updated', handleFaviconChange);
             webviewRef.removeEventListener('dom-ready', domReadyEvent);
         };
     }, [webviewRef, chainRPCUrl, activeChainId, signWithPush, freshAddress.address, setIsLoading]);
-
-    const handleHistoryButtons = useCallback(
-        (isBackward: boolean) => {
-            if (!webviewRef || isLoading) return;
-            if (isBackward) {
-                if (cursor.current <= 0) return;
-                cursor.current--;
-            } else {
-                if (cursor.current >= history.current.length - 1) return;
-                cursor.current++;
-            }
-            const url = history.current[cursor.current];
-            setLoadFailed(false);
-            setIsLoading(true);
-            setDapp((p: any) => ({
-                ...p,
-                url,
-            }));
-            setInput(url);
-            setActiveChainId(null);
-            try {
-                // TODO change back before merge
-                webviewRef?.loadURL(url);
-            } catch (e) {
-                // ignore
-            }
-        },
-        [webviewRef, isLoading, setIsLoading, input],
-    );
 
     const handleKeyDown = useCallback(
         (event: React.KeyboardEvent) => {
             if (event.key === 'Enter') {
                 const url = input.startsWith('http') ? input : `https://${input}`;
-                history.current.splice(
-                    cursor.current + 1,
-                    history.current.length - cursor.current + 1,
-                    url,
-                );
-                cursor.current = history.current.length - 1;
                 setLoadFailed(false);
                 setIsLoading(true);
                 setDapp((p: any) => ({
@@ -414,16 +381,26 @@ const Container: FC<Props & TabProps> = ({
                     url,
                 }));
                 setActiveChainId(null);
-                try {
-                    // TODO change back before merge
-                    webviewRef?.loadURL(url);
-                } catch (e) {
-                    // ignore
-                }
             }
         },
-        [input, setIsLoading, webviewRef],
+        [input, setDapp, setIsLoading],
     );
+
+    const canGoBack = useCallback(() => {
+        try {
+            return webviewRef?.canGoBack();
+        } catch {
+            return false;
+        }
+    }, [webviewRef, isLoading]);
+
+    const canGoForward = useCallback(() => {
+        try {
+            return webviewRef?.canGoForward();
+        } catch {
+            return false;
+        }
+    }, [webviewRef, isLoading]);
 
     if (selectedAccount.status === 'loading') {
         return (
@@ -461,19 +438,15 @@ const Container: FC<Props & TabProps> = ({
                 <ToolBar>
                     <Icon
                         size={24}
-                        onClick={() => handleHistoryButtons(true)}
+                        onClick={() => webviewRef?.goBack()}
                         icon="ARROW_LEFT"
-                        color={cursor.current <= 0 ? theme.TYPE_LIGHTER_GREY : theme.TYPE_DARK_GREY}
+                        color={!canGoBack() ? theme.TYPE_LIGHTER_GREY : theme.TYPE_DARK_GREY}
                     />
                     <Icon
                         size={24}
-                        onClick={() => handleHistoryButtons(false)}
+                        onClick={() => webviewRef?.goForward()}
                         icon="ARROW_RIGHT"
-                        color={
-                            cursor.current >= history.current.length - 1
-                                ? theme.TYPE_LIGHTER_GREY
-                                : theme.TYPE_DARK_GREY
-                        }
+                        color={!canGoForward() ? theme.TYPE_LIGHTER_GREY : theme.TYPE_DARK_GREY}
                     />
                     <Image
                         style={{ cursor: 'pointer', marginRight: 24 }}
