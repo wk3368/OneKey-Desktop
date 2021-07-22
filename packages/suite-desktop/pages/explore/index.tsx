@@ -55,16 +55,16 @@ const StyledTabPane = styled(TabPane)`
 const StyledTabBar = styled.div<{ show: boolean }>`
     padding-top: 0.5vw;
     display: ${props => (props.show ? 'flex' : 'none')};
+    overflow: auto;
 `;
 
 const StyledTabNode = styled.div<{ active: boolean }>`
     position: relative;
-    min-width: 14vw;
+    min-width: 10vw;
+    max-width: 20vw;
     height: 3vw;
     font-size: 1vw;
     padding: 0 0.7vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -86,6 +86,12 @@ const StyledTabNode = styled.div<{ active: boolean }>`
         `}
 `;
 
+const TabTitle = styled.div`
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+`;
+
 const CloseButton = styled.div`
     &:after {
         content: '✖';
@@ -97,7 +103,7 @@ const ExploreContainer: FC<Props> = props => {
     const [activeTab, setActiveTab] = useState('home');
     const openTab = useCallback((dapp: any) => {
         setTabs(p => {
-            setActiveTab(`explore-${dapp.name}-${p.length}`);
+            setActiveTab(`StyledTabPane-${p.length}`);
             return [...p, dapp];
         });
     }, []);
@@ -108,6 +114,14 @@ const ExploreContainer: FC<Props> = props => {
             return newTabs;
         });
     }, []);
+    const updateTabs = (index: number) => (_tab: any) => {
+        setTabs(p => {
+            const tab = typeof _tab === 'function' ? _tab(p[index]) : _tab;
+            const newTabs = [...p];
+            newTabs.splice(index, 1, tab);
+            return newTabs;
+        });
+    };
     useEffect(() => {
         const parts = activeTab.split('-');
         const index = parts[parts.length - 1];
@@ -120,17 +134,16 @@ const ExploreContainer: FC<Props> = props => {
             <StyledTabBar show={tabs.length > 0}>
                 {props.panes.flat(1).map((node: ReactElement) => {
                     const parts = (node.key as string).split('-');
-                    const index = parts[parts.length - 1];
+                    const index = parseInt(parts[parts.length - 1], 10);
+                    const dapp = tabs[index];
                     return (
                         <StyledTabNode
                             key={node.key}
                             active={activeTab === node.key}
                             onClick={() => props.onTabClick(node.key)}
                         >
-                            {node.props.tab}
-                            {node.key !== 'home' && (
-                                <CloseButton onClick={() => closeTab(parseInt(index, 10))} />
-                            )}
+                            <TabTitle>{dapp?.title ?? dapp?.name ?? node.props.tab}</TabTitle>
+                            {node.key !== 'home' && <CloseButton onClick={() => closeTab(index)} />}
                         </StyledTabNode>
                     );
                 })}
@@ -140,15 +153,16 @@ const ExploreContainer: FC<Props> = props => {
     const body = (
         <StyledTabs activeKey={activeTab} onChange={setActiveTab} renderTabBar={renderTabBar}>
             <StyledTabPane tab="home" key="home">
-                <Container {...props} openTab={openTab} />
+                <Container {...props} openTab={openTab} setDapp={() => null} />
             </StyledTabPane>
             {tabs.map((dapp, index) => (
-                <StyledTabPane tab={dapp.name} key={`explore-${dapp.name}-${index}`} forceRender>
+                <StyledTabPane tab={dapp.name} key={`StyledTabPane-${index}`} forceRender>
                     <Container
-                        key={`explore-${dapp.name}-${index}`}
+                        key={`Container-${index}`}
                         {...props}
                         dapp={dapp}
                         openTab={openTab}
+                        setDapp={updateTabs(index)}
                     />
                 </StyledTabPane>
             ))}

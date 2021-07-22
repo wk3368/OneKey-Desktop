@@ -1,5 +1,4 @@
-/* eslint-disable no-restricted-syntax */
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FC, useCallback, useEffect, useRef, useState } from 'react';
 import Electron from 'electron';
 import { Transaction } from '@suite-actions/modalActions';
 import { Image, Translation } from '@suite-components';
@@ -151,6 +150,7 @@ function updateUrlParameter(uri: string, key: string, value: string) {
 
 interface TabProps {
     dapp?: any;
+    setDapp: (dapp: any) => void;
     openTab: (dapp: any) => void;
 }
 
@@ -161,15 +161,13 @@ const Container: FC<Props & TabProps> = ({
     addFavorite,
     getFavorite,
     removeFavorite,
-    dapp: originalDapp,
+    dapp,
+    setDapp,
     openTab,
 }) => {
     const theme = useTheme();
-    const [ref, setRef] = useState<HTMLElement>();
     const [isLoading, setLoadingStatus] = useState(false);
     const [webviewRef, setWebviewRef] = useState<Electron.WebviewTag>();
-    const [dapp, setDapp] = useState(originalDapp);
-    const webviewId = `${dapp?.url ?? 'home'}-onekey-explore`;
     const [loadFailed, setLoadFailed] = useState(false);
     const [activeChainId, setActiveChainId] = useState<CHAIN_SYMBOL_ID | null>(
         dapp?.chain ? symbolToChainId[dapp.chain as 'ETH'] : null,
@@ -179,7 +177,7 @@ const Container: FC<Props & TabProps> = ({
     const [input, setInput] = useState(dapp?.url ?? 'home');
 
     // 前进后退
-    const history = useRef([originalDapp?.url ?? DISCOVERY_HOME_URL]);
+    const history = useRef([dapp?.url ?? DISCOVERY_HOME_URL]);
     const cursor = useRef(0);
 
     const { account } = selectedAccount;
@@ -206,31 +204,11 @@ const Container: FC<Props & TabProps> = ({
         [setLoadingStatus],
     );
 
-    useEffect(() => {
-        if (!ref) return;
-        // @ts-expect-error
-        const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-
-        const observer = new MutationObserver((mutations: any) => {
-            mutations.forEach((mutation: any) => {
-                if (
-                    Array.prototype.some.call(
-                        mutation.addedNodes,
-                        (node: Electron.WebviewTag) => node.id === webviewId,
-                    )
-                ) {
-                    setWebviewRef(document.getElementById(webviewId) as Electron.WebviewTag);
-                }
-            });
-        });
-        observer.observe(ref, { childList: true });
-    }, [ref]);
-
     const handleRef = useCallback(
         node => {
-            setRef(node);
+            setWebviewRef(node);
         },
-        [setRef],
+        [setWebviewRef],
     );
 
     const handleReload = useCallback(() => {
@@ -264,33 +242,6 @@ const Container: FC<Props & TabProps> = ({
 
         main();
     }, [dapp?.url, activeChainId, chainRPCUrl, webviewRef, freshAddress.address, setIsLoading]);
-
-    useEffect(() => {
-        if (!ref) return;
-        // TODO change back before merge
-        ref.innerHTML = `
-            <webview
-                allowpopups
-                sandbox
-                enableremotemodule
-                id="${webviewId}"
-                src="${dapp?.url ?? DISCOVERY_HOME_URL}"
-                useragent="Mozilla/5.0 (Linux; U; Android 2.2.1; en-us; Nexus One Build/FRG83) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"
-                preload="file://${window.INJECT_PATH}?timestamp=${new Date().getTime()}"
-                style="width: 100%; height: 100%;"
-            />
-        `;
-        const exploreRef = document.getElementById(webviewId);
-
-        function domReadyEvent() {
-            setIsLoading(false);
-        }
-
-        exploreRef?.addEventListener('dom-ready', domReadyEvent);
-        return () => {
-            exploreRef?.removeEventListener('dom-ready', domReadyEvent);
-        };
-    }, [dapp?.url, ref, setIsLoading]);
 
     useEffect(() => {
         if (!webviewRef) return;
@@ -344,7 +295,7 @@ const Container: FC<Props & TabProps> = ({
                 const chainRPCUrl = CHAIN_SYMBOL_RPC[activeChainId!];
 
                 try {
-                    // eslint-disable-next-line no-underscore-dangle
+                    // eslint-disable-next-line no-underscore-dangle,no-restricted-syntax
                     for (const _i of new Array(3)) {
                         // eslint-disable-next-line no-await-in-loop
                         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -385,6 +336,10 @@ const Container: FC<Props & TabProps> = ({
             }
         }
 
+        function domReadyEvent() {
+            setIsLoading(false);
+        }
+
         function handleNavigateInPage({ url }: { url: string }) {
             history.current.splice(
                 cursor.current + 1,
@@ -392,11 +347,10 @@ const Container: FC<Props & TabProps> = ({
                 url,
             );
             cursor.current = history.current.length - 1;
-            setDapp({
-                code: url,
+            setDapp((p: any) => ({
+                ...p,
                 url,
-                name: url,
-            });
+            }));
             setInput(url);
         }
 
@@ -410,15 +364,32 @@ const Container: FC<Props & TabProps> = ({
             });
         }
 
+        function handleTitleChange({ title }: { title: string }) {
+            setDapp((p: any) => ({
+                ...p,
+                title,
+            }));
+        }
+
+        // function handleFaviconChange({ favicons }: { favicons: string[] }) {
+        // setFavicon(favicons[0]);
+        // }
+
         webviewRef.addEventListener('did-fail-load', didFailLoading);
         webviewRef.addEventListener('ipc-message', registerEvent);
         webviewRef.addEventListener('did-navigate-in-page', handleNavigateInPage);
         webviewRef.addEventListener('new-window', handleNewPage);
+        webviewRef.addEventListener('page-title-updated', handleTitleChange);
+        // webviewRef.addEventListener('page-favicon-updated', handleFaviconChange);
+        webviewRef.addEventListener('dom-ready', domReadyEvent);
         return () => {
             webviewRef.removeEventListener('did-fail-load', didFailLoading);
             webviewRef.removeEventListener('ipc-message', registerEvent);
             webviewRef.removeEventListener('did-navigate-in-page', handleNavigateInPage);
             webviewRef.removeEventListener('new-window', handleNewPage);
+            webviewRef.removeEventListener('page-title-updated', handleTitleChange);
+            // webviewRef.removeEventListener('page-favicon-updated', handleFaviconChange);
+            webviewRef.removeEventListener('dom-ready', domReadyEvent);
         };
     }, [webviewRef, chainRPCUrl, activeChainId, signWithPush, freshAddress.address, setIsLoading]);
 
@@ -435,11 +406,10 @@ const Container: FC<Props & TabProps> = ({
             const url = history.current[cursor.current];
             setLoadFailed(false);
             setIsLoading(true);
-            setDapp({
-                code: url,
+            setDapp((p: any) => ({
+                ...p,
                 url,
-                name: url,
-            });
+            }));
             setInput(url);
             setActiveChainId(null);
             try {
@@ -448,7 +418,6 @@ const Container: FC<Props & TabProps> = ({
             } catch (e) {
                 // ignore
             }
-            console.log(history.current, cursor);
         },
         [webviewRef, isLoading, setIsLoading, input],
     );
@@ -465,11 +434,10 @@ const Container: FC<Props & TabProps> = ({
                 cursor.current = history.current.length - 1;
                 setLoadFailed(false);
                 setIsLoading(true);
-                setDapp({
-                    code: url,
+                setDapp((p: any) => ({
+                    ...p,
                     url,
-                    name: url,
-                });
+                }));
                 setActiveChainId(null);
                 try {
                     // TODO change back before merge
@@ -477,7 +445,6 @@ const Container: FC<Props & TabProps> = ({
                 } catch (e) {
                     // ignore
                 }
-                console.log(history.current, cursor);
             }
         },
         [input, setIsLoading, webviewRef],
@@ -500,6 +467,18 @@ const Container: FC<Props & TabProps> = ({
             </Wrapper>
         );
     }
+
+    const webview = React.createElement('webview', {
+        allowpopups: 'true',
+        sandbox: 'true',
+        enableremotemodule: 'true',
+        src: dapp?.url ?? DISCOVERY_HOME_URL,
+        useragent:
+            'Mozilla/5.0 (Linux; U; Android 2.2.1; en-us; Nexus One Build/FRG83) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1',
+        preload: `file://${window.INJECT_PATH}?timestamp=${new Date().getTime()}`,
+        style: { width: '100%', height: '100%' },
+        ref: handleRef,
+    });
 
     return (
         <OuterContainer>
@@ -583,9 +562,10 @@ const Container: FC<Props & TabProps> = ({
                 </ToastInfo>
             )}
             <WebviewContainer
-                style={{ width: '100%', height: dapp?.url ? 'calc(100% - 60px)' : '100%' }}
-                ref={handleRef}
-            />
+                style={{ width: '100%', height: dapp?.url ? 'calc(100% - 4vw)' : '100%' }}
+            >
+                {webview}
+            </WebviewContainer>
         </OuterContainer>
     );
 };
