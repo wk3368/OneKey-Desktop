@@ -215,15 +215,19 @@ const Container: FC<Props & TabProps> = ({
     }, [webviewRef, isLoading, setIsLoading]);
 
     useEffect(() => {
-        webviewRef?.send('response/config', {
-            id: -1,
-            payload: {
-                address: `${freshAddress.address}`,
-                rpcUrl: chainRPCUrl,
-                chainId: activeChainId,
-                debug: true,
-            },
-        });
+        try {
+            webviewRef?.send('response/config', {
+                id: -1,
+                payload: {
+                    address: `${freshAddress.address}`,
+                    rpcUrl: chainRPCUrl,
+                    chainId: activeChainId,
+                    debug: true,
+                },
+            });
+        } catch {
+            // ignore
+        }
     }, [activeChainId, chainRPCUrl, freshAddress.address, webviewRef]);
 
     useEffect(() => {
