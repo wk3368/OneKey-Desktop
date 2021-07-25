@@ -25,6 +25,7 @@ const globalStyles = createGlobalStyle<{ theme: SuiteThemeColors }>`
         font-size: ${variables.FONT_SIZE.NORMAL};
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        font-family: "TT Hoves", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
         height: 100%;
         overflow-y: hidden;
     }

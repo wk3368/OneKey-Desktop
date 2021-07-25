@@ -81,7 +81,8 @@ const NavigationActions = (props: Props) => {
     const unseenNotifications = useMemo(() => notifications.some(n => !n.seen), [notifications]);
 
     return (
-        <nav className="flex flex-col flex-1" aira-label="Sidebar">
+        /* Future: remove font-sans when redesign whole app */
+        <nav className="flex flex-col flex-1 font-sans" aira-label="Sidebar">
             <div className="mt-3 md:divide-y md:divide-gray-200 md:dark:divide-gray-700 lg:divide-none">
                 {/* Item Group */}
                 <div className="py-3">
