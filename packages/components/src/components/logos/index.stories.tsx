@@ -79,7 +79,7 @@ storiesOf('Logos', module).add(
                             data-test="trezor-suite-logo-black"
                         />
                         <TrezorLogo
-                            type="suite_compact"
+                            type="suite_compact_light"
                             variant="black"
                             width="200px"
                             data-test="trezor-suite-compact-logo-black"
@@ -105,7 +105,7 @@ storiesOf('Logos', module).add(
                             data-test="trezor-logo-symbol-white"
                         />
                         <TrezorLogo
-                            type="suite_compact"
+                            type="suite_compact_light"
                             variant="white"
                             width="200px"
                             data-test="trezor-suite-compact-logo-black"

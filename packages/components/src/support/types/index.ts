@@ -37,10 +37,12 @@ export type TrezorLogoType =
     | 'vertical'
     | 'symbol'
     | 'suite'
-    | 'suite_compact'
     | 'horizontal_light'
     | 'horizontal_dark'
-    | 'app_icon';
+    | 'suite_compact_light'
+    | 'suite_compact_dark'
+    | 'app_icon_dark'
+    | 'app_icon_light';
 
 export type TrezorLogoVariant = 'white' | 'black';
 
