@@ -13,7 +13,7 @@ storiesOf('Logos', module).add('Trezor', () => {
         'type',
         {
             suite: 'suite',
-            suiteCompact: 'suite_compact',
+            suiteCompact: 'suite_compact_light',
             horizontal: 'horizontal',
             vertical: 'vertical',
             symbol: 'symbol',

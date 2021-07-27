@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useSelector } from '@suite-hooks';
+
 import NoSSR from '@suite-support/NoSSR';
 import { DESKTOP_TITLEBAR_HEIGHT, DESKTOP_WRAPPER_BORDER_WIDTH } from '@suite-constants/layout';
 import { colors, TrezorLogo, Icon } from '@trezor/components';
@@ -24,8 +26,9 @@ const Titlebar = styled.div`
     position: fixed;
     z-index: 1000000;
     position: relative;
-    background: ${colors.TYPE_DARK_GREY}; // not using theme on purpose
-    color: ${colors.TYPE_LIGHT_GREY};
+    background: ${props => props.theme.BG_WHITE}; // not using theme on purpose
+    color: ${props => props.theme.TYPE_DARK_GREY};
+    opacity: 1;
 `;
 
 const Drag = styled.div`
@@ -131,12 +134,15 @@ const LogoWrapper = styled.div`
     align-content: center;
     align-items: center;
     justify-content: center;
-    opacity: 69%;
+    opacity: 1;
 `;
 
 const DesktopTitlebar = () => {
     const [maximized, setMaximized] = useState(false);
     const [active, setActive] = useState(true);
+
+    const userThemeSettings = useSelector(state => state.suite.settings.theme);
+    const isDarkModeEnabled = userThemeSettings.variant !== 'light';
 
     useEffect(() => {
         window.desktopApi!.on('window/is-maximized', (payload: boolean) => {
@@ -206,13 +212,13 @@ const DesktopTitlebar = () => {
                 {/* TODO: 替换素材 */}
                 <TrezorLogo
                     style={{ marginRight: -24 }}
-                    type="app_icon"
+                    type={`app_icon_${isDarkModeEnabled ? 'light' : 'dark'}` as any}
                     variant="white"
                     height="28px"
                     data-test="trezor-suite-compact-logo-black"
                 />
                 <TrezorLogo
-                    type="suite_compact"
+                    type={`suite_compact_${isDarkModeEnabled ? 'light' : 'dark'}` as any}
                     variant="white"
                     height="28px"
                     data-test="trezor-suite-compact-logo-black"
