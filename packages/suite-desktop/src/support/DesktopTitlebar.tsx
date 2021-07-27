@@ -11,7 +11,7 @@ const RESIZE_HANDLER_PADDING = 4;
 const WRAPPER_BORDER_WIDTH = isMacOS() ? '0px' : DESKTOP_WRAPPER_BORDER_WIDTH;
 
 const ContentWrapper = styled.div`
-    height: calc(100% - ${DESKTOP_TITLEBAR_HEIGHT});
+    height: 100%;
     border-top: 0;
     border-right: ${WRAPPER_BORDER_WIDTH} solid ${colors.TYPE_DARK_GREY};
     border-bottom: ${WRAPPER_BORDER_WIDTH} solid ${colors.TYPE_DARK_GREY};
@@ -25,8 +25,7 @@ const Titlebar = styled.div`
     width: 100%;
     position: fixed;
     z-index: 1000000;
-    position: relative;
-    background: ${props => props.theme.BG_WHITE}; // not using theme on purpose
+    background: transparent; // not using theme on purpose
     color: ${props => props.theme.TYPE_DARK_GREY};
     opacity: 1;
 `;
@@ -210,7 +209,7 @@ const DesktopTitlebar = () => {
             </Actions>
             <LogoWrapper>
                 {/* TODO: 替换素材 */}
-                <TrezorLogo
+                {/* <TrezorLogo
                     style={{ marginRight: -24 }}
                     type={`app_icon_${isDarkModeEnabled ? 'light' : 'dark'}` as any}
                     variant="white"
@@ -222,7 +221,7 @@ const DesktopTitlebar = () => {
                     variant="white"
                     height="28px"
                     data-test="trezor-suite-compact-logo-black"
-                />
+                /> */}
             </LogoWrapper>
         </Titlebar>
     );

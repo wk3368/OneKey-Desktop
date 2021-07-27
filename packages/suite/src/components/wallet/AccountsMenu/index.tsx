@@ -43,7 +43,7 @@ const MenuHeader = styled.div<{ isMobileLayout?: boolean }>`
     ${props =>
         !props.isMobileLayout &&
         css`
-            padding: 20px 16px 8px 16px;
+            padding: 32px 16px 8px 16px;
             margin-bottom: 8px;
         `}
 `;
