@@ -13,7 +13,7 @@ import { useLayoutSize } from '@suite-hooks';
 import { isDesktop } from '@suite-utils/env';
 
 const PageWrapper = styled.div`
-    height: ${isDesktop() ? `calc(100vh - ${DESKTOP_TITLEBAR_HEIGHT})` : '100vh'};
+    height: ${isDesktop() ? '100vh' : '100vh'};
     display: flex;
     flex-direction: column;
 `;

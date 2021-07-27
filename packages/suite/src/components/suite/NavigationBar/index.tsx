@@ -17,7 +17,7 @@ const NavigationBar = () => {
     return (
         <>
             {/* Header for mobile */}
-            <div className="flex justify-between py-1 bg-white border-b border-gray-100 md:hidden dark:bg-gray-800 dark:border-gray-700">
+            <div className="flex justify-between py-1 bg-white border-b border-gray-100 md:hidden dark:bg-gray-800 dark:border-gray-700 pt-5">
                 {/* Device Selector */}
                 <div className="pl-2 w-[160px]">
                     <DeviceSelector />
@@ -119,7 +119,7 @@ const NavigationBar = () => {
                 </Dialog>
             </Transition.Root>
             {/* Navigation for desktop */}
-            <div className="flex-col hidden px-3 pt-5 pb-4 overflow-y-auto border-r border-gray-100 bg-gray-50 md:flex md:flex-shrink-0 lg:px-4 lg:w-64 dark:bg-gray-800 dark:border-gray-700">
+            <div className="flex-col hidden px-3 pt-[40px] pb-4 overflow-y-auto border-r border-gray-100 bg-gray-50 md:flex md:flex-shrink-0 lg:px-4 lg:w-64 dark:bg-gray-800 dark:border-gray-700">
                 {/* Branding */}
                 <div className="flex items-center flex-shrink-0 pl-[6px]">
                     <TrezorLogo

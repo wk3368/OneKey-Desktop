@@ -2,9 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDiscovery } from '@suite-hooks';
 import { isDesktop } from '@suite-utils/env';
-import { DESKTOP_TITLEBAR_HEIGHT } from '@suite-constants/layout';
 
-const TOP_OFFSET = isDesktop() ? DESKTOP_TITLEBAR_HEIGHT : '0px';
+const TOP_OFFSET = isDesktop() ? '0px' : '0px';
 
 const Wrapper = styled.div`
     position: absolute;
