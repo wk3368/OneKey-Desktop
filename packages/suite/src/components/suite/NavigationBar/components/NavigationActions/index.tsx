@@ -8,7 +8,6 @@ import { findRouteByName } from '@suite-utils/router';
 import { useAccountSearch, useActions, useAnalytics, useSelector } from '@suite-hooks';
 import ActionItem from './components/ActionItem';
 import { MAIN_MENU_ITEMS } from '@suite-constants/menu';
-import { variables } from '@trezor/components';
 import classNames from 'classnames';
 
 interface ComponentProps {
@@ -28,7 +27,7 @@ const badgeClass = `flex items-center uppercase py-0.5 px-1.5 text-xs font-mediu
 
 interface Props {
     closeMainNavigation?: () => void;
-    isCollapsed?: () => boolean;
+    isCollapsed?: boolean;
 }
 
 type Route = typeof MAIN_MENU_ITEMS[number]['route'] | 'settings-index' | 'notifications-index';

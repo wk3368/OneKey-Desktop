@@ -1,4 +1,4 @@
-import React, { useState, ComponentProps, Fragment } from 'react';
+import React, { useState, ComponentProps, Fragment, useLayoutEffect, useCallback } from 'react';
 import DeviceSelector from './components/DeviceSelector';
 import NavigationActions from './components/NavigationActions';
 import { Icon, TrezorLogo } from '@trezor/components';
@@ -6,17 +6,22 @@ import { useSelector } from '@suite-hooks';
 import { Dialog, Transition } from '@headlessui/react';
 import { isDesktop } from '@suite/utils/suite/env';
 import classNames from 'classnames';
-import { ReactSVG } from 'react-svg';
 
 const NavigationBar = () => {
     const [opened, setOpened] = useState(false);
     const userThemeSettings = useSelector(state => state.suite.settings.theme);
+    const windowSize = useSelector(state => state.resize.size);
+
     const isDarkModeEnabled = userThemeSettings.variant !== 'light';
     const [isCollapsed, setIsCollapsed] = useState(false);
 
-    const closeMainNavigation = () => {
+    const closeMainNavigation = useCallback(() => {
         setOpened(false);
-    };
+    }, []);
+
+    useLayoutEffect(() => {
+        setIsCollapsed(['TINY', 'SMALL', 'NORMAL'].includes(windowSize));
+    }, [windowSize]);
 
     return (
         <>
