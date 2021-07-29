@@ -2,10 +2,10 @@ import { IconType, CoinType } from '../support/types';
 
 export const SCREEN_SIZE = {
     UNAVAILABLE: '260px',
-    SM: '576px', // phones
+    SM: '640px', // phones
     MD: '768px', // tablets
-    LG: '992px', // laptops/desktops
-    XL: '1200px', // extra Large laptops/desktops
+    LG: '1024px', // laptops/desktops
+    XL: '1280px', // extra Large laptops/desktops
 } as const;
 
 export const FONT_SIZE = {

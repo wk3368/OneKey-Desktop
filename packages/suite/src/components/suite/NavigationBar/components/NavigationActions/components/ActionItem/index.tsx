@@ -82,7 +82,7 @@ const ActionItem = React.forwardRef((props: Props) => {
             </IconWrapper>
             <div
                 className={classNames(
-                    'items-center flex-1 ml-3 font-medium lg:text-sm',
+                    'items-center flex-1 ml-3 font-medium md:text-sm',
                     props.isCollapsed ? 'hidden' : 'flex',
                 )}
             >

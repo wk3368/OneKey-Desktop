@@ -6,6 +6,16 @@ import { useSelector } from '@suite-hooks';
 import { Dialog, Transition } from '@headlessui/react';
 import { isDesktop } from '@suite/utils/suite/env';
 import classNames from 'classnames';
+import styled from 'styled-components';
+
+const DesktopSidebar = styled.div`
+    &:hover {
+        .collapse-indicate {
+            opacity: 100%;
+            transform: scale(100%);
+        }
+    }
+`;
 
 const NavigationBar = () => {
     const [opened, setOpened] = useState(false);
@@ -133,7 +143,7 @@ const NavigationBar = () => {
                 </Dialog>
             </Transition.Root>
             {/* Navigation for desktop */}
-            <div className="relative">
+            <DesktopSidebar className="relative">
                 <div
                     className={classNames(
                         'flex-col hidden px-4 overflow-x-hidden h-full pb-5 overflow-y-auto border-r border-gray-100 bg-gray-50 md:flex md:flex-shrink-0 dark:bg-gray-800 dark:border-gray-700',
@@ -168,7 +178,7 @@ const NavigationBar = () => {
                         <div className="w-0.5 h-full transition bg-transparent group-hover:bg-brand-500" />
                         <div
                             className={classNames(
-                                'absolute p-1.5 bg-white border border-gray-200 rounded-full shadow-sm dark:bg-gray-900 dark:border-gray-700 opacity-0 transition scale-75 group-hover:opacity-100 group-hover:scale-100',
+                                'absolute p-1.5 bg-white border border-gray-200 rounded-full shadow-sm dark:bg-gray-900 dark:border-gray-700 opacity-0 transition scale-75 collapse-indicate',
                                 isDesktop() ? 'top-[44px]' : 'top-4',
                             )}
                         >
@@ -189,7 +199,7 @@ const NavigationBar = () => {
                         </div>
                     </button>
                 </div>
-            </div>
+            </DesktopSidebar>
         </>
     );
 };
