@@ -40,7 +40,7 @@
         "test:unit": "jest"
     },
     "build": {
-        "appId": "io.onekey.OneKeyDesktop",
+        "appId": "com.onekey.wallet",
         "productName": "OneKey Desktop",
         "copyright": "Copyright © ${author}",
         "asar": true,
@@ -109,7 +109,8 @@
             "entitlementsInherit": "entitlements.mac.inherit.plist",
             "target": [
                 "dmg",
-                "zip"
+                "zip",
+                "mas"
             ]
         },
         "mas": {
@@ -134,6 +135,7 @@
             "entitlements": "entitlements.mas.inherit.plist",
             "entitlementsInherit": "entitlements.mas.inherit.plist",
             "category": "public.app-category.utilities",
+            "provisioningProfile": "./OneKey_Wallet.provisionprofile",
             "extendInfo": {
                 "ElectronTeamID": "28327Z8LS2"
             }
