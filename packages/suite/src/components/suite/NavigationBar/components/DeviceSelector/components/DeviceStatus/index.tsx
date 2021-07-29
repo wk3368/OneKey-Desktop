@@ -67,6 +67,7 @@ interface Props {
     onRefreshClick?: () => void;
     showIconStatus?: boolean;
     showTextStatus?: boolean;
+    isCollapsed?: boolean;
 }
 
 const DeviceStatus = ({
@@ -74,6 +75,7 @@ const DeviceStatus = ({
     onRefreshClick,
     showIconStatus = true,
     showTextStatus = false,
+    isCollapsed,
 }: Props) => {
     const status = getStatusForDevice(device);
     const theme = useTheme();
@@ -81,7 +83,12 @@ const DeviceStatus = ({
     // if device needs attention and CTA func was passed show refresh button
     if (status === 'warning' && onRefreshClick) {
         return (
-            <div className="relative z-10 flex self-start mt-1 md:-translate-y-2 lg:transform-none">
+            <div
+                className={classNames(
+                    'relative z-10 flex self-start mt-1 -ml-4 bg-white rounded-full dark:bg-gray-800 md:dark:bg-gray-700',
+                    isCollapsed ? '-translate-y-2 translate-x-2' : 'transform-none',
+                )}
+            >
                 <Icon
                     onClick={(e: any) => {
                         e.stopPropagation();
@@ -98,13 +105,18 @@ const DeviceStatus = ({
     // otherwise show dot icon (green/orange/red)
     return (
         <>
-            <StatusText className="hidden lg:block" status={status} show={showTextStatus}>
+            <StatusText
+                className={classNames('hidden', { 'md:block': !isCollapsed })}
+                status={status}
+                show={showTextStatus}
+            >
                 {status}
             </StatusText>
             <OuterCircle
                 className={classNames(
-                    'bg-brand-500/10 top-3 md:translate-x-3 md:-translate-y-3 lg:transform-none right-3',
-                    !showIconStatus ? 'lg:right-[48px] lg:opacity-0' : '',
+                    'bg-brand-500/10 top-3 right-3',
+                    !showIconStatus && !isCollapsed ? 'lg:right-[48px] lg:opacity-0' : '',
+                    isCollapsed ? 'translate-x-3 -translate-y-3' : 'transform-none',
                 )}
                 status={status}
                 show={showIconStatus}

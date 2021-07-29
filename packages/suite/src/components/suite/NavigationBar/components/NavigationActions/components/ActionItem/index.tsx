@@ -32,6 +32,7 @@ interface CommonProps extends Pick<React.HTMLAttributes<HTMLDivElement>, 'onClic
     label: React.ReactNode;
     isActive?: boolean;
     withAlertDot?: boolean;
+    isCollapsed?: boolean;
 }
 
 interface CustomIconComponentProps extends CommonProps {
@@ -79,7 +80,12 @@ const ActionItem = React.forwardRef((props: Props) => {
                     </AlertDotWrapper>
                 )}
             </IconWrapper>
-            <div className="flex items-center flex-1 ml-3 font-medium md:hidden lg:flex lg:text-sm">
+            <div
+                className={classNames(
+                    'items-center flex-1 ml-3 font-medium md:text-sm',
+                    props.isCollapsed ? 'hidden' : 'flex',
+                )}
+            >
                 {props.label}
             </div>
         </Wrapper>

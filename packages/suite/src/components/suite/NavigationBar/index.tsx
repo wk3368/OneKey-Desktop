@@ -1,23 +1,47 @@
-import React, { useState, ComponentProps, Fragment } from 'react';
+import React, { useState, ComponentProps, Fragment, useLayoutEffect, useCallback } from 'react';
 import DeviceSelector from './components/DeviceSelector';
 import NavigationActions from './components/NavigationActions';
 import { Icon, TrezorLogo } from '@trezor/components';
 import { useSelector } from '@suite-hooks';
 import { Dialog, Transition } from '@headlessui/react';
+import { isDesktop } from '@suite/utils/suite/env';
+import classNames from 'classnames';
+import styled from 'styled-components';
+
+const DesktopSidebar = styled.div`
+    &:hover {
+        .collapse-indicate {
+            opacity: 100%;
+            transform: scale(100%);
+        }
+    }
+`;
 
 const NavigationBar = () => {
     const [opened, setOpened] = useState(false);
     const userThemeSettings = useSelector(state => state.suite.settings.theme);
-    const isDarkModeEnabled = userThemeSettings.variant !== 'light';
+    const windowSize = useSelector(state => state.resize.size);
 
-    const closeMainNavigation = () => {
+    const isDarkModeEnabled = userThemeSettings.variant !== 'light';
+    const [isCollapsed, setIsCollapsed] = useState(false);
+
+    const closeMainNavigation = useCallback(() => {
         setOpened(false);
-    };
+    }, []);
+
+    useLayoutEffect(() => {
+        setIsCollapsed(['TINY', 'SMALL', 'NORMAL'].includes(windowSize));
+    }, [windowSize]);
 
     return (
         <>
             {/* Header for mobile */}
-            <div className="flex justify-between py-1 bg-white border-b border-gray-100 md:hidden dark:bg-gray-800 dark:border-gray-700 pt-5">
+            <div
+                className={classNames(
+                    'flex justify-between py-1 bg-white border-b border-gray-100 md:hidden dark:bg-gray-800 dark:border-gray-700',
+                    { 'pt-8': isDesktop() },
+                )}
+            >
                 {/* Device Selector */}
                 <div className="pl-2 w-[160px]">
                     <DeviceSelector />
@@ -119,24 +143,63 @@ const NavigationBar = () => {
                 </Dialog>
             </Transition.Root>
             {/* Navigation for desktop */}
-            <div className="flex-col hidden px-3 pt-[40px] pb-4 overflow-y-auto border-r border-gray-100 bg-gray-50 md:flex md:flex-shrink-0 lg:px-4 lg:w-64 dark:bg-gray-800 dark:border-gray-700">
-                {/* Branding */}
-                <div className="flex items-center flex-shrink-0 pl-[6px]">
-                    <TrezorLogo
-                        className="self-start w-[27px] overflow-hidden"
-                        type={
-                            `horizontal_${isDarkModeEnabled ? 'dark' : 'light'}` as ComponentProps<
-                                typeof TrezorLogo
-                            >['type']
-                        }
-                        height={27}
-                    />
+            <DesktopSidebar className="relative">
+                <div
+                    className={classNames(
+                        'flex-col hidden px-4 overflow-x-hidden h-full pb-5 overflow-y-auto border-r border-gray-100 bg-gray-50 md:flex md:flex-shrink-0 dark:bg-gray-800 dark:border-gray-700',
+                        isDesktop() ? 'pt-[48px]' : 'pt-5',
+                        isCollapsed ? '' : 'w-64',
+                    )}
+                >
+                    {/* Branding */}
+                    <div className="flex items-center flex-shrink-0 pl-[6px]">
+                        <TrezorLogo
+                            className="self-start w-[27px] overflow-hidden"
+                            type={
+                                `horizontal_${
+                                    isDarkModeEnabled ? 'dark' : 'light'
+                                }` as ComponentProps<typeof TrezorLogo>['type']
+                            }
+                            height={27}
+                        />
+                    </div>
+                    {/* Device Selector */}
+                    <DeviceSelector isCollapsed={isCollapsed} />
+                    {/* Links and controls */}
+                    <NavigationActions isCollapsed={isCollapsed} />
                 </div>
-                {/* Device Selector */}
-                <DeviceSelector />
-                {/* Links and controls */}
-                <NavigationActions />
-            </div>
+                {/* Toggle Button */}
+                <div className="absolute top-0 bottom-0 right-0 z-10 translate-x-1/2">
+                    <button
+                        className="flex justify-center w-6 h-full group"
+                        type="button"
+                        onClick={() => setIsCollapsed(isCollapsed => !isCollapsed)}
+                    >
+                        <div className="w-0.5 h-full transition bg-transparent group-hover:bg-brand-500" />
+                        <div
+                            className={classNames(
+                                'absolute p-1.5 bg-white border border-gray-200 rounded-full shadow-sm dark:bg-gray-900 dark:border-gray-700 opacity-0 transition scale-75 collapse-indicate',
+                                isDesktop() ? 'top-[44px]' : 'top-4',
+                            )}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                className={classNames('w-5 h-5 text-gray-400', {
+                                    'rotate-180 translate-x-px': isCollapsed,
+                                })}
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </DesktopSidebar>
         </>
     );
 };

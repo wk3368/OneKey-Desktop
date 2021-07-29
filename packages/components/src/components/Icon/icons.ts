@@ -106,4 +106,5 @@ export const ICONS = {
     EXPLORE: require('../../images/icons/dapps.svg'),
     FAVORITE: require('../../images/icons/favorite.svg'),
     UNFAVORITE: require('../../images/icons/unfavorite.svg'),
+    SOLID_CHEVRON_LEFT: require('../../images/icons/solid-chevron-left.svg'),
 };

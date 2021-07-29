@@ -8,7 +8,7 @@ import { findRouteByName } from '@suite-utils/router';
 import { useAccountSearch, useActions, useAnalytics, useSelector } from '@suite-hooks';
 import ActionItem from './components/ActionItem';
 import { MAIN_MENU_ITEMS } from '@suite-constants/menu';
-import { variables } from '@trezor/components';
+import classNames from 'classnames';
 
 interface ComponentProps {
     isActive: boolean;
@@ -27,6 +27,7 @@ const badgeClass = `flex items-center uppercase py-0.5 px-1.5 text-xs font-mediu
 
 interface Props {
     closeMainNavigation?: () => void;
+    isCollapsed?: boolean;
 }
 
 type Route = typeof MAIN_MENU_ITEMS[number]['route'] | 'settings-index' | 'notifications-index';
@@ -83,11 +84,21 @@ const NavigationActions = (props: Props) => {
     return (
         /* Future: remove font-sans when redesign whole app */
         <nav className="flex flex-col flex-1 font-sans" aira-label="Sidebar">
-            <div className="mt-3 md:divide-y md:divide-gray-200 md:dark:divide-gray-700 lg:divide-none">
+            <div
+                className={classNames(
+                    'mt-3',
+                    props.isCollapsed ? 'divide-y divide-gray-200 dark:divide-gray-700' : '',
+                )}
+            >
                 {/* Item Group */}
                 <div className="py-3">
                     {/* Group Title */}
-                    <div className="pl-2 mb-2 text-xs font-medium tracking-wider text-gray-500 uppercase md:hidden dark:text-gray-400 lg:block">
+                    <div
+                        className={classNames(
+                            'pl-2 mb-2 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400',
+                            props.isCollapsed ? 'hidden' : 'block',
+                        )}
+                    >
                         Wallet
                     </div>
                     <div className="space-y-1">
@@ -116,6 +127,7 @@ const NavigationActions = (props: Props) => {
                                     onClick={() => action(route)}
                                     isActive={isActive}
                                     icon={icon as any}
+                                    isCollapsed={props.isCollapsed}
                                 />
                             );
                         })}
@@ -132,6 +144,7 @@ const NavigationActions = (props: Props) => {
                     isActive={getIfRouteIsActive('notifications-index')}
                     icon="NOTIFICATION"
                     withAlertDot={unseenNotifications}
+                    isCollapsed={props.isCollapsed}
                 />
 
                 <ActionItem
@@ -140,6 +153,7 @@ const NavigationActions = (props: Props) => {
                     onClick={() => action('settings-index')}
                     isActive={getIfRouteIsActive('settings-index')}
                     icon="SETTINGS"
+                    isCollapsed={props.isCollapsed}
                 />
 
                 <ActionItem
@@ -155,6 +169,7 @@ const NavigationActions = (props: Props) => {
                     isActive={false}
                     label={<Translation id="TR_DISCREET" />}
                     icon={discreetMode ? 'HIDE' : 'SHOW'}
+                    isCollapsed={props.isCollapsed}
                 />
             </div>
         </nav>

@@ -9,6 +9,7 @@ import { useAnalytics, useSelector, useActions } from '@suite-hooks';
 import * as suiteActions from '@suite-actions/suiteActions';
 import * as deviceUtils from '@suite-utils/device';
 import DeviceStatus from './components/DeviceStatus';
+import classNames from 'classnames';
 
 const Wrapper = styled.div<{ triggerAnim?: boolean; isMobileLayout?: boolean }>`
     ${props =>
@@ -41,7 +42,10 @@ const needsRefresh = (device?: TrezorDevice) => {
 };
 
 const DeviceSelector = (
-    props: React.HTMLAttributes<HTMLDivElement> & { isMobileLayout?: boolean },
+    props: React.HTMLAttributes<HTMLDivElement> & {
+        isMobileLayout?: boolean;
+        isCollapsed?: boolean;
+    },
 ) => {
     const { selectedDevice, deviceCount } = useSelector(state => ({
         selectedDevice: state.suite.device,
@@ -111,6 +115,7 @@ const DeviceSelector = (
             }
             triggerAnim={triggerAnim}
             isMobileLayout={props.isMobileLayout}
+            isCollapsed={props.isCollapsed}
             className="relative flex items-center p-2 bg-white rounded-md cursor-pointer md:shadow-sm md:border md:border-gray-200 md:mt-6 hover:bg-gray-50 dark:bg-gray-800 md:dark:bg-gray-700 md:dark:border-gray-600 md:dark:hover:bg-gray-800 md:dark:hover:border-gray-500"
             {...props}
         >
@@ -126,7 +131,12 @@ const DeviceSelector = (
                         />
                     </DeviceImageWrapper>
                     {/* Details */}
-                    <div className="flex flex-col flex-1 pl-3 overflow-hidden md:hidden lg:flex self-baseline">
+                    <div
+                        className={classNames(
+                            'flex flex-col flex-1 pl-3 overflow-hidden self-baseline',
+                            props.isCollapsed ? 'hidden' : 'flex',
+                        )}
+                    >
                         {/* Wallet Brand 
                             Future: remove font-sans when redesign whole app
                         */}
@@ -156,6 +166,7 @@ const DeviceSelector = (
                                   }
                                 : undefined
                         }
+                        isCollapsed={props.isCollapsed}
                     />
                 </>
             )}
