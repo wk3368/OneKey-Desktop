@@ -21,6 +21,7 @@ export const allowedDomains = [
     'googleapis.com',
     'onekey.so',
     'swap.onekey.so',
+    'portfolio.onekey.so',
     'discover.onekey.so',
     '243096.com',
     'onekey-asset.com',

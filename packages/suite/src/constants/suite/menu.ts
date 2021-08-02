@@ -14,6 +14,13 @@ export const MAIN_MENU_ITEMS = [
         isBeta: false,
     },
     {
+        translationId: 'TR_PORTFOLIO',
+        icon: 'PORTFOLIO',
+        route: 'portfolio-index',
+        isDisabled: false,
+        isBeta: false,
+    },
+    {
         translationId: 'TR_SWAP',
         icon: 'SWAP',
         route: 'swap-index',

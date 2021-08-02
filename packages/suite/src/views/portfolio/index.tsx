@@ -1,29 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
-import { connect } from 'react-redux';
+/* eslint-disable @typescript-eslint/no-var-requires */
+import React, { useContext, useEffect } from 'react';
 import { LayoutContext } from '@suite-components';
 
-const Placeholder = styled.div`
-    display: flex;
-    font-weight: bold;
-    align-items: center;
-    font-size: 2rem;
-    justify-content: center;
-    flex: 1;
-    flex-direction: column;
-`;
+const PortfolioContainer: React.FC<{ menu: React.ReactNode }> = ({ menu }) => {
+    const { setLayout } = useContext(LayoutContext);
 
-const Portfolio = () => {
-    const { setLayout } = React.useContext(LayoutContext);
-    React.useEffect(() => {
-        if (setLayout) setLayout('Portfolio', undefined);
-    }, [setLayout]);
+    useEffect(() => {
+        if (setLayout) setLayout('Portfolio', null, menu, true);
+    }, [setLayout, menu]);
 
-    return (
-        <>
-            <Placeholder>Portfolio</Placeholder>
-        </>
-    );
+    return null;
 };
 
-export default connect()(Portfolio);
+export default PortfolioContainer;
