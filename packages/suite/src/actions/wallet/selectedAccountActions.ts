@@ -68,7 +68,11 @@ function buildDiscoveryParams(state: ReturnType<GetState>, discovery: any) {
         return state.router.params;
     }
 
-    if (state.router.app === 'swap' || state.router.app === 'explore') {
+    if (
+        state.router.app === 'swap' ||
+        state.router.app === 'explore' ||
+        state.router.app === 'portfolio'
+    ) {
         return {
             accountIndex: 0,
             accountType: 'normal' as const,
@@ -245,7 +249,8 @@ export const getStateForAction = (action: Action) => (dispatch: Dispatch, getSta
     if (
         state.router.app !== 'wallet' &&
         state.router.app !== 'swap' &&
-        state.router.app !== 'explore'
+        state.router.app !== 'explore' &&
+        state.router.app !== 'portfolio'
     )
         return;
 

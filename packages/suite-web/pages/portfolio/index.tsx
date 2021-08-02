@@ -1,3 +1,10 @@
-import Portfolio from '@portfolio-views';
+import React, { useEffect } from 'react';
 
-export default Portfolio;
+const PortfolioWeb = () => {
+    useEffect(() => {
+        window.location.href = 'https://portfolio.onekey.so';
+    }, []);
+    return <div />;
+};
+
+export default PortfolioWeb;
