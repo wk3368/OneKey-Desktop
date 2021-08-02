@@ -208,9 +208,10 @@ try {
 
     injectWeb3Config();
 
-    const settings = safeTouchJSONStr<{ theme: 'light' | 'dark'; language: 'zh' | 'en' }>(
-        getParameterByName('settings'),
-    );
+    const settings = {
+        theme: getParameterByName('theme'),
+        language: getParameterByName('language'),
+    } as { theme: 'light' | 'dark'; language: 'zh' | 'en' };
 
     window.WebViewJavascriptBridge = {
         init() {},

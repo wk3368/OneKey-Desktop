@@ -196,9 +196,9 @@ const Container: FC<Props> = ({
         const preLang = getParameterByName('language', prevUrl);
         const prevSettings = `theme=${preTheme}&language=${preLang}`;
         const prevConfig = getParameterByName('config', prevUrl);
-        const currentUrl = `https://portfolio.test.onekey.so/?config=${urlHash}&${settingsStr}`;
+        const currentUrl = `https://portfolio.onekey.so/?config=${urlHash}&${settingsStr}`;
         if (
-            !/^https:\/\/portfolio.test.onekey.so/.test(prevUrl) ||
+            !/^https:\/\/portfolio.onekey.so/.test(prevUrl) ||
             prevSettings !== settingsStr ||
             prevConfig !== urlHash
         ) {
@@ -210,7 +210,7 @@ const Container: FC<Props> = ({
     useEffect(() => {
         if (!ref) return;
         // React 会删除 allowpopups 属性
-        const currentUrl = `https://portfolio.test.onekey.so/?config=${urlHash}&${settingsStr}`;
+        const currentUrl = `https://portfolio.onekey.so/?config=${urlHash}&${settingsStr}`;
 
         ref.innerHTML = `
             <webview
@@ -308,7 +308,7 @@ const Container: FC<Props> = ({
                 </ToastInfo>
             )}
 
-            <div style={{ width: '100%', height: 'calc(100% - 60px)' }} ref={handleRef} />
+            <div style={{ width: '100%', height: '100%' }} ref={handleRef} />
         </OuterContainer>
     );
 };
