@@ -179,16 +179,20 @@ const NavigationBar = () => {
                         <div
                             className={classNames(
                                 'absolute p-1.5 bg-white border border-gray-200 rounded-full shadow-sm dark:bg-gray-900 dark:border-gray-700 opacity-0 transition scale-75 collapse-indicate',
-                                isDesktop() ? 'top-[44px]' : 'top-4',
+                                isDesktop() ? 'top-[40px]' : 'top-4',
                             )}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
-                                className={classNames('w-5 h-5 text-gray-400', {
-                                    'rotate-180 translate-x-px': isCollapsed,
-                                })}
+                                className={classNames(
+                                    'text-gray-400',
+                                    isDesktop() ? 'w-7 h-7' : 'w-5 h-5',
+                                    {
+                                        'rotate-180 translate-x-px': isCollapsed,
+                                    },
+                                )}
                             >
                                 <path
                                     fillRule="evenodd"
