@@ -1,6 +1,6 @@
 {
     "name": "@onekey/web",
-    "version": "22.3.1",
+    "version": "22.4.0",
     "private": true,
     "scripts": {
         "type-check": "tsc --project tsconfig.json",
