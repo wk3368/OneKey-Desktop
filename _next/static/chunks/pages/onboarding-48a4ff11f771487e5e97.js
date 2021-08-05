@@ -1,0 +1,2 @@
+_N_E=(window.webpackJsonp_N_E=window.webpackJsonp_N_E||[]).push([[49],{cSvb:function(n,w,_){(window.__NEXT_P=window.__NEXT_P||[]).push(["/onboarding",function(){return _("fdwi")}])},fdwi:function(n,w,_){"use strict";_.r(w),w.default=()=>null}},[["cSvb",0]]]);
+//# sourceMappingURL=onboarding-48a4ff11f771487e5e97.js.map
