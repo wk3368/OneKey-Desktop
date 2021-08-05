@@ -1,0 +1,62 @@
+name: update-locale
+
+on:
+    schedule:
+        - cron: '30 9 * * *'
+    workflow_dispatch:
+
+jobs:
+    dev-test:
+        environment: daily-build
+        runs-on: ubuntu-latest
+        env:
+            # translation folder host dir
+            TRANSLATION_HOST_DIR: './packages/suite-data/files/'
+            # translation files host dir
+            TRANSLATION_FOLDER_NAME: 'translations'
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup Environment
+              run: 'curl -sfL https://raw.githubusercontent.com/lokalise/lokalise-cli-2-go/master/install.sh | sh'
+            - name: Install Dependiences
+              env:
+                  LOKALISE_READ_TOKEN: ${{ secrets.LOKALISE_READ_TOKEN }}
+                  LOKALISE_PROJECT_ID: ${{ secrets.LOKALISE_PROJECT_ID }}
+              run: |
+                  ./bin/lokalise2 \
+                    file download \
+                    --token $LOKALISE_READ_TOKEN \
+                    --project-id $LOKALISE_PROJECT_ID \
+                    --format json \
+                    --directory-prefix=$TRANSLATION_FOLDER_NAME \
+                    --original-filenames=true \
+                    --unzip-to $TRANSLATION_HOST_DIR
+            - name: Check Diff
+              id: git-status-check
+              run: |
+                  git config --local user.email actions@github.com
+                  git config --local user.name Github Actions
+                  something_changed=`git status --porcelain`
+                  if [ -n "$something_changed" ]
+                  then
+                      echo "::set-output name=changed::'1'"
+                  fi
+            - name: Create Pull Request
+              id: cpr
+              uses: peter-evans/create-pull-request@v3
+              if: ${{ steps.git-status-check.outputs.changed == '1' }}
+              with:
+                  token: ${{ github.token }}
+                  commit-message: '[AUTO]: update lokalise formatter local files.'
+                  committer: Github Actions <actions@github.com>
+                  author: Github Actions <actions@github.com>
+                  signoff: false
+                  branch: lokalise
+                  delete-branch: true
+                  title: '[LOKALISE AUTO]: update i18n locale files.'
+                  draft: false
+                  body: '[LOKALISE AUTO]: update i18n locale files.'
+            - name: Check outputs
+              run: |
+                  echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+                  echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
